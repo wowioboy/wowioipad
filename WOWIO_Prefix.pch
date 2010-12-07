@@ -1,0 +1,86 @@
+//
+// Prefix header for all source files of the 'WOWIO' target in the 'WOWIO' project
+//
+
+#ifdef __OBJC__
+    #import <Foundation/Foundation.h>
+    #import <UIKit/UIKit.h>
+#endif
+
+	// max no of books to display for a given panel
+#define maxBooksPerPanel			20
+
+	// WOWIO HOME
+#define homeURL						@"http://www.wowio.com/"
+
+	// PAYPAL
+#define bookPurchaseURL				@"https://www.paypal.com/cgi-bin/webscr/"
+#define paypalAcct					@"payments@wowio.com"
+#define purchaseCancelURL			@"http://www.wowio.com"
+#define purchaseReturnURL			@"https://www.wowio.com/users/library/purchase_pdt.asp"
+#define purchaseNotifyURL			@"https://www.wowio.com/users/library/purchase_pdt.asp"
+
+	// LOGIN
+#define loginURL					@"https://www.wowio.com/users/library/checklogon.asp"
+
+	// ACCOUNT SIGN-UP
+#define accountCreationURL			@"https://www.wowio.com/users/library/newuser.asp"
+
+	// BOOK DOWNLOAD / PREVIEW
+#define bookDownloadURL				@"http://www.wowio.com/downloadbook.asp?book="				// base36 obfuscated book id
+#define bookPreviewURL				@"http://www.wowio.com/viewer/reader.asp?nbookid="			// non-base36 obfuscated book id
+
+	// SINGLE BOOK
+#define singleBookURL				@"http://www.wowio.com/JSONreq.asp?cmd=bookplus&bookid="
+
+	// BOOK CATEGORIES
+#define bookCatCountURL				@"http://www.wowio.com/JSONreq.asp?cmd=categorybookcount"
+
+	// CAROUSEL BOOKS
+#define carouselNewReleasesURL		@"http://www.wowio.com/JSONreq.asp?cmd=home_car_newreleases"
+#define carouselSponsoredURL		@"http://www.wowio.com/JSONreq.asp?cmd=home_car_sponsored"
+#define carouselRecommendedURL		@"http://www.wowio.com/JSONreq.asp?cmd=home_car_recommended"
+
+	// FEATURED BOOKS
+#define homepageFeaturedBooksURL	@"http://www.wowio.com/JSONreq.asp?cmd=home_featuredbooks"
+#define homepageAgileSpaceURL		@"http://www.wowio.com/jsonreq.asp?cmd=agilespace&nMaxSlides=5"
+
+	// WOWIO GROUPINGS
+	//- user record for the currently logged-on user (empty array if not logged on)
+#define userURL						@"http://www.wowio.com/JSONreq.asp?cmd=user"
+#define userLibrary					@"http://www.wowio.com/JSONreq.asp?cmd=lib_purchased"
+
+	//- category list for the browse by category dropdown
+#define bookCategoriesURL			@"http://www.wowio.com/JSONreq.asp?cmd=categories"
+#define booksForCategoryURL			@"http://www.wowio.com/JSONreq.asp?cmd=cat_browse"
+
+	//- top books displayed in the homepage right sidebar
+#define topBooksURL					@"http://www.wowio.com/JSONreq.asp?cmd=home_topbooks"            
+
+	//- top comics displayed in the homepage right sidebar
+#define topComicsURL				@"http://www.wowio.com/JSONreq.asp?cmd=home_topcomics"
+
+	//- top publishers displayed in the homepage right sidebar
+#define topPubsURL					@"http://www.wowio.com/JSONreq.asp?cmd=home_toppublishers"      
+
+	//- sponsored books displayed in the sponsored books row
+#define sponsoredBooksURL			@"http://www.wowio.com/JSONreq.asp?cmd=home_sponsored"          
+
+	//- brain bytes (replaces sponsored books row if no sponsors exist)
+#define brainBytesURL				@"http://www.wowio.com/JSONreq.asp?cmd=home_brainbytes"           
+
+	//- latest releases displayed in the latest releases row
+#define newReleasesURL				@"http://www.wowio.com/JSONreq.asp?cmd=home_newreleases"        
+
+	//- staff picks displayed in the staff favorites row
+#define staffPicksURL				@"http://www.wowio.com/JSONreq.asp?cmd=home_staffpicks"           
+
+	//- featured book from the bottom of the page
+#define featuredBookURL				@"http://www.wowio.com/JSONreq.asp?cmd=home_featuredbook"      
+
+	// - books displayed in the featured publisher row
+#define featuredPubURL				@"http://www.wowio.com/JSONreq.asp?cmd=home_featuredpublisher"           
+
+	// plist files
+#define booksFile					@"/wowio_books.plist"
+#define userProfileFile				@"/wowio_user.plist"
