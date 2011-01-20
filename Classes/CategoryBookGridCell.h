@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Categorybooks.h"
-#import "CategorybooksDelegate.h"
+#import "Book.h"
+#import "BookDelegate.h"
 #import "AQGridViewCell.h"
 #import "GridColors.h"
 
-@interface CategoryBookGridCell : AQGridViewCell <CategorybooksDelegate> {
+@interface CategoryBookGridCell : AQGridViewCell <BookDelegate> {
 	
 	UIImageView *_bookImage;
 	UIImageView *_ratingImage;
@@ -23,13 +23,13 @@
 	
 	GridColors *gridColor;
 	
-	Categorybooks *item;
+	Book *item;
 	UIActivityIndicatorView *spinningWheel;
 	
 	NSNumberFormatter *numberFormatter;
 }
 
-@property(nonatomic, retain)Categorybooks *item;
+@property(nonatomic, retain)Book *item;
 @property(nonatomic, retain)GridColors *gridColor;
 
 @property(nonatomic, retain) NSNumberFormatter *numberFormatter;

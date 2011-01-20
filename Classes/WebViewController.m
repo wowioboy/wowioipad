@@ -10,7 +10,7 @@
 
 
 @implementation WebViewController
-@synthesize activityIndicator, activityLabel, webView;
+@synthesize activityIndicator, activityLabel, webView, scrollView;
 
 /*
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
@@ -132,9 +132,13 @@
     // e.g. self.myOutlet = nil;
 }
 
-
 - (void)dealloc {
     [super dealloc];
+	
+	[activityLabel release];
+	[activityIndicator release];
+	[webView release];
+	[scrollView release];
 }
 
 

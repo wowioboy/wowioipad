@@ -13,7 +13,7 @@
 #import "AQGridView.h"
 #import "GridColors.h"
 
-@class Categorybooks;
+@class Book;
 @class ASINetworkQueue;
 
 @interface CategoryDetailViewController : UIViewController <NSFetchedResultsControllerDelegate, AQGridViewDelegate, AQGridViewDataSource, BookGridCellDelegate> {

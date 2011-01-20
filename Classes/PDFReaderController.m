@@ -11,12 +11,12 @@
 #import "ASIHTTPRequest.h"
 #import "CJSONDeserializer.h"
 #import "WebViewController.h"
-#import "PDFScrollView.h"
+//#import "PDFScrollView.h"
 
 @implementation PDFReaderController
 @synthesize book, bookView, activityIndicator, activityLabel;
 @synthesize networkQueue, appDelegate;
-@synthesize userId, sessionId;
+@synthesize userId, sessionId, pgcount, pdfLegend, currentpage;
 
 /*
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
@@ -33,13 +33,29 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
+	BOOL isPortrait = UIDeviceOrientationIsPortrait(self.interfaceOrientation);
+	
+	if (isPortrait)
+		backgroundImage = [UIImage imageNamed:@"Default-Portrait.png"];
+	else
+		backgroundImage = [UIImage imageNamed:@"Default-Landscape.png"];
+	
+	
 	//load up the app delegate
 	self.appDelegate = (WOWIOAppDelegate *)[[UIApplication sharedApplication] delegate];
 	self.sessionId = [appDelegate sessionId];
 	self.userId = [appDelegate userId];
 	
-	// set the webview delegate
+	// Set up the book UIScrollView
+	[self.bookView setShowsVerticalScrollIndicator:YES];
+	[self.bookView setShowsHorizontalScrollIndicator:YES];
+	[self.bookView setBounces:YES];
+	[self.bookView setBouncesZoom:YES];
+	[self.bookView setDecelerationRate:UIScrollViewDecelerationRateFast];
 	[self.bookView setDelegate:self];
+	[self.bookView setBackgroundColor:[UIColor grayColor]];
+	[self.bookView setMaximumZoomScale:5.0];
+	[self.bookView setMinimumZoomScale:.25];
 	
 	// load a done button
 	self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc]
@@ -79,40 +95,19 @@
 
 -(void)viewDidAppear:(BOOL)animated {
 	
-	BOOL success;
-
-	//NSNumber *bookid = [self.book bookid];
 	NSString *booktitle = [self.book title];
 	NSString *bookauthor = [self.book authorname];
 	NSString *bookpdf = [self.book filepath];
-	//NSLog(@"\nTitle: %@ (%@)\nOrder ID: %@\nEncrypted Order ID: %@\nFile: %@\n\n",booktitle,bookid,orderbookid,encbookid,bookpdf);
 	
 	self.title = [NSString stringWithFormat:@"%@ by %@", booktitle, bookauthor];
 	
 	
 	// see if the book already exists in the documents directory
-	NSFileManager *FileManager = [NSFileManager defaultManager];
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *documentsDirectory = [paths objectAtIndex:0];
 	NSString *pdfPath = [documentsDirectory stringByAppendingPathComponent:bookpdf];
-	success = [FileManager fileExistsAtPath:pdfPath];
 	
-	//NSString *resourcePath = [[NSBundle mainBundle] pathForResource:@"1001ArabianNiSinba02_9826901" ofType:@"pdf"];
-	//NSURL *pdfURL = [NSURL URLWithString:resourcePath];
-	//[self.bookView loadRequest:[NSURLRequest requestWithURL:pdfURL]];
-	
-	PDFScrollView *sv = [[PDFScrollView alloc] initWithFrame:[[self view] bounds]];
-	[self.bookView addSubview:sv];
-	
-	
-	//if (success) {
-		// load the book from docs directory
-		//[self openWOWIOBook:bookpdf];
-		
-	//} else {
-		// go download the book from WOWIO and save it to the docs directory
-		//[self performSelector:@selector(loadBookData:)];
-	//}
+	[self openBook:pdfPath];
 }
 
 -(void)dismissView:(id)sender {
@@ -122,66 +117,6 @@
 	[self dismissModalViewControllerAnimated:YES];
 }
 
-
-#pragma mark -
-#pragma mark Book Viewer
-
--(void)loadBookData:(id)sender {
-	
-	// get the filename to store the book data to...
-	NSString *bookpdf = [self.book filepath];
-	NSNumber *orderbookid = [self.book orderbookid];
-	NSString *encbookid = [self obfuscateOrderBookId:orderbookid];
-
-	// go get the book data
-	NSString *ipAddr = [self.book externalip];
-	NSString *urlStr = [NSString stringWithFormat:@"http://%@/downloadbook.asp?book=%@",ipAddr,encbookid];
-	NSLog(@"Book Download URL: %@",urlStr);
-	//NSURL *url = [NSURL URLWithString:urlStr];
-	//NSData *bookData = [NSData dataWithContentsOfURL:url];
-	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-	NSString *documentsDirectory = [paths objectAtIndex:0];
-	NSString *pdfPath = [documentsDirectory stringByAppendingPathComponent:bookpdf];
-	//[bookData writeToFile:pdfPath atomically:YES];
-	
-	[self setNetworkQueue:[ASINetworkQueue queue]];
-	[self.networkQueue cancelAllOperations];
-	[self.networkQueue setDelegate:self];
-	[self.networkQueue setMaxConcurrentOperationCount:5];
-	[self.networkQueue setRequestDidFinishSelector:@selector(bookLoadFinished:)];
-	[self.networkQueue setRequestDidFailSelector:@selector(bookLoadFailed:)];
-	
-	// build the request
-	ASIHTTPRequest *request = [[[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:urlStr]] autorelease];
-	[request setTimeOutSeconds:60];
-	[request addRequestHeader:@"Content-Type" value:@"application/pdf"];
-	[request addRequestHeader:@"Cookie" value:self.sessionId];
-	[request setDownloadDestinationPath:pdfPath];
-	
-	// add the request to the transmission queue and set it off
-	[self.networkQueue addOperation:request];
-	[self.networkQueue go];
-}
-
-- (void)bookLoadFailed:(ASIHTTPRequest *)request
-{
-	NSString *errorString = @"A communication error occurred.\nWe are unable to download your book at this time.\n\nPlease retry your request again later.";
-	[appDelegate alertWithMessage:errorString withTitle:@"WOWIO"];
-}
-
-- (void)bookLoadFinished:(ASIHTTPRequest *)request
-{
-	NSData *rsltData = [request responseData];
-	int rsltLen = [rsltData length];
-	NSString *rsltStr = [request responseString];
-	NSDictionary *loadHeaders = [request responseHeaders];
-	NSLog(@"\nRaw Result String:\n%@",rsltStr);
-	NSLog(@"\nResponse Header:\n%@",loadHeaders);
-	NSLog(@"\nLength: %d\nData:%@\n",rsltLen,rsltData);
-	
-	NSString *bookpdf = [self.book filepath];
-	[self openWOWIOBook:bookpdf];
-}
 
 
 #pragma mark -
@@ -220,9 +155,19 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     // Overriden to allow any orientation.
-    return YES;
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+/*
+-(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+	
+	if (toInterfaceOrientation == UIInterfaceOrientationPortrait || toInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown)
+		backgroundImage = [UIImage imageNamed:@"Default-Portrait.png"];
+	else
+		backgroundImage = [UIImage imageNamed:@"Default-Landscape.png"];
+	
+}
+*/
 
 - (void)didReceiveMemoryWarning {
     // Releases the view if it doesn't have a superview.
@@ -240,90 +185,274 @@
 - (void)dealloc {
     [super dealloc];
 	
+	CGPDFDocumentRelease(pdf);
 	[activityLabel release];
 	[activityIndicator release];
+	[book release];
+	[bookView release];
+	[networkQueue release];
+	[appDelegate release];
+	[userId release];
+	[sessionId release];
+	[pdfLegend release];
 }
 
 
 #pragma mark -
 #pragma mark Book Reading Funcions
 
--(void)openWOWIOBook:(NSString *)pdf {
+-(void)openBook:(NSString*)bookPath {
 	
-	BOOL success;
-	NSError *error;
-	NSString *tstBook = @"1001ArabianNiSinba02_9826901.pdf";
+	// Open the PDF document
+	NSURL *pdfURL = [NSURL fileURLWithPath:bookPath];
+	pdf = CGPDFDocumentCreateWithURL((CFURLRef)pdfURL);
 	
-	NSFileManager *FileManager = [NSFileManager defaultManager];
-	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-	NSString *documentsDirectory = [paths objectAtIndex:0];
-	//NSString *pdfPath = [documentsDirectory stringByAppendingPathComponent:pdf];
-	NSString *tmpPath = [documentsDirectory stringByAppendingPathComponent:tstBook];
-	//NSLog(@"\nPDF: %@\nFull Path: %@\n",pdf,pdfPath);
+	// Get the PDF Page that we will be drawing
+	page = CGPDFDocumentGetPage(pdf, 1);
+	CGPDFPageRetain(page);
 	
-	// copy the test pdf to the users document directory.
-	NSString *defPdfPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:tstBook];
-	success = [FileManager fileExistsAtPath:tmpPath];
+	// SET THE PDF LEGEND
+	currentpage = 1;
+	pgcount = CGPDFDocumentGetNumberOfPages(pdf);
+	[self.pdfLegend setText:[NSString stringWithFormat:@"Page %d of %d",1,pgcount]];
 	
-	if (success) {
-		NSURL *url = [NSURL fileURLWithPath: tmpPath];
-		NSURLRequest *request = [NSURLRequest requestWithURL:url];
-		[[self bookView] loadRequest:request];
+	// determine the size of the PDF page
+	pageRect = CGPDFPageGetBoxRect(page, kCGPDFMediaBox);
+	pdfScale = self.bookView.frame.size.width/pageRect.size.width;
+	pageRect.size = CGSizeMake(pageRect.size.width*pdfScale, pageRect.size.height*pdfScale);
+	
+	
+	// Create a low res image representation of the PDF page to display before the TiledPDFView
+	// renders its content.
+	UIGraphicsBeginImageContext(pageRect.size);
+	CGContextRef context = UIGraphicsGetCurrentContext();
+	
+	// First fill the background with white.
+	CGContextSetRGBFillColor(context, 1.0,1.0,1.0,1.0);
+	CGContextFillRect(context,pageRect);
+	
+	CGContextSaveGState(context);
+	// Flip the context so that the PDF page is rendered
+	// right side up.
+	CGContextTranslateCTM(context, 0.0, pageRect.size.height);
+	CGContextScaleCTM(context, 1.0, -1.0);
+	
+	// Scale the context so that the PDF page is rendered 
+	// at the correct size for the zoom level.
+	CGContextScaleCTM(context, pdfScale,pdfScale);	
+	CGContextDrawPDFPage(context, page);
+	CGContextRestoreGState(context);
+	
+	UIGraphicsEndImageContext();
+	
+	backgroundImageView = [[UIImageView alloc] initWithImage:backgroundImage];
+	backgroundImageView.frame = pageRect;
+	backgroundImageView.contentMode = UIViewContentModeScaleAspectFit;
+	[self.bookView addSubview:backgroundImageView];
+	[self.bookView sendSubviewToBack:backgroundImageView];
+	
+	// Create the TiledPDFView based on the size of the PDF page and scale it to fit the view.
+	pdfView = [[TiledPDFView alloc] initWithFrame:pageRect andScale:pdfScale];
+	[pdfView setPage:page];
+	[self.bookView addSubview:pdfView];
+	
+	CGPDFPageRelease(page);
+
+}
+
+
+#pragma mark -
+#pragma mark Navigation Methods
+
+-(IBAction)previousPage:(id)sender {
+	//NSString *msg = @"Previous Page Navigation Goes Here!";
+	//[appDelegate alertWithMessage:msg withTitle:@"WOWIO"];
+	
+	
+	if (currentpage > 1) {
 		
-	} else {
-		//NSString *msg = @"Book can't found and copied";
-		//[appDelegate alertWithMessage:msg withTitle:@"WOWIO"];
-		success = [FileManager copyItemAtPath:defPdfPath toPath:tmpPath error:&error];
+		// decrement the page count
+		currentpage--;
 		
-		NSURL *url = [NSURL fileURLWithPath: tmpPath];
-		NSURLRequest *request = [NSURLRequest requestWithURL:url];
-		[[self bookView] loadRequest:request];
+		// Get the PDF Page that we will be drawing
+		//currentpage = CGPDFD
+		page = CGPDFDocumentGetPage(pdf, currentpage);
+		CGPDFPageRetain(page);
+		
+		// SET THE PDF LEGEND
+		[self.pdfLegend setText:[NSString stringWithFormat:@"Page %d of %d",currentpage,pgcount]];
+		
+		// Create a low res image representation of the PDF page to display before the TiledPDFView
+		// renders its content.
+		UIGraphicsBeginImageContext(pageRect.size);
+		
+		CGContextRef context = UIGraphicsGetCurrentContext();
+		
+		// First fill the background with white.
+		CGContextSetRGBFillColor(context, 1.0,1.0,1.0,1.0);
+		CGContextFillRect(context,pageRect);
+		
+		CGContextSaveGState(context);
+		// Flip the context so that the PDF page is rendered
+		// right side up.
+		CGContextTranslateCTM(context, 0.0, pageRect.size.height);
+		CGContextScaleCTM(context, 1.0, -1.0);
+		
+		// Scale the context so that the PDF page is rendered 
+		// at the correct size for the zoom level.
+		CGContextScaleCTM(context, pdfScale,pdfScale);	
+		CGContextDrawPDFPage(context, page);
+		CGContextRestoreGState(context);
+		
+		//UIImage *backgroundImage = UIGraphicsGetImageFromCurrentImageContext();
+		
+		UIGraphicsEndImageContext();
+		
+		backgroundImageView = [[UIImageView alloc] initWithImage:backgroundImage];
+		backgroundImageView.frame = pageRect;
+		backgroundImageView.contentMode = UIViewContentModeScaleAspectFit;
+		[self.bookView addSubview:backgroundImageView];
+		[self.bookView sendSubviewToBack:backgroundImageView];
+		
+		
+		// Create the TiledPDFView based on the size of the PDF page and scale it to fit the view.
+		pdfView = [[TiledPDFView alloc] initWithFrame:pageRect andScale:pdfScale];
+		[pdfView setPage:page];
+		[self.bookView addSubview:pdfView];
+		
+		CGPDFPageRelease(page);
+
+	}
+	
+}
+
+-(IBAction)nextPage:(id)sender {
+	//NSString *msg = @"Next Page Navigation Goes Here!";
+	//[appDelegate alertWithMessage:msg withTitle:@"WOWIO"];
+	
+	if (currentpage < pgcount) {
+		
+		// increment the page count
+		currentpage++;
+	
+		// Get the PDF Page that we will be drawing
+		//currentpage = CGPDFD
+		page = CGPDFDocumentGetPage(pdf, currentpage);
+		CGPDFPageRetain(page);
+		
+		// SET THE PDF LEGEND
+		[self.pdfLegend setText:[NSString stringWithFormat:@"Page %d of %d",currentpage,pgcount]];
+		
+		// Create a low res image representation of the PDF page to display before the TiledPDFView
+		// renders its content.
+		UIGraphicsBeginImageContext(pageRect.size);
+		
+		CGContextRef context = UIGraphicsGetCurrentContext();
+		
+		// First fill the background with white.
+		CGContextSetRGBFillColor(context, 1.0,1.0,1.0,1.0);
+		CGContextFillRect(context,pageRect);
+		
+		CGContextSaveGState(context);
+		// Flip the context so that the PDF page is rendered
+		// right side up.
+		CGContextTranslateCTM(context, 0.0, pageRect.size.height);
+		CGContextScaleCTM(context, 1.0, -1.0);
+		
+		// Scale the context so that the PDF page is rendered 
+		// at the correct size for the zoom level.
+		CGContextScaleCTM(context, pdfScale,pdfScale);	
+		CGContextDrawPDFPage(context, page);
+		CGContextRestoreGState(context);
+		
+		//UIImage *backgroundImage = UIGraphicsGetImageFromCurrentImageContext();
+		
+		UIGraphicsEndImageContext();
+		
+		backgroundImageView = [[UIImageView alloc] initWithImage:backgroundImage];
+		backgroundImageView.frame = pageRect;
+		backgroundImageView.contentMode = UIViewContentModeScaleAspectFit;
+		[self.bookView addSubview:backgroundImageView];
+		[self.bookView sendSubviewToBack:backgroundImageView];
+		
+		// Create the TiledPDFView based on the size of the PDF page and scale it to fit the view.
+		pdfView = [[TiledPDFView alloc] initWithFrame:pageRect andScale:pdfScale];
+		[pdfView setPage:page];
+		[self.bookView addSubview:pdfView];
+		
+		CGPDFPageRelease(page);
 	}
 }
 
--(void)openBook:(NSData *)data {
-	
-	// get bundle path
-	NSString *bundlePath = [[NSBundle mainBundle] bundlePath];
-	NSURL *baseURL = [NSURL fileURLWithPath:bundlePath];
-	
-	// open the pdf from within the book web view
-	[self.bookView loadData:data MIMEType:@"application/pdf" textEncodingName:@"UTF-8" baseURL:baseURL];
-	
+
+#pragma mark -
+#pragma mark UIScrollView DELEGATE METHODS
+
+// A UIScrollView delegate callback, called when the user starts zooming. 
+// We return our current TiledPDFView.
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
+{
+    return pdfView;
 }
 
-- (UIColor *) colorWithHexString: (NSString *) stringToConvert{
-	NSString *cString = [[stringToConvert stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
-	// String should be 6 or 8 characters
-	if ([cString length] < 6) return [UIColor blackColor];
-	// strip 0X if it appears
-	if ([cString hasPrefix:@"0X"]) cString = [cString substringFromIndex:2];
-	if ([cString length] != 6) return [UIColor blackColor];
-	// Separate into r, g, b substrings
-	NSRange range;
-	range.location = 0;
-	range.length = 2;
-	NSString *rString = [cString substringWithRange:range];
-	range.location = 2;
-	NSString *gString = [cString substringWithRange:range];
-	range.location = 4;
-	NSString *bString = [cString substringWithRange:range];
-	// Scan values
-	unsigned int r, g, b;
-	[[NSScanner scannerWithString:rString] scanHexInt:&r];
-	[[NSScanner scannerWithString:gString] scanHexInt:&g];
-	[[NSScanner scannerWithString:bString] scanHexInt:&b];
+// A UIScrollView delegate callback, called when the user stops zooming.  When the user stops zooming
+// we create a new TiledPDFView based on the new zoom level and draw it on top of the old TiledPDFView.
+- (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(float)scale
+{
+	// set the new scale factor for the TiledPDFView
+	pdfScale *=scale;
 	
-	return [UIColor colorWithRed:((float) r / 255.0f)
-						   green:((float) g / 255.0f)
-							blue:((float) b / 255.0f)
-						   alpha:1.0f];
+	// Calculate the new frame for the new TiledPDFView
+	pageRect = CGPDFPageGetBoxRect(page, kCGPDFMediaBox);
+	pageRect.size = CGSizeMake(pageRect.size.width*pdfScale, pageRect.size.height*pdfScale);
+	
+	// Create a new TiledPDFView based on new frame and scaling.
+	pdfView = [[TiledPDFView alloc] initWithFrame:pageRect andScale:pdfScale];
+	[pdfView setPage:page];
+	
+	// Add the new TiledPDFView to the PDFScrollView.
+	[self.bookView addSubview:pdfView];
+}
+
+// A UIScrollView delegate callback, called when the user begins zooming.  When the user begins zooming
+// we remove the old TiledPDFView and set the current TiledPDFView to be the old view so we can create a
+// a new TiledPDFView when the zooming ends.
+- (void)scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(UIView *)view
+{
+	// Remove back tiled view.
+	[oldPDFView removeFromSuperview];
+	[oldPDFView release];
+	
+	// Set the current TiledPDFView to be the old view.
+	oldPDFView = pdfView;
+	[self.bookView addSubview:oldPDFView];
 }
 
 
 #pragma mark -
 #pragma mark Conversion Funcions
 
+/*
+ Function ConvertBase10To36(nBase10)
+ Dim strBase36
+ Dim n
+ Dim i
+ 
+ n = nBase10
+ strBase36 = ""
+ 
+ For i = 1 To 6
+ If (n Mod 36) < 10 Then
+ strBase36 = Chr(48 + (n Mod 36)) & strBase36
+ Else
+ strBase36 = Chr(55 + (n Mod 36)) & strBase36
+ End If
+ n = Int(n \ 36)
+ Next
+ 
+ ConvertBase10To36 = strBase36
+ End Function
+*/
 -(NSString*)convertBase10To36:(NSNumber*)nBase10 {
 	NSString *strBase36;
 	int i, n;
@@ -382,6 +511,23 @@
 	retNum = [NSNumber numberWithInt:nBase10];
 	return retNum;
 }
+
+/*
+ Function ObfuscateOrderBookId(nOrderBookId)
+ Dim a		' OrderBookId x36
+ Dim b		' random number x36
+ Dim strOut
+ 
+ Randomize
+ 
+ a = ConvertBase10To36(nOrderBookId)
+ b = ConvertBase10To36(CLng(Rnd() * 60000000) + 1)
+ 
+ strOut = Mid(a, 4, 1) & Mid(b, 3, 1) & Mid(a, 6, 1) & Mid(b, 1, 1) & Mid(a, 3, 1) & Mid(a, 5, 1) & Mid(a, 1, 1) & Mid(b, 2, 1) & Mid(b, 5, 1) & Mid(a, 2, 1)
+ 
+ ObfuscateOrderBookId = strOut
+ End Function
+*/
 
 -(NSString*)obfuscateOrderBookId:(NSNumber*)orderBookId {
 	NSString *strOut;

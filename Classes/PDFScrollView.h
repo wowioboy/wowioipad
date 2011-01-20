@@ -48,6 +48,7 @@
 @class TiledPDFView;
 
 @interface PDFScrollView : UIScrollView <UIScrollViewDelegate> {
+	
 	// The TiledPDFView that is currently front most
 	TiledPDFView *pdfView;
 	// The old TiledPDFView that we draw on top of when the zooming stops
@@ -66,4 +67,5 @@
 	CGPDFDocumentRef pdf;
 }
 
+@property(nonatomic, retain) NSString *theFile;
 @end

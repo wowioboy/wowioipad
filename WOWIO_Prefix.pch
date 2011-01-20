@@ -13,8 +13,23 @@
 	// WOWIO HOME
 #define homeURL						@"http://www.wowio.com/"
 
+	// TEST PDF
+#define testPDF						@"1001ArabianNiSinba02_9826901.pdf"
+
+	// BOOK PURCHASE
+#define bookPurchaseURL				@"https://www.wowio.com/users/library/purchase1ipad.asp"
+/* 
+ EXAMPLE:
+ https://www.wowio.com/users/library/purchase1ipad.asp?nBookId=[BookId]&nFormat=[FormatId], 
+ FormatId:
+ 0 for WOWIO books.
+ 1 for Digital Editions PDF.
+ 2 for Digital Editions EPUB.
+ 3 for DRM-free EPUB.
+ 4 for Palm/EReader.
+*/
+
 	// PAYPAL
-#define bookPurchaseURL				@"https://www.paypal.com/cgi-bin/webscr/"
 #define paypalAcct					@"payments@wowio.com"
 #define purchaseCancelURL			@"http://www.wowio.com"
 #define purchaseReturnURL			@"https://www.wowio.com/users/library/purchase_pdt.asp"
@@ -25,10 +40,13 @@
 
 	// ACCOUNT SIGN-UP
 #define accountCreationURL			@"https://www.wowio.com/users/library/newuser.asp"
+#define joinWOWIOURL				@"https://www.wowio.com/users/newuser_start.asp?reset=y"
 
 	// BOOK DOWNLOAD / PREVIEW
-#define bookDownloadURL				@"http://www.wowio.com/downloadbook.asp?book="				// base36 obfuscated book id
-#define bookPreviewURL				@"http://www.wowio.com/viewer/reader.asp?nbookid="			// non-base36 obfuscated book id
+#define bookDownloadURL				@"http://www.wowio.com/downloadbook.asp?book="							// base36 obfuscated book id
+#define bookPreviewURL				@"http://www.wowio.com/viewer/reader.asp?nbookid="						// non-base36 obfuscated book id
+#define bookRebuildURL				@"http://www.wowio.com/users/library/republishBook.asp?OrderBookId="	// regenerate a book pdf
+#define bookPresentURL				@"http://www.wowio.com/filepresent.asp?orderbookid="					// polls for a book to see if it's done regenerating
 
 	// SINGLE BOOK
 #define singleBookURL				@"http://www.wowio.com/JSONreq.asp?cmd=bookplus&bookid="
@@ -49,6 +67,7 @@
 	//- user record for the currently logged-on user (empty array if not logged on)
 #define userURL						@"http://www.wowio.com/JSONreq.asp?cmd=user"
 #define userLibrary					@"http://www.wowio.com/JSONreq.asp?cmd=lib_purchased"
+#define userLibraryBook				@"http://www.wowio.com/jsonreq.asp?cmd=lib_orderbook&orderbookid="
 
 	//- category list for the browse by category dropdown
 #define bookCategoriesURL			@"http://www.wowio.com/JSONreq.asp?cmd=categories"

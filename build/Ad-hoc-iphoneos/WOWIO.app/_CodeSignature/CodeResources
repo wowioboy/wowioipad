@@ -70,27 +70,31 @@
 		</data>
 		<key>AboutView.nib</key>
 		<data>
-		NllRzrrMshguxKdHYyVFM0CQf08=
+		fvKbv0MSg/4z9ZP71DjPLDM959M=
 		</data>
 		<key>BookCell.nib</key>
 		<data>
-		8E4f8luc92XPTnSHClK//WyRkoM=
+		I9l8penLSB83gvAEQb1GG3dYBqk=
 		</data>
 		<key>BookDetailController.nib</key>
 		<data>
-		J7OD/pGJZsii1aYhJzsiuYK5ZB0=
+		5ExMrcM4El4biJVRkSF9qNPhCbc=
 		</data>
 		<key>BookDetailView.nib</key>
 		<data>
-		qjj2jnE/QhmQQDnIW+y+wShWb6U=
+		yu4X1Bs8cE0W8dQIMcDYbPD5Jbo=
+		</data>
+		<key>BookView.nib</key>
+		<data>
+		DUbGf5T1JTyJ3KqyYRhi9qoS1Lg=
 		</data>
 		<key>CategoriesView.nib</key>
 		<data>
-		5XHGihn92WpTZvl0dX2V1Zd0lBA=
+		GCfJ+nnTLhDKf+wIu7vTy1psS+w=
 		</data>
 		<key>CategoryDetailView.nib</key>
 		<data>
-		VSql+TQZovIEjR29GXG5qeDNokI=
+		qXlvCEmy6PFj7n8XE4RPZYzMG+0=
 		</data>
 		<key>Default-Landscape.png</key>
 		<data>
@@ -106,43 +110,51 @@
 		</data>
 		<key>FeaturesView.nib</key>
 		<data>
-		GMgAT63M8BD0QEyt9qhoY3JuE9Q=
+		0ixfUeSAxsm6D8XVMui0VAX/cn0=
+		</data>
+		<key>FirstTimeView.nib</key>
+		<data>
+		xfJCxtEy4hQPyNINzEJON0X+V5c=
 		</data>
 		<key>Icon.png</key>
 		<data>
-		z/qpbNSk+H/LcjF/sUvB1mNzAt4=
+		liGZbwE9jJZAmye/mf0z8Y/1aKs=
 		</data>
 		<key>LibraryView.nib</key>
 		<data>
-		61b/igm0z6rsjkDkMf4wJnFU35A=
+		oXqaTxNS87s6moHkkk9VHBurAAs=
 		</data>
 		<key>LoadingView.nib</key>
 		<data>
-		IDGP0qdMGykICGMhCmFiWvbEE0w=
+		5zdDpAyEZp/F6kg+EDNHORvdpGg=
 		</data>
 		<key>LoginView.nib</key>
 		<data>
-		/q++Jge1LG5qxD3ZKEWTeHNabAI=
+		mHBesjYBY664Hxsz+zKZomBJEQ4=
 		</data>
 		<key>MainWindow.nib</key>
 		<data>
-		q+dkLRLGXwg4N+J1xdGjNE1Od/M=
+		PJwe7cfAxWfsGHRx+nXD81XBths=
 		</data>
 		<key>NewReleasesController.nib</key>
 		<data>
-		Dom5bglLqP6kOJy7dd0ssdwP0NQ=
+		PFF7j1vNH86ikA2nuCPF356PBAA=
 		</data>
 		<key>PDFView.nib</key>
 		<data>
-		xxt+LBjtXepwffoiJwh8htMLuL4=
+		6tHMva/sqzr+RNK/ke48zPaVqH8=
 		</data>
 		<key>PkgInfo</key>
 		<data>
 		n57qDP4tZfLD1rCS43W0B4LQjzE=
 		</data>
+		<key>README.textile</key>
+		<data>
+		ip7oVbDRk/uP4uiEJxuTW8A6s0A=
+		</data>
 		<key>Settings.bundle/Root.plist</key>
 		<data>
-		WlGCw/nMuwWRxOvABrfQZDv4/DA=
+		No4FtrAQvmWcVXIswpvLfDwYQmI=
 		</data>
 		<key>Settings.bundle/en.lproj/Root.strings</key>
 		<data>
@@ -150,15 +162,19 @@
 		</data>
 		<key>SettingsView.nib</key>
 		<data>
-		U53uDuqPY8EyuNR3zQrJz0XHr+s=
+		/Yj3rtaF7JEEZFGE4K2fepMhwr0=
 		</data>
-		<key>TopSellersController.nib</key>
+		<key>TopSellersDetailView.nib</key>
 		<data>
-		D8l13ue73gZ4oJrdeHxAfSqU/R8=
+		DvBxjV60PAAeAuFjvFPUORrhvhc=
+		</data>
+		<key>TopSellersView.nib</key>
+		<data>
+		NFhkGZslxosqtV7a+lpazF1/ymo=
 		</data>
 		<key>WebView.nib</key>
 		<data>
-		L7UkD5GFiTajqcPGrS0RlYDxn00=
+		96X4HonIk66TOX+qjg2cfGgvH/4=
 		</data>
 		<key>_5.png</key>
 		<data>
@@ -668,6 +684,10 @@
 		<data>
 		yETx2+Xb+9MZnGuByBBBrI2FfX8=
 		</data>
+		<key>old-Icon.png</key>
+		<data>
+		z/qpbNSk+H/LcjF/sUvB1mNzAt4=
+		</data>
 		<key>promo_01.png</key>
 		<data>
 		mTJCvlrCAhOaUPn877raSaMLa7g=
@@ -738,7 +758,7 @@
 		</data>
 		<key>wowio.mom</key>
 		<data>
-		IY1IdxE8a6HLbRQn1qCX5ewEdaA=
+		3puJFqIoE3Eico4tjZxaTXmghJs=
 		</data>
 		<key>wowio_iPad_background.png</key>
 		<data>
@@ -748,17 +768,37 @@
 		<data>
 		Qe/wfW36y6tIhneUZelVVFrH0rM=
 		</data>
+		<key>wowio_iPad_icon-app_02.png</key>
+		<data>
+		dY8J05JaP0vJPRSRVjxtgBWpZWc=
+		</data>
 		<key>wowio_iPad_icon-doc-320.png</key>
 		<data>
 		irYySvzkPJgqj19xxoa4zomdNMU=
+		</data>
+		<key>wowio_iPad_icon-doc-320_02.png</key>
+		<data>
+		JPCbWG88oZ8gjWe9mAc41llI53U=
+		</data>
+		<key>wowio_iPad_icon-doc-64_02.png</key>
+		<data>
+		liGZbwE9jJZAmye/mf0z8Y/1aKs=
 		</data>
 		<key>wowio_iPad_icon-settings.png</key>
 		<data>
 		9wRp5P+bXPaWf6lPCEbJd4/7Y74=
 		</data>
+		<key>wowio_iPad_icon-settings_02.png</key>
+		<data>
+		IosC1VOWTibFCfsT+D/HCpgZWAs=
+		</data>
 		<key>wowio_iPad_icon-spotlight.png</key>
 		<data>
 		CTxIvkM2AzU6ag6OWljYsCGqVxg=
+		</data>
+		<key>wowio_iPad_icon-spotlight_02.png</key>
+		<data>
+		in7NlxbhQIRqwmKsBG0KOQZHhN4=
 		</data>
 	</dict>
 	<key>rules</key>

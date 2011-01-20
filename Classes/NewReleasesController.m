@@ -29,13 +29,44 @@
  }
  */
 
-/*
- // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
- - (void)viewDidLoad {
- [super viewDidLoad];
- }
- */
 
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad {
+	[super viewDidLoad];
+
+	 //load up the app delegate
+	 self.appDelegate = (WOWIOAppDelegate *)[[UIApplication sharedApplication] delegate];
+	 
+	 // set db context
+	 self.managedObjectContext = [self.appDelegate managedObjectContext];
+	 
+	 // init the grid view
+	 CGRect featGridFrame;
+	 featGridFrame.size.width = 900;
+	 featGridFrame.size.height = 630;
+	 featGridFrame.origin.x = 0;
+	 featGridFrame.origin.y = 407;
+	 
+	 self.releaseGridView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+	 self.releaseGridView.autoresizesSubviews = NO;
+	 //self.releaseGridView.frame = featGridFrame;
+	 self.releaseGridView.delegate = self;
+	 self.releaseGridView.dataSource = self;
+	 self.releaseGridView.allowsSelection = YES;
+	 self.releaseGridView.backgroundColor = [UIColor clearColor];
+	 
+	 // get top book data
+	 self.releaseItems = [appDelegate fetchBookDataFromDB:@"Newreleases" withSortDescriptor:@"title"];
+	 
+	 // load the grid
+	 [self.releaseGridView reloadData];
+	 
+	 // load the book covers
+	 [self loadContentForVisibleCells];
+}
+
+
+/*
 -(void)awakeFromNib {
 	
 	//load up the app delegate
@@ -68,6 +99,7 @@
 	// load the book covers
 	[self loadContentForVisibleCells];
 }
+*/
 
 -(void)didDismissModalView {
 	

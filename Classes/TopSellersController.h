@@ -11,32 +11,35 @@
 #import <QuartzCore/QuartzCore.h>
 #import "WOWIOAppDelegate.h"
 #import "LoginViewController.h"
-#import "FeaturedBookDetail.h"
 #import "WebViewController.h"
-#import "TopSellersDetail.h"
+#import "BookViewController.h"
 #import "BookGridCellDelegate.h"
 #import "AQGridView.h"
 #import "GridColors.h"
 
-@interface TopSellersController : UIViewController <UIScrollViewDelegate, NSFetchedResultsControllerDelegate, BookModalViewControllerDelegate, ModalViewControllerDelegate, AQGridViewDelegate, AQGridViewDataSource, BookGridCellDelegate, UIWebViewDelegate> {
+@interface TopSellersController : UIViewController <UIScrollViewDelegate, NSFetchedResultsControllerDelegate,  ModalViewControllerDelegate, AQGridViewDelegate, AQGridViewDataSource, BookGridCellDelegate, UIWebViewDelegate> {
 
 	AQGridView * _gridView;
 	NSMutableArray *gridData;
+	
+	IBOutlet UILabel *testLabel;
 
 	NSFetchedResultsController *fetchedResultsController;
 	NSManagedObjectContext *managedObjectContext;
 	WOWIOAppDelegate *appDelegate;
-	TopSellersDetail *bookViewController;
+	BookViewController *bookViewController;
 	WebViewController *webViewController;
 }
 
 @property (nonatomic, retain) IBOutlet AQGridView *theGridView;
 @property (nonatomic, retain) NSMutableArray *gridData;
 
+@property(nonatomic, retain) UILabel *testLabel;
+
 @property(nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
 @property(nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 @property(nonatomic, retain) WOWIOAppDelegate *appDelegate;
-@property(nonatomic, retain) TopSellersDetail *bookViewController;
+@property(nonatomic, retain) BookViewController *bookViewController;
 @property(nonatomic, retain) WebViewController *webViewController;
 
 // methods

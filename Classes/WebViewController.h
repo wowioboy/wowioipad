@@ -14,11 +14,13 @@
 	IBOutlet UIActivityIndicatorView *activityIndicator;
 	IBOutlet UILabel *activityLabel;
 	IBOutlet UIWebView *webView;
+	IBOutlet UIScrollView *scrollView;
 }
 
 -(void)dismissView:(id)sender;
 @property(nonatomic, retain) UIActivityIndicatorView *activityIndicator;
 @property(nonatomic, retain) UILabel *activityLabel;
 @property(nonatomic, retain) UIWebView *webView;
+@property(nonatomic, retain) UIScrollView *scrollView;
 
 @end

@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="18"/>
+			<integer value="41"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -36,26 +36,6 @@
 			<object class="IBProxyObject" id="606714003">
 				<string key="IBProxiedObjectIdentifier">IBFirstResponder</string>
 				<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-			</object>
-			<object class="IBUIViewController" id="335101043">
-				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics">
-					<int key="IBUIStatusBarStyle">2</int>
-				</object>
-				<object class="IBUISimulatedOrientationMetrics" key="IBUISimulatedOrientationMetrics">
-					<int key="interfaceOrientation">1</int>
-				</object>
-				<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-				<bool key="IBUIHorizontal">NO</bool>
-			</object>
-			<object class="IBUIViewController" id="1051145939">
-				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics">
-					<int key="IBUIStatusBarStyle">2</int>
-				</object>
-				<object class="IBUISimulatedOrientationMetrics" key="IBUISimulatedOrientationMetrics">
-					<int key="interfaceOrientation">1</int>
-				</object>
-				<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-				<bool key="IBUIHorizontal">NO</bool>
 			</object>
 			<object class="IBUIView" id="766721923">
 				<reference key="NSNextResponder"/>
@@ -195,7 +175,10 @@
 															<double key="NSSize">17</double>
 															<int key="NSfFlags">16</int>
 														</object>
-														<reference key="IBUITextColor" ref="108819906"/>
+														<object class="NSColor" key="IBUITextColor">
+															<int key="NSColorSpace">1</int>
+															<bytes key="NSRGB">MSAwLjY4NjM0MDIwNzggMC4xODAyNDMxOTUAA</bytes>
+														</object>
 														<nil key="IBUIHighlightedColor"/>
 														<int key="IBUIBaselineAdjustment">1</int>
 														<float key="IBUIMinimumFontSize">10</float>
@@ -236,7 +219,7 @@
 																<reference key="IBUINormalTitleShadowColor" ref="760243775"/>
 															</object>
 														</object>
-														<string key="NSFrame">{{0, 48}, {900, 329}}</string>
+														<string key="NSFrame">{{0, 37}, {900, 329}}</string>
 														<reference key="NSSuperview" ref="395146921"/>
 														<bool key="IBUIClipsSubviews">YES</bool>
 														<bool key="IBUIMultipleTouchEnabled">YES</bool>
@@ -251,7 +234,7 @@
 															<object class="IBUIView" id="957717935">
 																<reference key="NSNextResponder" ref="732839557"/>
 																<int key="NSvFlags">292</int>
-																<string key="NSFrame">{{0, 40}, {900, 571}}</string>
+																<string key="NSFrame">{{0, 40}, {900, 3000}}</string>
 																<reference key="NSSuperview" ref="732839557"/>
 																<object class="NSColor" key="IBUIBackgroundColor">
 																	<int key="NSColorSpace">3</int>
@@ -267,6 +250,11 @@
 																<int key="NSvFlags">274</int>
 																<string key="NSFrameSize">{900, 40}</string>
 																<reference key="NSSuperview" ref="732839557"/>
+																<object class="NSColor" key="IBUIBackgroundColor">
+																	<int key="NSColorSpace">3</int>
+																	<bytes key="NSWhite">MC4zMzMzMzMzMzMzAA</bytes>
+																</object>
+																<float key="IBUIAlpha">0.15000000596046448</float>
 																<bool key="IBUIUserInteractionEnabled">NO</bool>
 																<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 																<reference key="IBUIImage" ref="1008888812"/>
@@ -301,10 +289,7 @@
 																<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 																<string key="IBUIText">Top Sellers and New Releases Titles</string>
 																<reference key="IBUIFont" ref="653647477"/>
-																<object class="NSColor" key="IBUITextColor">
-																	<int key="NSColorSpace">1</int>
-																	<bytes key="NSRGB">MSAwLjg3NjcwOTI2NzcgMC42NzQwNjQ3MjE0AA</bytes>
-																</object>
+																<reference key="IBUITextColor" ref="108819906"/>
 																<nil key="IBUIHighlightedColor"/>
 																<int key="IBUIBaselineAdjustment">1</int>
 																<float key="IBUIMinimumFontSize">10</float>
@@ -491,46 +476,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">theGridView</string>
-						<reference key="source" ref="335101043"/>
-						<reference key="destination" ref="957717935"/>
-					</object>
-					<int key="connectionID">73</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">view</string>
-						<reference key="source" ref="335101043"/>
-						<reference key="destination" ref="732839557"/>
-					</object>
-					<int key="connectionID">74</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">dataSource</string>
-						<reference key="source" ref="957717935"/>
-						<reference key="destination" ref="335101043"/>
-					</object>
-					<int key="connectionID">75</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">delegate</string>
-						<reference key="source" ref="957717935"/>
-						<reference key="destination" ref="335101043"/>
-					</object>
-					<int key="connectionID">76</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">sellersGrid</string>
-						<reference key="source" ref="841351856"/>
-						<reference key="destination" ref="335101043"/>
-					</object>
-					<int key="connectionID">78</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">infoButton</string>
 						<reference key="source" ref="841351856"/>
 						<reference key="destination" ref="963412644"/>
@@ -545,6 +490,38 @@
 						<int key="IBEventType">7</int>
 					</object>
 					<int key="connectionID">90</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">theGridView</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="957717935"/>
+					</object>
+					<int key="connectionID">100</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">topSellersView</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="732839557"/>
+					</object>
+					<int key="connectionID">101</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">dataSource</string>
+						<reference key="source" ref="957717935"/>
+						<reference key="destination" ref="841351856"/>
+					</object>
+					<int key="connectionID">102</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">delegate</string>
+						<reference key="source" ref="957717935"/>
+						<reference key="destination" ref="841351856"/>
+					</object>
+					<int key="connectionID">103</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -633,51 +610,6 @@
 						<string key="objectName">agileSpace</string>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">18</int>
-						<reference key="object" ref="395146921"/>
-						<object class="NSMutableArray" key="children">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="741738550"/>
-							<reference ref="567986679"/>
-							<reference ref="732839557"/>
-							<reference ref="448980529"/>
-							<reference ref="1022574124"/>
-						</object>
-						<reference key="parent" ref="813015792"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">23</int>
-						<reference key="object" ref="741738550"/>
-						<reference key="parent" ref="395146921"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">22</int>
-						<reference key="object" ref="1022574124"/>
-						<reference key="parent" ref="395146921"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">24</int>
-						<reference key="object" ref="567986679"/>
-						<object class="NSMutableArray" key="children">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="549686201"/>
-						</object>
-						<reference key="parent" ref="395146921"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">41</int>
-						<reference key="object" ref="732839557"/>
-						<object class="NSMutableArray" key="children">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="1029571649"/>
-							<reference ref="1032009159"/>
-							<reference ref="834738092"/>
-							<reference ref="957717935"/>
-						</object>
-						<reference key="parent" ref="395146921"/>
-						<string key="objectName">topSellersView</string>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">43</int>
 						<reference key="object" ref="786239903"/>
 						<reference key="parent" ref="766721923"/>
@@ -688,50 +620,9 @@
 						<reference key="parent" ref="766721923"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">25</int>
-						<reference key="object" ref="834738092"/>
-						<reference key="parent" ref="732839557"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">26</int>
-						<reference key="object" ref="1032009159"/>
-						<reference key="parent" ref="732839557"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">35</int>
-						<reference key="object" ref="1029571649"/>
-						<reference key="parent" ref="732839557"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">21</int>
-						<reference key="object" ref="448980529"/>
-						<reference key="parent" ref="395146921"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">12</int>
 						<reference key="object" ref="348425065"/>
 						<reference key="parent" ref="766721923"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">71</int>
-						<reference key="object" ref="335101043"/>
-						<reference key="parent" ref="0"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">72</int>
-						<reference key="object" ref="957717935"/>
-						<reference key="parent" ref="732839557"/>
-						<string key="objectName">topSellersGrid</string>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">79</int>
-						<reference key="object" ref="1051145939"/>
-						<reference key="parent" ref="0"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">85</int>
-						<reference key="object" ref="549686201"/>
-						<reference key="parent" ref="567986679"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">88</int>
@@ -746,6 +637,82 @@
 						<int key="objectID">87</int>
 						<reference key="object" ref="963412644"/>
 						<reference key="parent" ref="991467861"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">18</int>
+						<reference key="object" ref="395146921"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="1022574124"/>
+							<reference ref="732839557"/>
+							<reference ref="741738550"/>
+							<reference ref="567986679"/>
+							<reference ref="448980529"/>
+						</object>
+						<reference key="parent" ref="813015792"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">22</int>
+						<reference key="object" ref="1022574124"/>
+						<reference key="parent" ref="395146921"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">41</int>
+						<reference key="object" ref="732839557"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="1032009159"/>
+							<reference ref="1029571649"/>
+							<reference ref="834738092"/>
+							<reference ref="957717935"/>
+						</object>
+						<reference key="parent" ref="395146921"/>
+						<string key="objectName">topSellersView</string>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">23</int>
+						<reference key="object" ref="741738550"/>
+						<reference key="parent" ref="395146921"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">24</int>
+						<reference key="object" ref="567986679"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="549686201"/>
+						</object>
+						<reference key="parent" ref="395146921"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">85</int>
+						<reference key="object" ref="549686201"/>
+						<reference key="parent" ref="567986679"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">26</int>
+						<reference key="object" ref="1032009159"/>
+						<reference key="parent" ref="732839557"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">35</int>
+						<reference key="object" ref="1029571649"/>
+						<reference key="parent" ref="732839557"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">25</int>
+						<reference key="object" ref="834738092"/>
+						<reference key="parent" ref="732839557"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">72</int>
+						<reference key="object" ref="957717935"/>
+						<reference key="parent" ref="732839557"/>
+						<string key="objectName">topSellersGrid</string>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">21</int>
+						<reference key="object" ref="448980529"/>
+						<reference key="parent" ref="395146921"/>
 					</object>
 				</object>
 			</object>
@@ -769,20 +736,18 @@
 					<string>23.IBPluginDependency</string>
 					<string>24.IBPluginDependency</string>
 					<string>25.IBPluginDependency</string>
+					<string>25.IBViewBoundsToFrameTransform</string>
 					<string>26.IBPluginDependency</string>
+					<string>26.IBViewBoundsToFrameTransform</string>
 					<string>35.IBPluginDependency</string>
+					<string>35.IBViewBoundsToFrameTransform</string>
 					<string>39.IBPluginDependency</string>
 					<string>41.IBPluginDependency</string>
 					<string>43.IBPluginDependency</string>
 					<string>54.IBPluginDependency</string>
-					<string>71.CustomClassName</string>
-					<string>71.IBEditorWindowLastContentRect</string>
-					<string>71.IBPluginDependency</string>
 					<string>72.CustomClassName</string>
 					<string>72.IBPluginDependency</string>
-					<string>79.CustomClassName</string>
-					<string>79.IBEditorWindowLastContentRect</string>
-					<string>79.IBPluginDependency</string>
+					<string>72.IBViewBoundsToFrameTransform</string>
 					<string>8.IBPluginDependency</string>
 					<string>85.IBPluginDependency</string>
 					<string>85.IBViewBoundsToFrameTransform</string>
@@ -802,7 +767,7 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>{{331, 226}, {1024, 768}}</string>
+					<string>{{378, 368}, {1024, 768}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -812,20 +777,24 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<object class="NSAffineTransform"/>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<object class="NSAffineTransform">
+						<bytes key="NSTransformStruct">AUEgAADB+AAAA</bytes>
+					</object>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<object class="NSAffineTransform">
+						<bytes key="NSTransformStruct">AURKAADCGAAAA</bytes>
+					</object>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>TopSellersController</string>
-					<string>{{329, 121}, {768, 1024}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>AQGridView</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>NewReleasesController</string>
-					<string>{{329, 70}, {783, 936}}</string>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<object class="NSAffineTransform">
+						<bytes key="NSTransformStruct">AQAAAABCIAAAA</bytes>
+					</object>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
@@ -854,7 +823,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">91</int>
+			<int key="maxID">103</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -928,11 +897,13 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>changeAgilePage:</string>
+							<string>getTopSellersFromDB:</string>
 							<string>showAbout:</string>
 							<string>showAll:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -943,6 +914,7 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>changeAgilePage:</string>
+							<string>getTopSellersFromDB:</string>
 							<string>showAbout:</string>
 							<string>showAll:</string>
 						</object>
@@ -950,6 +922,10 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBActionInfo">
 								<string key="name">changeAgilePage:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">getTopSellersFromDB:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -976,10 +952,10 @@
 							<string>mainContainer</string>
 							<string>mainScrollView</string>
 							<string>pageControl</string>
-							<string>releasesGrid</string>
-							<string>sellersGrid</string>
+							<string>theGridView</string>
 							<string>topSellersButton</string>
 							<string>topSellersLabel</string>
+							<string>topSellersView</string>
 							<string>webView</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -994,10 +970,10 @@
 							<string>UIView</string>
 							<string>UIScrollView</string>
 							<string>UIPageControl</string>
-							<string>NewReleasesController</string>
-							<string>TopSellersController</string>
+							<string>AQGridView</string>
 							<string>UIButton</string>
 							<string>UILabel</string>
+							<string>UIView</string>
 							<string>UIWebView</string>
 						</object>
 					</object>
@@ -1015,10 +991,10 @@
 							<string>mainContainer</string>
 							<string>mainScrollView</string>
 							<string>pageControl</string>
-							<string>releasesGrid</string>
-							<string>sellersGrid</string>
+							<string>theGridView</string>
 							<string>topSellersButton</string>
 							<string>topSellersLabel</string>
+							<string>topSellersView</string>
 							<string>webView</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -1064,12 +1040,8 @@
 								<string key="candidateClassName">UIPageControl</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">releasesGrid</string>
-								<string key="candidateClassName">NewReleasesController</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">sellersGrid</string>
-								<string key="candidateClassName">TopSellersController</string>
+								<string key="name">theGridView</string>
+								<string key="candidateClassName">AQGridView</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">topSellersButton</string>
@@ -1080,6 +1052,10 @@
 								<string key="candidateClassName">UILabel</string>
 							</object>
 							<object class="IBToOneOutletInfo">
+								<string key="name">topSellersView</string>
+								<string key="candidateClassName">UIView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
 								<string key="name">webView</string>
 								<string key="candidateClassName">UIWebView</string>
 							</object>
@@ -1088,55 +1064,6 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">Classes/FeaturesViewController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">NewReleasesController</string>
-					<string key="superclassName">UIViewController</string>
-					<object class="NSMutableDictionary" key="outlets">
-						<string key="NS.key.0">releaseGridView</string>
-						<string key="NS.object.0">AQGridView</string>
-					</object>
-					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<string key="NS.key.0">releaseGridView</string>
-						<object class="IBToOneOutletInfo" key="NS.object.0">
-							<string key="name">releaseGridView</string>
-							<string key="candidateClassName">AQGridView</string>
-						</object>
-					</object>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Classes/NewReleasesController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">TopSellersController</string>
-					<string key="superclassName">UIViewController</string>
-					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">getBooksFromDB:</string>
-						<string key="NS.object.0">id</string>
-					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">getBooksFromDB:</string>
-						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">getBooksFromDB:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</object>
-					<object class="NSMutableDictionary" key="outlets">
-						<string key="NS.key.0">theGridView</string>
-						<string key="NS.object.0">AQGridView</string>
-					</object>
-					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<string key="NS.key.0">theGridView</string>
-						<object class="IBToOneOutletInfo" key="NS.object.0">
-							<string key="name">theGridView</string>
-							<string key="candidateClassName">AQGridView</string>
-						</object>
-					</object>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Classes/TopSellersController.h</string>
 					</object>
 				</object>
 			</object>

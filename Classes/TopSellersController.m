@@ -15,7 +15,7 @@
 
 @implementation TopSellersController
 @synthesize theGridView=_gridView;
-@synthesize gridData;
+@synthesize gridData, testLabel;
 @synthesize fetchedResultsController, managedObjectContext, appDelegate, bookViewController, webViewController;
 
 
@@ -29,70 +29,76 @@
 }
 */
 
-
+/*
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
-	NSLog(@"Top Sellers Loaded!");
+	NSLog(@"Top Sellers View Loaded!");
+	
+	
+	self.testLabel.text = @"Test text";
 }
-
+*/
 
 -(void)awakeFromNib {
-	//NSLog(@"You are awake now!");
+	NSLog(@"Top Sellers Are Awake Now!");
 	
-	//load up the app delegate
+		//load up the app delegate
 	self.appDelegate = (WOWIOAppDelegate *)[[UIApplication sharedApplication] delegate];
 	
-	// set db context
-	self.managedObjectContext = [self.appDelegate managedObjectContext];
-	
-	// init the grid view
+		// set db context
+	self.managedObjectContext = [self.appDelegate managedObjectContext];	
+
+		// init the grid view
 	CGRect featGridFrame;
-	featGridFrame.size.width = 900;
-	featGridFrame.size.height = 630;
-	featGridFrame.origin.x = 0;
-	featGridFrame.origin.y = 407;
+	
+	BOOL isPortrait = UIDeviceOrientationIsPortrait(self.interfaceOrientation);
+	
+	if (isPortrait) {
+		featGridFrame.origin.x = 60;
+		featGridFrame.size.width = 770;
+		
+	} else {
+		featGridFrame.origin.x = 0;
+		featGridFrame.size.width = 900;
+	}
+	
+	featGridFrame.size.height = 3000;
+	featGridFrame.origin.y = 40;
 	
 	self.theGridView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
 	self.theGridView.autoresizesSubviews = NO;
-	//self.theGridView.frame = featGridFrame;
+	self.theGridView.frame = featGridFrame;
 	self.theGridView.bounces = YES;
 	self.theGridView.scrollEnabled = YES;
 	self.theGridView.delegate = self;
 	self.theGridView.dataSource = self;
 	self.theGridView.allowsSelection = YES;
 	self.theGridView.backgroundColor = [UIColor clearColor];
-	
-	// get top book data
-	//self.gridData = [appDelegate fetchBookDataFromDB:@"Book" withSortDescriptor:@"title" withPredicate:@"is_topseller"];
+
 	[self performSelector:@selector(getBooksFromDB:)];
-	//NSLog(@"\nTop Books In Awake Mode: %@\n\n",self.gridData);
 	
-	/*
-		// fetched db results
-	NSError *error;
-	if (![[self fetchedResultsController] performFetch:&error]) {
-			// Update to handle the error appropriately.
-		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-		exit(-1);  // Fail
-	}
-	*/
+	NSLog(@"\nNo. of Top Sellers: %d\n",[self.gridData count]);
 	
-	// load the grid
 	[self.theGridView reloadData];
+}
+
+/*
+-(void)viewWillAppear:(BOOL)animated {
+	NSLog(@"Top Sellers Will Appear");
 	
-	// load the book covers
-	[self loadContentForVisibleCells];
+	[self performSelector:@selector(getBooksFromDB:)];
+	[self.theGridView reloadData];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
-	NSLog(@"View Did Appear");
+	NSLog(@"Top Sellers Did Appear");
+	
+	[self performSelector:@selector(getBooksFromDB:)];
+	[self.theGridView reloadData];
 }
-
--(void)viewWillAppear:(BOOL)animated {
-	NSLog(@"View Will Appear");
-}
+*/
 
 -(void)didDismissModalView {
 	
@@ -105,9 +111,39 @@
 }
 
 
+#pragma mark -
+#pragma mark Housekeeping Methods
+
+// Override to allow orientations other than the default portrait orientation.
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Overriden to allow any orientation.
     return YES;
+}
+
+-(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+	
+	CGRect featGridFrame;
+	featGridFrame.size.height = 3000;
+	featGridFrame.origin.y = 407;
+	
+	if (toInterfaceOrientation == UIInterfaceOrientationPortrait || toInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) {
+		featGridFrame.origin.x = 60;
+		featGridFrame.size.width = 770;
+		
+	} else {
+		featGridFrame.origin.x = 0;
+		featGridFrame.size.width = 900;
+	}
+	
+	self.theGridView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+	self.theGridView.autoresizesSubviews = NO;
+		//self.theGridView.frame = featGridFrame;
+	self.theGridView.bounces = YES;
+	self.theGridView.scrollEnabled = YES;
+	self.theGridView.delegate = self;
+	self.theGridView.dataSource = self;
+	self.theGridView.allowsSelection = YES;
+	self.theGridView.backgroundColor = [UIColor clearColor];
+	
 }
 
 
@@ -138,7 +174,7 @@
 	[fetchRequest setEntity:entity];
 	
 	// set the filter predicate
-	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"is_topseller=%d or is_newrelease=%d",1,1];
+	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"is_topseller=%d or is_newrelease=%d or is_featured=%d",1,1,1];
 	[fetchRequest setPredicate:predicate];
 	
 	NSSortDescriptor *theDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title" ascending:YES];
@@ -149,18 +185,23 @@
 	NSError *error;
 	NSMutableArray *mutableFetchResults = [[moc executeFetchRequest:fetchRequest error:&error] mutableCopy];
 	if (mutableFetchResults == nil) {
-		NSLog(@"Houston, we have a problem: 'Topbooks' were NOT found in the db!\n");
+		NSLog(@"Houston, we have a problem: 'Top Books' were NOT found in the db!\n");
 	}
 	
 	// clean up after yourself
 	//[predicate release];
-	//[theDescriptor release];
-	//[sortDescriptors release];
+	[theDescriptor release];
+	[sortDescriptors release];
 	
 	// set the book ivar object
 	self.gridData = mutableFetchResults;
-		//NSLog(@"Data fetch results:\n%@",gridData);
+	
+	/*
+	int bookCnt = [self.gridData count];
+	NSLog(@"Top Books Fetched Count: %d\n%@",bookCnt);
+	
 	[self.theGridView reloadData];
+	*/
 }
 
 
@@ -194,48 +235,19 @@
     return [self.gridData count];
 }
 
-- (void) gridView: (AQGridView *) gridView didSelectItemAtIndex: (NSUInteger) index
-{
-		//self.gridData = [appDelegate fetchBookDataFromDB:@"Book" withSortDescriptor:@"title"];
-	[self performSelector:@selector(getBooksFromDB:)];
-	//NSLog(@"\nTop Books In Cell SELECT Mode: %@\n\n",self.gridData);
-	
-	// deselect the selected grid cell
-	[self.theGridView deselectItemAtIndex:index animated:NO];
-	
-	TopSellersDetail *viewController = [[TopSellersDetail alloc] initWithNibName:@"TopSellersDetailView" bundle:nil];
-
-	// add book to the presented view
-	viewController.managedObjectContext = self.managedObjectContext;
-	Book *book = (Book*)[gridData objectAtIndex:index];
-	[viewController setTheBook:book];
-	
-	//viewController.delegate = self;
-	
-	UINavigationController *modalNavController = [[UINavigationController alloc] initWithRootViewController:viewController];
-	modalNavController.modalPresentationStyle = UIModalPresentationPageSheet;
-	//[modalNavController setNavigationBarHidden:YES];
-	
-	// Present the Controller Modally	
-	[self presentModalViewController:modalNavController animated:YES];
-	
-	//[viewController release];
-	//[modalNavController release];
-}
-
 - (AQGridViewCell *)gridView:(AQGridView *)aGridView cellForItemAtIndex:(NSUInteger)index
 {
     static NSString * GridCellIdentifier = @"GridCellIdentifier";
     
-		//NSLog(@"\nTop Books In Cell DISPLAY Mode: %@\n\n",self.gridData);
-	
 	Book *citem = (Book*)[gridData objectAtIndex:index];
     AQGridViewCell * cell = nil;
     BookGridCell *gridCell = (BookGridCell *)[aGridView dequeueReusableCellWithIdentifier: GridCellIdentifier];
 	
+	NSLog(@"\nTitle: %@\n",[citem title]);
+	
 	if (gridCell == nil)
 	{
-		gridCell = [[[BookGridCell alloc] initWithFrame: CGRectMake(0.0, 0.0, 200.0, 150.0) 
+		gridCell = [[[BookGridCell alloc] initWithFrame: CGRectMake(200.0, 150.0, 200.0, 150.0) 
 										reuseIdentifier: GridCellIdentifier] autorelease];
 		gridCell.selectionStyle = AQGridViewCellSelectionStyleGlow;
 	}
@@ -246,9 +258,35 @@
     return cell;
 }
 
+- (void) gridView: (AQGridView *) gridView didSelectItemAtIndex: (NSUInteger) index
+{
+		//self.gridData = [appDelegate fetchBookDataFromDB:@"Book" withSortDescriptor:@"title"];
+		//[self performSelector:@selector(getBooksFromDB:)];
+	NSLog(@"\nTapped A Book In The Grid!\n\n");
+	
+	// deselect the selected grid cell
+	[self.theGridView deselectItemAtIndex:index animated:NO];
+	
+	BookViewController *viewController = [[BookViewController alloc] initWithNibName:@"BookDetailView" bundle:nil];
+	UINavigationController *modalNavController = [[UINavigationController alloc] initWithRootViewController:viewController];
+	modalNavController.modalPresentationStyle = UIModalPresentationPageSheet;
+	//[modalNavController setNavigationBarHidden:YES];
+	
+		// add book to the presented view
+	viewController.managedObjectContext = self.managedObjectContext;
+	Book *book = (Book*)[gridData objectAtIndex:index];
+	[viewController setBook:book];
+	
+		// Present the Controller Modally	
+	[self presentModalViewController:modalNavController animated:YES];
+	
+		//[viewController release];
+		//[modalNavController release];
+}
+
 - (CGSize) portraitGridCellSizeForGridView: (AQGridView *) aGridView
 {
-    return ( CGSizeMake(200.0, 168.0) );
+    return ( CGSizeMake(200.0, 150.0) );
 }
 
 

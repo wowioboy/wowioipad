@@ -13,10 +13,8 @@
 #import "FeaturesViewController.h"
 #import "LoginViewController.h"
 #import "WebViewController.h"
-//#import "BookViewController.h"
-#import "BookDetailController.h"
-#import "Topbooks.h"
-#import "Newreleases.h"
+#import "BookViewController.h"
+//#import "BookDetailController.h"
 #import "Book.h"
 #import "BookGridCell.h"
 #import "Agilespace.h"
@@ -24,17 +22,19 @@
 
 @implementation FeaturesViewController
 
-@synthesize releasesGrid, sellersGrid;
+	//@synthesize sellersGrid;
 @synthesize backgroundImage;
-@synthesize imageView, webView, mainContainer, mainScrollView, contentView, infoButton, pageControl, featuredItems;
+@synthesize imageView, webView, mainContainer, mainScrollView, topSellersView, contentView, infoButton, pageControl, featuredItems;
 @synthesize headline, featuredHeadlines, activityIndicator, activityLabel, webViewController;
 @synthesize topSellersButton, topSellersLabel, bookButton;
-@synthesize fetchedResultsController, managedObjectContext, bookViewController, aboutViewController;
+@synthesize fetchedResultsController, managedObjectContext, aboutViewController, topSellersController;
 //@synthesize loginController, modalNavController;
-@synthesize appDelegate, networkQueue, _isLoggedIn, _contentLoaded;
-@synthesize topbooks, featured, newReleases, gridList, featuredContent, webViewItems;
-@synthesize topSellersView, newReleasesView, numberFormatter;
+@synthesize appDelegate, networkQueue, _isLoggedIn, _contentLoaded, _topsellersLoaded;
+@synthesize topbooks, featured, newReleases, gridList, webViewItems;
+@synthesize numberFormatter;
 @synthesize agilePage, repeatingTimer, selectedBookid, selectedBook;
+@synthesize theGridView=_gridView;
+@synthesize gridData;
 
 const CGFloat kFeatureScrollObjWidth	= 900.0;
 const CGFloat kFeatureScrollObjHeight	= 330.0;
@@ -57,18 +57,20 @@ const NSUInteger kNumMaxFeaturedImages	= 6;
 	// set db context
 	self.managedObjectContext = [self.appDelegate managedObjectContext];
 	
+	[self.mainScrollView setAutoresizesSubviews:YES];
+	
 	// deal with orientation -- load up the correct orientation
 	BOOL isPortrait = UIDeviceOrientationIsPortrait(self.interfaceOrientation);
 
 	CGRect headFrm = [self.headline frame];
 	headFrm.size.width = 337;
 	headFrm.size.height = 21;
-	headFrm.origin.y = 8;
+	headFrm.origin.y = 10;
 	
 	CGRect pageFrm = [self.pageControl frame];
-	pageFrm.size.width = 78;
+	pageFrm.size.width = 100;
 	pageFrm.size.height = 36;
-	pageFrm.origin.y = 1;
+	pageFrm.origin.y = 4;
 	
 	CGRect btnFrm = [self.topSellersButton frame];
 	btnFrm.size.width = 72;
@@ -80,56 +82,59 @@ const NSUInteger kNumMaxFeaturedImages	= 6;
 	topFrm.size.height = 21;
 	topFrm.origin.y = 9;
 	
+	UIImage *bgImage;
+	CGRect featGridFrame;
+
 	if (isPortrait) {
-		headFrm.origin.x = 80;
-		pageFrm.origin.x = 760;
-		btnFrm.origin.x = 754;
-		topFrm.origin.x = 80;
 		
-		[self.backgroundImage setImage:[UIImage imageNamed:@"Default-Portrait.png"]];
-		[self.topSellersLabel setFrame:topFrm];
+		[self.mainScrollView setContentSize:CGSizeMake(690, (1024 + 500))];
+		
+		headFrm.origin.x = 95;
+		pageFrm.origin.x = 700;
+		btnFrm.origin.x = 754;
+		topFrm.origin.x = 95;
+		
+		bgImage = [UIImage imageNamed:@"Default-Portrait.png"];
+		
+		featGridFrame.origin.x = 60;
+		featGridFrame.size.width = 770;
+
 		
 	} else {
+		
+		[self.mainScrollView setContentSize:CGSizeMake(1024, (1024 + 500))];
+		
 		headFrm.origin.x = 20;
 		pageFrm.origin.x = 802;
 		btnFrm.origin.x = 808;
 		topFrm.origin.x = 20;
 		
-		[self.backgroundImage setImage:[UIImage imageNamed:@"Default-Landscape.png"]];
-		[self.topSellersLabel setFrame:topFrm];
+		bgImage = [UIImage imageNamed:@"Default-Landscape.png"];
+		
+		featGridFrame.origin.x = 0;
+		featGridFrame.size.width = 900;
+
 	}
-	/*
-	// init the grid view
-	CGRect featGridFrame;
-	featGridFrame.size.width = 900;
-	featGridFrame.size.height = 630;
-	featGridFrame.origin.x = 0;
-	featGridFrame.origin.y = 407;
 	
-	self.theGridView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-	self.theGridView.autoresizesSubviews = NO;
-	self.theGridView.frame = featGridFrame;
-	self.theGridView.delegate = self;
-	self.theGridView.dataSource = self;
-	self.theGridView.allowsSelection = YES;
-	self.theGridView.backgroundColor = [self colorWithHexString:@"ecd2ad"];
-	*/
+	[self.topSellersLabel setFrame:topFrm];
+	[self.headline setFrame:headFrm];
+	[self.pageControl setFrame:pageFrm];
+	[self.backgroundImage setImage:bgImage];
+
+		// SET THE BOOK GRID
+	 featGridFrame.size.height = 3000;
+	 featGridFrame.origin.y = 40;
+	 
+	 self.theGridView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+	 self.theGridView.autoresizesSubviews = YES;
+	 //self.theGridView.frame = featGridFrame;
+	 self.theGridView.bounces = YES;
+	 self.theGridView.scrollEnabled = YES;
+	 self.theGridView.delegate = self;
+	 self.theGridView.dataSource = self;
+	 self.theGridView.allowsSelection = YES;
+	 self.theGridView.backgroundColor = [UIColor clearColor];
 	
-	/*
-	CGRect newGridFrame;
-	newGridFrame.size.width = 900;
-	newGridFrame.size.height = 530;
-	newGridFrame.origin.x = 0;
-	newGridFrame.origin.y = 1037;
-	
-	self.newReleasesGrid.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-	self.newReleasesGrid.autoresizesSubviews = NO;
-	self.newReleasesGrid.frame = newGridFrame;
-	self.newReleasesGrid.delegate = self;
-	self.newReleasesGrid.dataSource = self;
-	self.newReleasesGrid.allowsSelection = YES;
-	self.newReleasesGrid.backgroundColor = [self colorWithHexString:@"ecd2ad"];
-	*/
 	//[self.featuredContent addSubview:[self theGridView]];
 	//[self.featuredContent addSubview:[self newReleasesGrid]];
 	
@@ -137,7 +142,7 @@ const NSUInteger kNumMaxFeaturedImages	= 6;
 	//webViewController
 	//self.webView.delegate = self;
 	
-	[self.mainScrollView setContentSize:CGSizeMake(1024, (2562 + 500))];
+	topSellersView = [[UIView alloc] init];
 	
 }
 
@@ -168,12 +173,12 @@ const NSUInteger kNumMaxFeaturedImages	= 6;
 	CGRect headFrm = [self.headline frame];
 	headFrm.size.width = 337;
 	headFrm.size.height = 21;
-	headFrm.origin.y = 8;
+	headFrm.origin.y = 10;
 	
 	CGRect pageFrm = [self.pageControl frame];
-	pageFrm.size.width = 78;
+	pageFrm.size.width = 100;
 	pageFrm.size.height = 36;
-	pageFrm.origin.y = 1;
+	pageFrm.origin.y = 4;
 	
 	CGRect btnFrm = [self.topSellersButton frame];
 	btnFrm.size.width = 72;
@@ -185,14 +190,22 @@ const NSUInteger kNumMaxFeaturedImages	= 6;
 	topFrm.size.height = 21;
 	topFrm.origin.y = 9;
 	
+	CGRect mainScrollFrame;
+	UIImage *bgImage;
+	
 	if (isPortrait) {
-		headFrm.origin.x = 80;
-		pageFrm.origin.x = 760;
+		headFrm.origin.x = 95;
+		pageFrm.origin.x = 700;
 		btnFrm.origin.x = 754;
-		topFrm.origin.x = 80;
+		topFrm.origin.x = 95;
 		
-		[self.backgroundImage setImage:[UIImage imageNamed:@"Default-Portrait.png"]];
-		[self.topSellersLabel setFrame:topFrm];
+		mainScrollFrame.size.width = 730;
+		mainScrollFrame.size.height = 1024;
+		mainScrollFrame.origin.x = 20;
+		mainScrollFrame.origin.y = 44;
+		[self.mainScrollView setContentSize:CGSizeMake(690, (1024 + 500))];
+		
+		bgImage = [UIImage imageNamed:@"Default-Portrait.png"];
 		
 	} else {
 		headFrm.origin.x = 20;
@@ -200,9 +213,20 @@ const NSUInteger kNumMaxFeaturedImages	= 6;
 		btnFrm.origin.x = 808;
 		topFrm.origin.x = 20;
 		
-		[self.backgroundImage setImage:[UIImage imageNamed:@"Default-Landscape.png"]];
-		[self.topSellersLabel setFrame:topFrm];
+		mainScrollFrame.size.width = 1024;
+		mainScrollFrame.size.height = 730;
+		mainScrollFrame.origin.x = 0;
+		mainScrollFrame.origin.y = 44;
+		[self.mainScrollView setContentSize:CGSizeMake(1024, (1024 + 500))];
+		
+		bgImage = [UIImage imageNamed:@"Default-Landscape.png"];
 	}
+
+	[self.mainScrollView setFrame:mainScrollFrame];
+	[self.backgroundImage setImage:bgImage];
+	[self.topSellersLabel setFrame:topFrm];
+	[self.headline setFrame:headFrm];
+	[self.pageControl setFrame:pageFrm];
 	
 	if (!_contentLoaded) {
 		
@@ -217,22 +241,33 @@ const NSUInteger kNumMaxFeaturedImages	= 6;
 		NSArray *htmlObj = (NSArray *)[featuredItems objectAtIndex:0];
 		NSString *defHeadline = [htmlObj valueForKey:@"details"];
 		[self.headline setText:defHeadline];
+		
 	}
-	// get top book data
-	//self.topbooks = [appDelegate fetchBookDataFromDB:@"Topbooks" withSortDescriptor:@"title"];
-	
-	// get new release book data
-	//self.newReleases = [appDelegate fetchBookDataFromDB:@"Newreleases" withSortDescriptor:@"title"];
-	
-	// load the grid
-	//[self.theGridView reloadData];
-	
-	// load the book covers
-	//[self loadContentForVisibleCells];
-	//[self.releasesGrid loadContentForVisibleCells];
-	//[self.sellersGrid loadContentForVisibleCells];
 }
 
+-(void)viewDidAppear:(BOOL)animated
+{
+	if (!_topsellersLoaded) {
+		
+		
+			// LOAD UP THE TOP SELLERS
+		[self performSelector:@selector(getTopSellersFromDB:)];
+		
+			//NSLog(@"\nNo. of Top Sellers: %d\n",[self.gridData count]);
+		
+		[self.theGridView reloadData];
+		
+			// ADD THE BOOK GRID VIEW TO THE DISPLAY
+			//[self.topSellersView addSubview:self.theGridView];
+		
+			// SET THE FLAG TO INDICATE TOP SELLERS HAS LOADED
+		_topsellersLoaded = YES;
+		
+	} else {
+		[self.theGridView reloadData];
+	}
+
+}
 
 
 #pragma mark -
@@ -240,20 +275,21 @@ const NSUInteger kNumMaxFeaturedImages	= 6;
 
 // Override to allow orientations other than the default portrait orientation.
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    return YES;
+    return (interfaceOrientation == UIInterfaceOrientationLandscapeLeft);
 }
 
+/*
 -(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
 	
 	CGRect headFrm = [self.headline frame];
 	headFrm.size.width = 337;
 	headFrm.size.height = 21;
-	headFrm.origin.y = 8;
+	headFrm.origin.y = 10;
 	
 	CGRect pageFrm = [self.pageControl frame];
-	pageFrm.size.width = 78;
+	pageFrm.size.width = 100;
 	pageFrm.size.height = 36;
-	pageFrm.origin.y = 1;
+	pageFrm.origin.y = 4;
 	
 	CGRect btnFrm = [self.topSellersButton frame];
 	btnFrm.size.width = 72;
@@ -265,15 +301,23 @@ const NSUInteger kNumMaxFeaturedImages	= 6;
 	topFrm.size.height = 21;
 	topFrm.origin.y = 9;
 	
+	CGRect mainScrollFrame;
+	UIImage *bgImage;
+	
 	if (toInterfaceOrientation == UIInterfaceOrientationPortrait || toInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) {
-		headFrm.origin.x = 80;
-		pageFrm.origin.x = 760;
+		headFrm.origin.x = 95;
+		pageFrm.origin.x = 700;
 		btnFrm.origin.x = 754;
-		topFrm.origin.x = 80;
+		topFrm.origin.x = 95;
 		
-		[self.backgroundImage setImage:[UIImage imageNamed:@"Default-Portrait.png"]];
-		[self.topSellersLabel setFrame:topFrm];
+		mainScrollFrame.size.width = 690;
+		mainScrollFrame.size.height = 1524;
+		mainScrollFrame.origin.x = 20;
+		mainScrollFrame.origin.y = 44;
 		
+		[self.mainScrollView setContentSize:CGSizeMake(690, (1024 + 500))];
+		
+		bgImage = [UIImage imageNamed:@"Default-Portrait.png"];
 		
 	} else {
 		headFrm.origin.x = 20;
@@ -281,17 +325,27 @@ const NSUInteger kNumMaxFeaturedImages	= 6;
 		btnFrm.origin.x = 808;
 		topFrm.origin.x = 20;
 		
-		[self.backgroundImage setImage:[UIImage imageNamed:@"Default-Landscape.png"]];
-		[self.topSellersLabel setFrame:topFrm];
+		mainScrollFrame.size.width = 1024;
+		mainScrollFrame.size.height = 1524;
+		mainScrollFrame.origin.x = 0;
+		mainScrollFrame.origin.y = 44;
 		
+		[self.mainScrollView setContentSize:CGSizeMake(1024, (1024 + 500))];
+		
+		bgImage = [UIImage imageNamed:@"Default-Landscape.png"];
 	}
 	
 	// set all of the ui elements frame sizes
+	//self.mainScrollView.frame = mainScrollFrame;
 	self.headline.frame = headFrm;
 	self.pageControl.frame = pageFrm;
 	self.topSellersButton.frame = btnFrm;
 	self.topSellersLabel.frame = topFrm;
+
+		// SET THE BG IMAGE
+	[self.backgroundImage setImage:bgImage];
 }
+*/
 
 - (void)didReceiveMemoryWarning {
     // Releases the view if it doesn't have a superview.
@@ -307,6 +361,8 @@ const NSUInteger kNumMaxFeaturedImages	= 6;
 
 - (void)dealloc {
     [super dealloc];
+	
+	[backgroundImage release];
 	[topSellersLabel release];
 	//webView.delegate = nil;
 	[webViewItems release];
@@ -314,6 +370,99 @@ const NSUInteger kNumMaxFeaturedImages	= 6;
 	[activityLabel release];
 	//[modalNavController release];
 	[aboutViewController release];
+	[imageView release];
+	[webView release];
+	[mainContainer release];
+	[mainScrollView release];
+	[topSellersView release];
+	[contentView release];
+	[infoButton release];
+	[pageControl release];
+	[featuredItems release];
+	[headline release];
+	[featuredHeadlines release];
+	[webViewController release];
+	[topSellersButton release];
+	[bookButton release];
+	[fetchedResultsController release];
+	[managedObjectContext release];
+	[aboutViewController release];
+	[topSellersController release];
+	[appDelegate release];
+	[networkQueue release];
+	[topbooks release];
+	[gridList release];
+	[webViewItems release];
+	[numberFormatter release];
+	[repeatingTimer release];
+	[selectedBookid release];
+	[selectedBook release];
+	[_gridView release];
+	[gridData release];
+}
+
+
+#pragma mark -
+#pragma mark Grid View Data Source & Delegates
+
+- (NSUInteger) numberOfItemsInGridView: (AQGridView *) aGridView
+{
+    return [self.gridData count];
+}
+
+- (AQGridViewCell *)gridView:(AQGridView *)aGridView cellForItemAtIndex:(NSUInteger)index
+{
+    static NSString * GridCellIdentifier = @"GridCellIdentifier";
+    
+	
+	Book *citem = (Book*)[gridData objectAtIndex:index];
+    AQGridViewCell * cell = nil;
+    BookGridCell *gridCell = (BookGridCell *)[aGridView dequeueReusableCellWithIdentifier: GridCellIdentifier];
+
+		//NSLog(@"\nFeature Title: %@\n",[citem title]);
+	
+	if (gridCell == nil)
+	{
+		gridCell = [[[BookGridCell alloc] initWithFrame: CGRectMake(200.0, 150.0, 200.0, 150.0) 
+										reuseIdentifier: GridCellIdentifier] autorelease];
+		gridCell.selectionStyle = AQGridViewCellSelectionStyleGlow;
+	}
+	gridCell.delegate = self;
+	gridCell.item = citem;
+	
+	cell = gridCell;
+    return cell;
+}
+
+- (void) gridView: (AQGridView *) gridView didSelectItemAtIndex: (NSUInteger) index
+{
+		//self.gridData = [appDelegate fetchBookDataFromDB:@"Book" withSortDescriptor:@"title"];
+		//[self performSelector:@selector(getBooksFromDB:)];
+		//NSLog(@"\nTapped A Book In The Grid!\n\n");
+	
+		// deselect the selected grid cell
+	[self.theGridView deselectItemAtIndex:index animated:NO];
+	
+	BookViewController *viewController = [[BookViewController alloc] initWithNibName:@"BookDetailView" bundle:nil];
+	UINavigationController *modalNavController = [[UINavigationController alloc] initWithRootViewController:viewController];
+	modalNavController.modalPresentationStyle = UIModalPresentationPageSheet;
+		//[modalNavController setNavigationBarHidden:YES];
+	
+		// add book to the presented view
+	viewController.managedObjectContext = self.managedObjectContext;
+	Book *book = (Book*)[gridData objectAtIndex:index];
+	[viewController setBook:book];
+	
+		// Present the Controller Modally	
+	[self presentModalViewController:modalNavController animated:YES];
+	
+	[viewController release];
+		//[modalNavController release];
+}
+
+- (CGSize) portraitGridCellSizeForGridView: (AQGridView *) aGridView
+{
+    return ( CGSizeMake(200.0, 150.0) );
 }
 
 
@@ -536,14 +685,14 @@ const NSUInteger kNumMaxFeaturedImages	= 6;
 	
 	[self.activityIndicator startAnimating];
 	[self.activityLabel setHidden:NO];
-	NSLog(@"Starting agile space load...");
+		//NSLog(@"Starting agile space load...");
 }
 
 -(void)webViewDidFinishLoad:(UIWebView *)wv {
 	
 	[self.activityIndicator stopAnimating];
 	[self.activityLabel setHidden:YES];
-	NSLog(@"load finished!");
+		//NSLog(@"agile space load item finished!");
 }
 
 -(void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
@@ -554,7 +703,7 @@ const NSUInteger kNumMaxFeaturedImages	= 6;
 - (BOOL)webView:(UIWebView*)wv shouldStartLoadWithRequest:(NSURLRequest*)request navigationType:(UIWebViewNavigationType)navigationType {
 	
 	NSError *error;
-	NSInteger fetchCount;
+		//NSInteger fetchCount;
 
 	// detect user content tap
 	if (navigationType == UIWebViewNavigationTypeLinkClicked) {
@@ -584,20 +733,20 @@ const NSUInteger kNumMaxFeaturedImages	= 6;
 				NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
 			
 			// check if we have the book already... if we do, show it. Otherwise download it.
-			fetchCount = [[fetchedResultsController fetchedObjects] count];
+			/* fetchCount = [[fetchedResultsController fetchedObjects] count];
 			if (fetchCount > 0) {
 				
-				NSLog(@"grabbing book from db");
-				NSString *theTitle = [htmlObj valueForKey:@"details"];
-				[self showBook:bookid andTitle:theTitle];
+					NSLog(@"grabbing book from db");
+					//NSString *theTitle = [htmlObj valueForKey:@"details"];
+				[self showBook:bookid];
 				
 			} else {
 				
-				NSLog(@"grabbing book from wowio");
-				[self fetchBookData:bookid];
+					NSLog(@"grabbing book from wowio");
+				[self fetchAgileBookData:bookid];
 				
-			}
-			
+			}*/
+			[self fetchAgileBookData:bookid];
 			// Present the Controller Modally	
 			//[self presentModalViewController:modalNavController animated:YES];
 			//NSURLRequest *urlRequest = [[NSURLRequest alloc] initWithURL:URL];
@@ -612,18 +761,18 @@ const NSUInteger kNumMaxFeaturedImages	= 6;
 #pragma mark -
 #pragma mark Show Book
 
--(void)showBook:(NSNumber*)bookid andTitle:(NSString*)bookTitle {
+-(void)showBook:(NSNumber*)bookid {
 	
 	[self fetchBookDataFromDB:bookid];
-	BookDetailController *viewController = [[BookDetailController alloc] initWithNibName:@"BookView" bundle:nil];
+	BookViewController *viewController = [[BookViewController alloc] initWithNibName:@"BookDetailView" bundle:nil];
 	 
 	//NSLog(@"Selected Book: %@",self.selectedBook);
 	
 		// add book to the presented view
 	viewController.managedObjectContext = self.managedObjectContext;
 	viewController.book = self.selectedBook;
-	viewController.selectedBookid = bookid;
-	viewController.title = bookTitle;
+		//viewController.selectedBookid = bookid;
+	viewController.title = [self.selectedBook title];
 	 
 	
 	// Present the Controller Modally	
@@ -780,7 +929,45 @@ const NSUInteger kNumMaxFeaturedImages	= 6;
 
 
 #pragma mark -
-#pragma mark Fetch Methods
+#pragma mark DB Fetch Methods
+
+-(void)getTopSellersFromDB:(id)sender {
+	
+	NSManagedObjectContext *moc = self.managedObjectContext;
+	NSEntityDescription *entity = [NSEntityDescription entityForName:@"Book" inManagedObjectContext:moc];
+	NSFetchRequest *fetchRequest = [[[NSFetchRequest alloc] init] autorelease];
+	[fetchRequest setEntity:entity];
+	
+		// set the filter predicate
+	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"is_topseller=%d or is_newrelease=%d or is_featured=%d",1,1,1];
+	[fetchRequest setPredicate:predicate];
+	
+	NSSortDescriptor *theDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title" ascending:YES];
+	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:theDescriptor, nil];
+	[fetchRequest setSortDescriptors:sortDescriptors];	
+	
+		// execute the fetch
+	NSError *error;
+	NSMutableArray *mutableFetchResults = [[moc executeFetchRequest:fetchRequest error:&error] mutableCopy];
+	if (mutableFetchResults == nil) {
+		NSLog(@"Houston, we have a problem: 'Top Books' were NOT found in the db!\n");
+	}
+	
+		// clean up after yourself
+		//[predicate release];
+	[theDescriptor release];
+	[sortDescriptors release];
+	
+		// set the book ivar object
+	self.gridData = mutableFetchResults;
+	
+	/*
+	 int bookCnt = [self.gridData count];
+	 NSLog(@"Top Books Fetched Count: %d\n%@",bookCnt);
+	 
+	 [self.theGridView reloadData];
+	 */
+}
 
 -(void)fetchBookData:(NSNumber*)bookid {
 	
@@ -829,10 +1016,58 @@ const NSUInteger kNumMaxFeaturedImages	= 6;
 	NSMutableDictionary *feed = [[CJSONDeserializer deserializer] deserializeAsDictionary:jsonData error:&error];
 	NSMutableArray *obj = (NSMutableArray*)[feed objectForKey:@"bookplus"];
 	
-	NSLog(@"\n%@\n\n",obj);
+		//NSLog(@"\n%@\n\n",obj);
 	
 		// Save Agile book data to the db
 	[self writeBookDataToDB:obj];
+}
+
+-(void)fetchAgileBookData:(NSNumber*)bookid {
+	
+	if ([self internetCheck]) {
+		
+			// initialize the transmission queue
+		[self setNetworkQueue:[ASINetworkQueue queue]];
+		[self.networkQueue cancelAllOperations];
+		[self.networkQueue setDelegate:self];
+		[self.networkQueue setMaxConcurrentOperationCount:5];
+		[self.networkQueue setRequestDidFinishSelector:@selector(agileBookFetchFinished:)];
+		[self.networkQueue setRequestDidFailSelector:@selector(fetchBookFailed:)];
+		
+			// build the request
+		NSString *urlString = [NSString stringWithFormat:@"%@%@",singleBookURL,bookid];
+		ASIHTTPRequest *request = [[[ASIHTTPRequest alloc] 
+									initWithURL:[NSURL 
+												 URLWithString:urlString]] autorelease];
+		[request setTimeOutSeconds:20];
+		[request setRequestMethod:@"GET"];
+		
+			// add the request to the transmission queue and set it off
+		[self.networkQueue addOperation:request];
+		[self.networkQueue go];
+		
+	}
+}
+
+- (void)agileBookFetchFinished:(ASIHTTPRequest *)request
+{
+	
+	NSString *rsltStr = [request responseString];
+		//NSDictionary *responseHeaders = [request responseHeaders];
+		//NSDictionary *requestHeaders = [request requestHeaders];
+	
+		// Convert JSON resultset to Array
+	NSData *jsonData = [rsltStr dataUsingEncoding:NSUTF32BigEndianStringEncoding];
+	NSError *error = nil;
+	NSMutableDictionary *feed = [[CJSONDeserializer deserializer] deserializeAsDictionary:jsonData error:&error];
+	NSMutableArray *obj = (NSMutableArray*)[feed objectForKey:@"bookplus"];
+	
+		//NSLog(@"\n%@\n\n",obj);
+	
+		// Save Agile book data to the db
+	[self writeBookDataToDB:obj];
+	[self performSelector:@selector(showBook:) withObject:self.selectedBookid afterDelay:1.0];
+		//[self showBook:bookid];
 }
 
 
@@ -897,6 +1132,7 @@ const NSUInteger kNumMaxFeaturedImages	= 6;
 	
 	NSNumber *bformatade_epub = [obj valueForKey:@"bformatade_epub"];
 	NSNumber *bformatade_pdf = [obj valueForKey:@"bformatade_pdf"];
+	NSNumber *bformatwowio = [obj valueForKey:@"bformatwowio"];
 	
 	NSString *epub_filesize = [obj valueForKey:@"epub_filesize"];
 	NSNumber *epub_retailprice = [obj valueForKey:@"epub_retailprice"];
@@ -928,6 +1164,9 @@ const NSUInteger kNumMaxFeaturedImages	= 6;
 	
 	if ([bformatade_pdf isKindOfClass:[NSNull class]])
 		bformatade_pdf = 0;
+	
+	if ([bformatwowio isKindOfClass:[NSNull class]])
+		bformatwowio = 0;
 	
 	if ([epub_filesize isKindOfClass:[NSNull class]])
 		epub_filesize = @"";
@@ -964,6 +1203,7 @@ const NSUInteger kNumMaxFeaturedImages	= 6;
 	
 	NSNumber *becommerce = [obj valueForKey:@"becommerce"];
 	NSNumber *bnodrm = [obj valueForKey:@"bnodrm"];
+	NSNumber *bnoimage = [obj valueForKey:@"bnoimage"];
 	NSNumber *bavailable = [obj valueForKey:@"bavailable"];
 	NSNumber *bbooksponsor = [obj valueForKey:@"bbooksponsor"];
 	NSString *isbn = [obj valueForKey:@"isbn"];
@@ -991,6 +1231,7 @@ const NSUInteger kNumMaxFeaturedImages	= 6;
 	[book setAde_pdf_sku13:ade_pdf_sku13];
 	[book setBformatade_epub:bformatade_epub];
 	[book setBformatade_pdf:bformatade_pdf];
+	[book setBformatwowio:bformatwowio];
 	[book setEpub_filesize:epub_filesize];
 	[book setEpub_retailprice:epub_retailprice];
 	[book setEpub_sku13:epub_sku13];
@@ -999,6 +1240,7 @@ const NSUInteger kNumMaxFeaturedImages	= 6;
 	[book setEreader_sku13:ereader_sku13];
 	[book setBecommerce:becommerce];
 	[book setBnodrm:bnodrm];
+	[book setBnoimage:bnoimage];
 	[book setBavailable:bavailable];
 	[book setAvaildate:availdate];
 	[book setBbooksponsor:bbooksponsor];

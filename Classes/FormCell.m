@@ -25,7 +25,7 @@
 		[fldLabel setFont:[UIFont boldSystemFontOfSize:14]];
 		[self.contentView addSubview:fldLabel];
 		
-		fldData = [[UITextField alloc] initWithFrame:CGRectMake(95, 8, 145, 20)];
+		fldData = [[UITextField alloc] initWithFrame:CGRectMake(95, 8, 200, 20)];
 		[fldData setBorderStyle:UITextBorderStyleNone];
 		[fldData setTextColor:[UIColor lightGrayColor]];
 		fldData.backgroundColor = [UIColor clearColor];

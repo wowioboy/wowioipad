@@ -63,6 +63,7 @@
 - (BOOL)internetCheck;
 - (void)updateReachabilityStatus;
 - (void)alertWithMessage:(NSString *)msg withTitle:(NSString *)title;
+- (BOOL)bookInUserLibrary:(NSNumber*)bookid forOrderid:(NSString*)orderid;
 - (NSMutableArray *)fetchBookDataFromDB:(NSString*)tableName 
 					 withSortDescriptor:(NSString*)bookSortDescriptor;
 - (NSMutableArray *)fetchBookDataFromDB:(NSString*)tableName 

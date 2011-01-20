@@ -28,7 +28,6 @@
 		C0068ECC12A6D21000504BDC /* BookView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0068ECB12A6D21000504BDC /* BookView.xib */; };
 		C006909F12A7152E00504BDC /* TiledPDFView.m in Sources */ = {isa = PBXBuildFile; fileRef = C006909C12A7152E00504BDC /* TiledPDFView.m */; };
 		C00690A012A7152E00504BDC /* PDFScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = C006909E12A7152E00504BDC /* PDFScrollView.m */; };
-		C012CEE411E68980004D3166 /* FeaturedBookDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = C012CEE211E68980004D3166 /* FeaturedBookDetail.m */; };
 		C020D6C61267BCD000BF0ABB /* button_save.png in Resources */ = {isa = PBXBuildFile; fileRef = C020D6BD1267BCD000BF0ABB /* button_save.png */; };
 		C020D6C71267BCD000BF0ABB /* button_read.png in Resources */ = {isa = PBXBuildFile; fileRef = C020D6BE1267BCD000BF0ABB /* button_read.png */; };
 		C020D6C81267BCD000BF0ABB /* button_preview.png in Resources */ = {isa = PBXBuildFile; fileRef = C020D6BF1267BCD000BF0ABB /* button_preview.png */; };
@@ -59,7 +58,6 @@
 		C023964711BEC91500AD0E2C /* wowio_iPad_background.png in Resources */ = {isa = PBXBuildFile; fileRef = C023963911BEC91500AD0E2C /* wowio_iPad_background.png */; };
 		C023964B11BEC93700AD0E2C /* bkup-Default-Portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = C023964811BEC93700AD0E2C /* bkup-Default-Portrait.png */; };
 		C023964C11BEC93700AD0E2C /* bkup-Default-Landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = C023964911BEC93700AD0E2C /* bkup-Default-Landscape.png */; };
-		C023964D11BEC93700AD0E2C /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = C023964A11BEC93700AD0E2C /* Icon.png */; };
 		C023966611BECFF400AD0E2C /* LibraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C023966411BECFF400AD0E2C /* LibraryViewController.m */; };
 		C023966711BECFF400AD0E2C /* LibraryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C023966511BECFF400AD0E2C /* LibraryView.xib */; };
 		C023966B11BED00900AD0E2C /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C023966911BED00900AD0E2C /* SettingsViewController.m */; };
@@ -175,8 +173,6 @@
 		C03C3E4E124AC68300392D59 /* catergory_0_sponsoredBG.png in Resources */ = {isa = PBXBuildFile; fileRef = C03C3E4C124AC68300392D59 /* catergory_0_sponsoredBG.png */; };
 		C04C116711C83D40004F1EDC /* promo_04.png in Resources */ = {isa = PBXBuildFile; fileRef = C04C116611C83D40004F1EDC /* promo_04.png */; };
 		C05517B711EA3531009E1673 /* CategoryBookGridCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C05517B611EA3531009E1673 /* CategoryBookGridCell.m */; };
-		C0583A5A123EA7160071FC7A /* BookDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0583A58123EA7160071FC7A /* BookDetailController.m */; };
-		C0583A5B123EA7160071FC7A /* BookDetailController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0583A59123EA7160071FC7A /* BookDetailController.xib */; };
 		C0618D2711DA7F6A000CDDDE /* CategoryDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0618D2511DA7F6A000CDDDE /* CategoryDetailViewController.m */; };
 		C0618D2811DA7F6A000CDDDE /* CategoryDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0618D2611DA7F6A000CDDDE /* CategoryDetailView.xib */; };
 		C0618D3E11DA8DE5000CDDDE /* Categorybooks.m in Sources */ = {isa = PBXBuildFile; fileRef = C0618D3D11DA8DE5000CDDDE /* Categorybooks.m */; };
@@ -211,8 +207,6 @@
 		C07242F811C16A3C00DA3077 /* CJSONDataSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = C07242ED11C16A3C00DA3077 /* CJSONDataSerializer.m */; };
 		C07242F911C16A3C00DA3077 /* CSerializedJSONData.m in Sources */ = {isa = PBXBuildFile; fileRef = C07242EF11C16A3C00DA3077 /* CSerializedJSONData.m */; };
 		C07242FA11C16A3C00DA3077 /* CDataScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = C07242F111C16A3C00DA3077 /* CDataScanner.m */; };
-		C072432011C16B5100DA3077 /* LoadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C072431E11C16B5100DA3077 /* LoadingViewController.m */; };
-		C072432111C16B5100DA3077 /* LoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C072431F11C16B5100DA3077 /* LoadingView.xib */; };
 		C072433911C17C8D00DA3077 /* BookCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C072433811C17C8D00DA3077 /* BookCell.m */; };
 		C072433B11C17CD100DA3077 /* BookCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C072433A11C17CD100DA3077 /* BookCell.xib */; };
 		C072439C11C19F0C00DA3077 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C072439B11C19F0C00DA3077 /* CoreData.framework */; };
@@ -224,6 +218,7 @@
 		C07B302B125BE05A00004242 /* libshelves.png in Resources */ = {isa = PBXBuildFile; fileRef = C07B302A125BE05A00004242 /* libshelves.png */; };
 		C09FB8DB12258E1A00CB783B /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C09FB8DA12258E1A00CB783B /* WebViewController.m */; };
 		C09FB92D1225EFDA00CB783B /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C09FB92C1225EFDA00CB783B /* Settings.bundle */; };
+		C0A4798212B41D2500608C3C /* FirstTimeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0A4798112B41D2500608C3C /* FirstTimeView.xib */; };
 		C0A6673F11D32BBB003C2D06 /* Sponsored.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A6673211D32BBB003C2D06 /* Sponsored.m */; };
 		C0A6674011D32BBB003C2D06 /* Topbooks.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A6673411D32BBB003C2D06 /* Topbooks.m */; };
 		C0A6674111D32BBB003C2D06 /* brainbytes.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A6673611D32BBB003C2D06 /* brainbytes.m */; };
@@ -239,7 +234,6 @@
 		C0CA5F121243DBAD0039062B /* TopSellersDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0CA5F101243DBAD0039062B /* TopSellersDetailView.xib */; };
 		C0CA5F161243DBD10039062B /* NewReleasesController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CA5F141243DBD10039062B /* NewReleasesController.m */; };
 		C0CA5F171243DBD10039062B /* NewReleasesController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0CA5F151243DBD10039062B /* NewReleasesController.xib */; };
-		C0DD7B9F11DB85B700AC1108 /* Library.m in Sources */ = {isa = PBXBuildFile; fileRef = C0DD7B9E11DB85B700AC1108 /* Library.m */; };
 		C0DD7C2711DBD79C00AC1108 /* GridCellSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = C0DD7C2611DBD79C00AC1108 /* GridCellSelector.m */; };
 		C0DD7C6511DBEB8400AC1108 /* BookDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0DD7C6411DBEB8400AC1108 /* BookDetailView.xib */; };
 		C0DD7C6911DBF0D000AC1108 /* BookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0DD7C6811DBF0D000AC1108 /* BookViewController.m */; };
@@ -264,9 +258,18 @@
 		C0EF6B9E11EC3317005D3037 /* defbook.png in Resources */ = {isa = PBXBuildFile; fileRef = C0EF6B9D11EC3317005D3037 /* defbook.png */; };
 		C0F2F00B11DF72EB00E452FB /* SettingsMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0F2F00A11DF72EB00E452FB /* SettingsMenuViewController.m */; };
 		C0F2F00E11DF732400E452FB /* SettingsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0F2F00D11DF732400E452FB /* SettingsDetailViewController.m */; };
+		C0F4BDEB12D207D900077CE0 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = C0F4BDEA12D207D900077CE0 /* Icon.png */; };
 		C0F6CC7B1231C7DD00669799 /* GridColors.m in Sources */ = {isa = PBXBuildFile; fileRef = C0F6CC7A1231C7DD00669799 /* GridColors.m */; };
 		C0F7BE0B125635F500779AE0 /* 1001ArabianNiSinba02_9826901.pdf in Resources */ = {isa = PBXBuildFile; fileRef = C0F7BE0A125635F500779AE0 /* 1001ArabianNiSinba02_9826901.pdf */; };
 		C0F8F6FF121B506600D454CB /* Agilespace.m in Sources */ = {isa = PBXBuildFile; fileRef = C0F8F6FE121B506600D454CB /* Agilespace.m */; };
+		C0F9436412AE152C0004651E /* wowio_iPad_icon-app_02.png in Resources */ = {isa = PBXBuildFile; fileRef = C0F9436012AE152C0004651E /* wowio_iPad_icon-app_02.png */; };
+		C0F9436512AE152C0004651E /* wowio_iPad_icon-doc-64_02.png in Resources */ = {isa = PBXBuildFile; fileRef = C0F9436112AE152C0004651E /* wowio_iPad_icon-doc-64_02.png */; };
+		C0F9436612AE152C0004651E /* wowio_iPad_icon-settings_02.png in Resources */ = {isa = PBXBuildFile; fileRef = C0F9436212AE152C0004651E /* wowio_iPad_icon-settings_02.png */; };
+		C0F9436712AE152C0004651E /* wowio_iPad_icon-spotlight_02.png in Resources */ = {isa = PBXBuildFile; fileRef = C0F9436312AE152C0004651E /* wowio_iPad_icon-spotlight_02.png */; };
+		C0F9436912AE159A0004651E /* wowio_iPad_icon-doc-320_02.png in Resources */ = {isa = PBXBuildFile; fileRef = C0F9436812AE159A0004651E /* wowio_iPad_icon-doc-320_02.png */; };
+		C0F9437F12AE18ED0004651E /* README.textile in Resources */ = {isa = PBXBuildFile; fileRef = C0F9437E12AE18ED0004651E /* README.textile */; };
+		DB71CB6B12B050B6008EF27A /* Library.m in Sources */ = {isa = PBXBuildFile; fileRef = DB71CB6A12B050B6008EF27A /* Library.m */; };
+		DBA8224B12C938B200F372DB /* TopSellersView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DBA8224A12C938B200F372DB /* TopSellersView.xib */; };
 		DBC5BE5312AD86E100724504 /* Book.m in Sources */ = {isa = PBXBuildFile; fileRef = DBC5BE5212AD86E100724504 /* Book.m */; };
 		DBE477B01296F7D7006EEFE2 /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = DBE4779B1296F7D7006EEFE2 /* ASIAuthenticationDialog.m */; };
 		DBE477B11296F7D7006EEFE2 /* ASIDataCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = DBE4779E1296F7D7006EEFE2 /* ASIDataCompressor.m */; };
@@ -314,8 +317,6 @@
 		C006909C12A7152E00504BDC /* TiledPDFView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TiledPDFView.m; sourceTree = "<group>"; };
 		C006909D12A7152E00504BDC /* PDFScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDFScrollView.h; sourceTree = "<group>"; };
 		C006909E12A7152E00504BDC /* PDFScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDFScrollView.m; sourceTree = "<group>"; };
-		C012CEE111E68980004D3166 /* FeaturedBookDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeaturedBookDetail.h; sourceTree = "<group>"; };
-		C012CEE211E68980004D3166 /* FeaturedBookDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeaturedBookDetail.m; sourceTree = "<group>"; };
 		C020D6BD1267BCD000BF0ABB /* button_save.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_save.png; sourceTree = "<group>"; };
 		C020D6BE1267BCD000BF0ABB /* button_read.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_read.png; sourceTree = "<group>"; };
 		C020D6BF1267BCD000BF0ABB /* button_preview.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_preview.png; sourceTree = "<group>"; };
@@ -346,7 +347,6 @@
 		C023963911BEC91500AD0E2C /* wowio_iPad_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wowio_iPad_background.png; sourceTree = "<group>"; };
 		C023964811BEC93700AD0E2C /* bkup-Default-Portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bkup-Default-Portrait.png"; sourceTree = "<group>"; };
 		C023964911BEC93700AD0E2C /* bkup-Default-Landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bkup-Default-Landscape.png"; sourceTree = "<group>"; };
-		C023964A11BEC93700AD0E2C /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		C023966311BECFF400AD0E2C /* LibraryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LibraryViewController.h; sourceTree = "<group>"; };
 		C023966411BECFF400AD0E2C /* LibraryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LibraryViewController.m; sourceTree = "<group>"; };
 		C023966511BECFF400AD0E2C /* LibraryView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = LibraryView.xib; path = Classes/LibraryView.xib; sourceTree = "<group>"; };
@@ -474,9 +474,6 @@
 		C055170011E97321009E1673 /* CategorybooksDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategorybooksDelegate.h; sourceTree = "<group>"; };
 		C05517B511EA3531009E1673 /* CategoryBookGridCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryBookGridCell.h; sourceTree = "<group>"; };
 		C05517B611EA3531009E1673 /* CategoryBookGridCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryBookGridCell.m; sourceTree = "<group>"; };
-		C0583A57123EA7160071FC7A /* BookDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookDetailController.h; sourceTree = "<group>"; };
-		C0583A58123EA7160071FC7A /* BookDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookDetailController.m; sourceTree = "<group>"; };
-		C0583A59123EA7160071FC7A /* BookDetailController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = BookDetailController.xib; path = Classes/BookDetailController.xib; sourceTree = "<group>"; };
 		C060ED8011DE6806003EECAA /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 		C0618D2411DA7F6A000CDDDE /* CategoryDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryDetailViewController.h; sourceTree = "<group>"; };
 		C0618D2511DA7F6A000CDDDE /* CategoryDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryDetailViewController.m; sourceTree = "<group>"; };
@@ -538,9 +535,6 @@
 		C07242EF11C16A3C00DA3077 /* CSerializedJSONData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSerializedJSONData.m; sourceTree = "<group>"; };
 		C07242F011C16A3C00DA3077 /* CDataScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDataScanner.h; sourceTree = "<group>"; };
 		C07242F111C16A3C00DA3077 /* CDataScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDataScanner.m; sourceTree = "<group>"; };
-		C072431D11C16B5100DA3077 /* LoadingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingViewController.h; sourceTree = "<group>"; };
-		C072431E11C16B5100DA3077 /* LoadingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingViewController.m; sourceTree = "<group>"; };
-		C072431F11C16B5100DA3077 /* LoadingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = LoadingView.xib; path = Classes/LoadingView.xib; sourceTree = "<group>"; };
 		C072433711C17C8D00DA3077 /* BookCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BookCell.h; path = ../BookCell.h; sourceTree = "<group>"; };
 		C072433811C17C8D00DA3077 /* BookCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BookCell.m; path = ../BookCell.m; sourceTree = "<group>"; };
 		C072433A11C17CD100DA3077 /* BookCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookCell.xib; sourceTree = "<group>"; };
@@ -558,6 +552,7 @@
 		C09FB8D912258E1A00CB783B /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		C09FB8DA12258E1A00CB783B /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 		C09FB92C1225EFDA00CB783B /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		C0A4798112B41D2500608C3C /* FirstTimeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FirstTimeView.xib; sourceTree = "<group>"; };
 		C0A6673111D32BBB003C2D06 /* Sponsored.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sponsored.h; sourceTree = "<group>"; };
 		C0A6673211D32BBB003C2D06 /* Sponsored.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sponsored.m; sourceTree = "<group>"; };
 		C0A6673311D32BBB003C2D06 /* Topbooks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Topbooks.h; sourceTree = "<group>"; };
@@ -586,8 +581,6 @@
 		C0CA5F131243DBD10039062B /* NewReleasesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewReleasesController.h; sourceTree = "<group>"; };
 		C0CA5F141243DBD10039062B /* NewReleasesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewReleasesController.m; sourceTree = "<group>"; };
 		C0CA5F151243DBD10039062B /* NewReleasesController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = NewReleasesController.xib; path = Classes/NewReleasesController.xib; sourceTree = "<group>"; };
-		C0DD7B9D11DB85B700AC1108 /* Library.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Library.h; sourceTree = "<group>"; };
-		C0DD7B9E11DB85B700AC1108 /* Library.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Library.m; sourceTree = "<group>"; };
 		C0DD7C2511DBD79C00AC1108 /* GridCellSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridCellSelector.h; sourceTree = "<group>"; };
 		C0DD7C2611DBD79C00AC1108 /* GridCellSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridCellSelector.m; sourceTree = "<group>"; };
 		C0DD7C6411DBEB8400AC1108 /* BookDetailView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookDetailView.xib; sourceTree = "<group>"; };
@@ -617,11 +610,21 @@
 		C0F2F00A11DF72EB00E452FB /* SettingsMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsMenuViewController.m; sourceTree = "<group>"; };
 		C0F2F00C11DF732400E452FB /* SettingsDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsDetailViewController.h; sourceTree = "<group>"; };
 		C0F2F00D11DF732400E452FB /* SettingsDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsDetailViewController.m; sourceTree = "<group>"; };
+		C0F4BDEA12D207D900077CE0 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		C0F6CC791231C7DD00669799 /* GridColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridColors.h; sourceTree = "<group>"; };
 		C0F6CC7A1231C7DD00669799 /* GridColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridColors.m; sourceTree = "<group>"; };
 		C0F7BE0A125635F500779AE0 /* 1001ArabianNiSinba02_9826901.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = 1001ArabianNiSinba02_9826901.pdf; sourceTree = "<group>"; };
 		C0F8F6FD121B506600D454CB /* Agilespace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Agilespace.h; sourceTree = "<group>"; };
 		C0F8F6FE121B506600D454CB /* Agilespace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Agilespace.m; sourceTree = "<group>"; };
+		C0F9436012AE152C0004651E /* wowio_iPad_icon-app_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wowio_iPad_icon-app_02.png"; sourceTree = "<group>"; };
+		C0F9436112AE152C0004651E /* wowio_iPad_icon-doc-64_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wowio_iPad_icon-doc-64_02.png"; sourceTree = "<group>"; };
+		C0F9436212AE152C0004651E /* wowio_iPad_icon-settings_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wowio_iPad_icon-settings_02.png"; sourceTree = "<group>"; };
+		C0F9436312AE152C0004651E /* wowio_iPad_icon-spotlight_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wowio_iPad_icon-spotlight_02.png"; sourceTree = "<group>"; };
+		C0F9436812AE159A0004651E /* wowio_iPad_icon-doc-320_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wowio_iPad_icon-doc-320_02.png"; sourceTree = "<group>"; };
+		C0F9437E12AE18ED0004651E /* README.textile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.textile; sourceTree = "<group>"; };
+		DB71CB6912B050B6008EF27A /* Library.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Library.h; sourceTree = "<group>"; };
+		DB71CB6A12B050B6008EF27A /* Library.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Library.m; sourceTree = "<group>"; };
+		DBA8224A12C938B200F372DB /* TopSellersView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TopSellersView.xib; sourceTree = "<group>"; };
 		DBC5BE5112AD86E100724504 /* Book.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Book.h; sourceTree = "<group>"; };
 		DBC5BE5212AD86E100724504 /* Book.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Book.m; sourceTree = "<group>"; };
 		DBE4779A1296F7D7006EEFE2 /* ASIAuthenticationDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIAuthenticationDialog.h; sourceTree = "<group>"; };
@@ -700,6 +703,7 @@
 		29B97314FDCFA39411CA2CEA /* WOWIO */ = {
 			isa = PBXGroup;
 			children = (
+				C0F9437E12AE18ED0004651E /* README.textile */,
 				C07242A411C1652D00DA3077 /* Data & Models */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
@@ -726,10 +730,10 @@
 				C0618E5B11DAB2C9000CDDDE /* Views */,
 				C023962B11BEC8FE00AD0E2C /* Images */,
 				C023964811BEC93700AD0E2C /* bkup-Default-Portrait.png */,
+				C0F4BDEA12D207D900077CE0 /* Icon.png */,
 				C023964911BEC93700AD0E2C /* bkup-Default-Landscape.png */,
 				C03C3D51124AB68500392D59 /* Default-Portrait.png */,
 				C03C3D50124AB68500392D59 /* Default-Landscape.png */,
-				C023964A11BEC93700AD0E2C /* Icon.png */,
 				28AD73870D9D96C1002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* WOWIO-Info.plist */,
 				C02396C811BEDCF500AD0E2C /* DevEntitlements.plist */,
@@ -836,6 +840,11 @@
 				C023963311BEC91500AD0E2C /* wowio_iPad_icon-doc-320.png */,
 				C023963411BEC91500AD0E2C /* wowio_iPad_icon-settings.png */,
 				C023963511BEC91500AD0E2C /* wowio_iPad_icon-spotlight.png */,
+				C0F9436012AE152C0004651E /* wowio_iPad_icon-app_02.png */,
+				C0F9436812AE159A0004651E /* wowio_iPad_icon-doc-320_02.png */,
+				C0F9436112AE152C0004651E /* wowio_iPad_icon-doc-64_02.png */,
+				C0F9436212AE152C0004651E /* wowio_iPad_icon-settings_02.png */,
+				C0F9436312AE152C0004651E /* wowio_iPad_icon-spotlight_02.png */,
 				C023963711BEC91500AD0E2C /* promo_01.png */,
 				C023963811BEC91500AD0E2C /* promo_02.png */,
 				C023963611BEC91500AD0E2C /* promo_03.png */,
@@ -995,19 +1004,19 @@
 				C00279321268D0220095E3A6 /* AboutView.xib */,
 				C072433A11C17CD100DA3077 /* BookCell.xib */,
 				C0DD7C6411DBEB8400AC1108 /* BookDetailView.xib */,
-				C0583A59123EA7160071FC7A /* BookDetailController.xib */,
 				C0068ECB12A6D21000504BDC /* BookView.xib */,
 				282CCBFD0DB6C98000C4EA27 /* CategoriesView.xib */,
 				C0618D2611DA7F6A000CDDDE /* CategoryDetailView.xib */,
 				28D4B067107A5DE70093E739 /* FeaturesView.xib */,
+				C0A4798112B41D2500608C3C /* FirstTimeView.xib */,
 				C023966511BECFF400AD0E2C /* LibraryView.xib */,
 				C0A8C8A911C2B6E70059205F /* LoginView.xib */,
-				C072431F11C16B5100DA3077 /* LoadingView.xib */,
 				C0CA5F151243DBD10039062B /* NewReleasesController.xib */,
 				C0779790123717B000E79AB4 /* PDFView.xib */,
 				C023966A11BED00900AD0E2C /* SettingsView.xib */,
 				C0CA5F101243DBAD0039062B /* TopSellersDetailView.xib */,
 				C077972A1236C2B600E79AB4 /* WebView.xib */,
+				DBA8224A12C938B200F372DB /* TopSellersView.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1041,8 +1050,8 @@
 				C02C23D711D580120080BC74 /* Featuredbooks.m */,
 				C02C23DA11D580120080BC74 /* Featuredpublishers.h */,
 				C02C23DB11D580120080BC74 /* Featuredpublishers.m */,
-				C0DD7B9D11DB85B700AC1108 /* Library.h */,
-				C0DD7B9E11DB85B700AC1108 /* Library.m */,
+				DB71CB6912B050B6008EF27A /* Library.h */,
+				DB71CB6A12B050B6008EF27A /* Library.m */,
 				C033E2B61233942D0051D267 /* LibraryDelegate.h */,
 				C0A6673B11D32BBB003C2D06 /* Newreleases.h */,
 				C0A6673C11D32BBB003C2D06 /* Newreleases.m */,
@@ -1140,22 +1149,16 @@
 				C0F2F00811DF728F00E452FB /* Settings */,
 				C00279301268D0220095E3A6 /* AboutViewController.h */,
 				C00279311268D0220095E3A6 /* AboutViewController.m */,
-				C0583A57123EA7160071FC7A /* BookDetailController.h */,
-				C0583A58123EA7160071FC7A /* BookDetailController.m */,
 				C0DD7C6711DBF0D000AC1108 /* BookViewController.h */,
 				C0DD7C6811DBF0D000AC1108 /* BookViewController.m */,
 				284F763F10B34E8A00D7BA5B /* CategoriesViewController.h */,
 				284F764010B34E8A00D7BA5B /* CategoriesViewController.m */,
 				C0618D2411DA7F6A000CDDDE /* CategoryDetailViewController.h */,
 				C0618D2511DA7F6A000CDDDE /* CategoryDetailViewController.m */,
-				C012CEE111E68980004D3166 /* FeaturedBookDetail.h */,
-				C012CEE211E68980004D3166 /* FeaturedBookDetail.m */,
 				28216C950DB411BC00E5133A /* FeaturesViewController.h */,
 				28216C960DB411BC00E5133A /* FeaturesViewController.m */,
 				C023966311BECFF400AD0E2C /* LibraryViewController.h */,
 				C023966411BECFF400AD0E2C /* LibraryViewController.m */,
-				C072431D11C16B5100DA3077 /* LoadingViewController.h */,
-				C072431E11C16B5100DA3077 /* LoadingViewController.m */,
 				C0A8C8A711C2B6E70059205F /* LoginViewController.h */,
 				C0A8C8A811C2B6E70059205F /* LoginViewController.m */,
 				C0CA5F131243DBD10039062B /* NewReleasesController.h */,
@@ -1307,11 +1310,9 @@
 				C023964711BEC91500AD0E2C /* wowio_iPad_background.png in Resources */,
 				C023964B11BEC93700AD0E2C /* bkup-Default-Portrait.png in Resources */,
 				C023964C11BEC93700AD0E2C /* bkup-Default-Landscape.png in Resources */,
-				C023964D11BEC93700AD0E2C /* Icon.png in Resources */,
 				C023966711BECFF400AD0E2C /* LibraryView.xib in Resources */,
 				C023966C11BED00900AD0E2C /* SettingsView.xib in Resources */,
 				C02396C911BEDCF500AD0E2C /* DevEntitlements.plist in Resources */,
-				C072432111C16B5100DA3077 /* LoadingView.xib in Resources */,
 				C072433B11C17CD100DA3077 /* BookCell.xib in Resources */,
 				C0A8C8A511C2B6460059205F /* login_bg-1024x1024.png in Resources */,
 				C0A8C8AB11C2B6E70059205F /* LoginView.xib in Resources */,
@@ -1355,7 +1356,6 @@
 				C033E23A123307700051D267 /* 0.png in Resources */,
 				C077972B1236C2B600E79AB4 /* WebView.xib in Resources */,
 				C0779792123717B000E79AB4 /* PDFView.xib in Resources */,
-				C0583A5B123EA7160071FC7A /* BookDetailController.xib in Resources */,
 				C0CA5F121243DBAD0039062B /* TopSellersDetailView.xib in Resources */,
 				C0CA5F171243DBD10039062B /* NewReleasesController.xib in Resources */,
 				C03C3D52124AB68500392D59 /* Default-Landscape.png in Resources */,
@@ -1474,6 +1474,15 @@
 				C002794C1268DF9B0095E3A6 /* about_close.png in Resources */,
 				C002794D1268DF9B0095E3A6 /* about_bg.png in Resources */,
 				C0068ECC12A6D21000504BDC /* BookView.xib in Resources */,
+				C0F9436412AE152C0004651E /* wowio_iPad_icon-app_02.png in Resources */,
+				C0F9436512AE152C0004651E /* wowio_iPad_icon-doc-64_02.png in Resources */,
+				C0F9436612AE152C0004651E /* wowio_iPad_icon-settings_02.png in Resources */,
+				C0F9436712AE152C0004651E /* wowio_iPad_icon-spotlight_02.png in Resources */,
+				C0F9436912AE159A0004651E /* wowio_iPad_icon-doc-320_02.png in Resources */,
+				C0F9437F12AE18ED0004651E /* README.textile in Resources */,
+				C0A4798212B41D2500608C3C /* FirstTimeView.xib in Resources */,
+				DBA8224B12C938B200F372DB /* TopSellersView.xib in Resources */,
+				C0F4BDEB12D207D900077CE0 /* Icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1500,7 +1509,6 @@
 				C07242F811C16A3C00DA3077 /* CJSONDataSerializer.m in Sources */,
 				C07242F911C16A3C00DA3077 /* CSerializedJSONData.m in Sources */,
 				C07242FA11C16A3C00DA3077 /* CDataScanner.m in Sources */,
-				C072432011C16B5100DA3077 /* LoadingViewController.m in Sources */,
 				C072433911C17C8D00DA3077 /* BookCell.m in Sources */,
 				C0A8C8AA11C2B6E70059205F /* LoginViewController.m in Sources */,
 				C0A8C8B811C2B7600059205F /* FormCell.m in Sources */,
@@ -1528,12 +1536,10 @@
 				C0618E7511DABAED000CDDDE /* CategoryGridCell.m in Sources */,
 				C0618ED111DAC812000CDDDE /* NSIndexSet+AQIndexesOutsideSet.m in Sources */,
 				C0618F0011DAD34C000CDDDE /* BookGridCell.m in Sources */,
-				C0DD7B9F11DB85B700AC1108 /* Library.m in Sources */,
 				C0DD7C2711DBD79C00AC1108 /* GridCellSelector.m in Sources */,
 				C0DD7C6911DBF0D000AC1108 /* BookViewController.m in Sources */,
 				C0F2F00B11DF72EB00E452FB /* SettingsMenuViewController.m in Sources */,
 				C0F2F00E11DF732400E452FB /* SettingsDetailViewController.m in Sources */,
-				C012CEE411E68980004D3166 /* FeaturedBookDetail.m in Sources */,
 				C05517B711EA3531009E1673 /* CategoryBookGridCell.m in Sources */,
 				C0F8F6FF121B506600D454CB /* Agilespace.m in Sources */,
 				C09FB8DB12258E1A00CB783B /* WebViewController.m in Sources */,
@@ -1541,7 +1547,6 @@
 				C0779791123717B000E79AB4 /* PDFReaderController.m in Sources */,
 				C079C652123A961300C0AFBA /* LibraryGridCell.m in Sources */,
 				C079C6AB123AD3B000C0AFBA /* Base64.m in Sources */,
-				C0583A5A123EA7160071FC7A /* BookDetailController.m in Sources */,
 				C0CA5F111243DBAD0039062B /* TopSellersController.m in Sources */,
 				C0CA5F161243DBD10039062B /* NewReleasesController.m in Sources */,
 				C02BC3FC1263D2020062EAA5 /* NewReleasesBookDetail.m in Sources */,
@@ -1561,6 +1566,7 @@
 				C006909F12A7152E00504BDC /* TiledPDFView.m in Sources */,
 				C00690A012A7152E00504BDC /* PDFScrollView.m in Sources */,
 				DBC5BE5312AD86E100724504 /* Book.m in Sources */,
+				DB71CB6B12B050B6008EF27A /* Library.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1583,8 +1589,8 @@
 				HEADER_SEARCH_PATHS = "${SDK_DIR}/usr/include/libxml2";
 				INFOPLIST_FILE = "WOWIO-Info.plist";
 				PRODUCT_NAME = WOWIO;
-				PROVISIONING_PROFILE = "DE0CAE3C-6FC5-4E7F-9AF3-23CF4C1849DD";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "DE0CAE3C-6FC5-4E7F-9AF3-23CF4C1849DD";
+				PROVISIONING_PROFILE = "21E5F5B5-0954-4BA7-8B6C-991A4CBB5680";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "21E5F5B5-0954-4BA7-8B6C-991A4CBB5680";
 				SDKROOT = iphoneos4.2;
 			};
 			name = Debug;
@@ -1652,8 +1658,8 @@
 		C060ED9011DE6841003EECAA /* Ad-hoc */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_ENTITLEMENTS = "~/Desktop/Dropbox/Projects/iPad/WOWIO/Entitlements.plist";
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: WOWIO, LLC";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: WOWIO, LLC";
 				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
@@ -1662,6 +1668,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = WOWIO_Prefix.pch;
+				HEADER_SEARCH_PATHS = "${SDK_DIR}/usr/include/libxml2";
 				INFOPLIST_FILE = "WOWIO-Info.plist";
 				PRODUCT_NAME = WOWIO;
 				PROVISIONING_PROFILE = "DDDBC824-B6BF-4947-8B01-7A5A76027256";
@@ -1669,6 +1676,43 @@
 				SDKROOT = iphoneos4.2;
 			};
 			name = "Ad-hoc";
+		};
+		C0F4BDAC12D1B04E00077CE0 /* App Store */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				"ARCHS[sdk=iphoneos*]" = armv7;
+				"ARCHS[sdk=iphonesimulator*]" = i386;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = iphoneos3.2;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = "App Store";
+		};
+		C0F4BDAD12D1B04E00077CE0 /* App Store */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: WOWIO, LLC";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: WOWIO, LLC";
+				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = WOWIO_Prefix.pch;
+				HEADER_SEARCH_PATHS = "${SDK_DIR}/usr/include/libxml2";
+				INFOPLIST_FILE = "WOWIO-Info.plist";
+				PRODUCT_NAME = WOWIO;
+				PROVISIONING_PROFILE = "7929AAB2-8503-4BF2-A97F-17FC8BCC1A80";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7929AAB2-8503-4BF2-A97F-17FC8BCC1A80";
+				SDKROOT = iphoneos4.2;
+			};
+			name = "App Store";
 		};
 /* End XCBuildConfiguration section */
 
@@ -1678,6 +1722,7 @@
 			buildConfigurations = (
 				1D6058940D05DD3E006BFB54 /* Debug */,
 				C060ED9011DE6841003EECAA /* Ad-hoc */,
+				C0F4BDAD12D1B04E00077CE0 /* App Store */,
 				1D6058950D05DD3E006BFB54 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -1688,6 +1733,7 @@
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,
 				C060ED8F11DE6841003EECAA /* Ad-hoc */,
+				C0F4BDAC12D1B04E00077CE0 /* App Store */,
 				C01FCF5008A954540054247B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;

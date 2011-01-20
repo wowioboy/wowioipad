@@ -48,11 +48,14 @@
 #import <QuartzCore/QuartzCore.h>
 
 @implementation PDFScrollView
-
+@synthesize theFile;
 
 - (id)initWithFrame:(CGRect)frame
 {
     if ((self = [super initWithFrame:frame])) {
+		
+		int pgcount;
+		//int currentpg;
 		
 		// Set up the UIScrollView
         self.showsVerticalScrollIndicator = NO;
@@ -65,12 +68,15 @@
 		self.minimumZoomScale = .25;
 		
 		// Open the PDF document
-		NSURL *pdfURL = [[NSBundle mainBundle] URLForResource:@"1001ArabianNiSinba02_9826901.pdf" withExtension:nil];
+		NSURL *pdfURL = [[NSBundle mainBundle] URLForResource:testPDF withExtension:nil];
 		pdf = CGPDFDocumentCreateWithURL((CFURLRef)pdfURL);
 		
 		// Get the PDF Page that we will be drawing
-		page = CGPDFDocumentGetPage(pdf, 1);
+		page = CGPDFDocumentGetPage(pdf, 10);
 		CGPDFPageRetain(page);
+		
+		pgcount = CGPDFDocumentGetNumberOfPages(pdf);
+		NSLog(@"Page %d of %d",10,pgcount);
 		
 		// determine the size of the PDF page
 		CGRect pageRect = CGPDFPageGetBoxRect(page, kCGPDFMediaBox);
@@ -114,7 +120,6 @@
 		// Create the TiledPDFView based on the size of the PDF page and scale it to fit the view.
 		pdfView = [[TiledPDFView alloc] initWithFrame:pageRect andScale:pdfScale];
 		[pdfView setPage:page];
-		
 		[self addSubview:pdfView];
     }
     return self;

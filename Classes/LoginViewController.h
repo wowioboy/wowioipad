@@ -86,6 +86,7 @@
 -(void)fetchFeatures;
 -(BOOL)internetCheck;
 
+-(BOOL)bookInUserLibrary:(NSNumber*)bookid forOrderid:(NSNumber*)orderid;
 -(void)removeData:(NSString*)theEntity;
 -(void)removeBookData:(NSString*)theEntity forFilter:(NSString*)theFilter;
 -(void)writeUserDetailsToPlist:(NSDictionary *)ud;

@@ -70,31 +70,31 @@
 		</data>
 		<key>AboutView.nib</key>
 		<data>
-		C/0gsvfk9ravkc8s9hZ0OhQfSFU=
+		PMfXddfWJzABUGS4TE+m75ogbr8=
 		</data>
 		<key>BookCell.nib</key>
 		<data>
-		v6Q8MFAnMESdlDGnRWTmJzq8798=
+		X3K/NBNke6BxnIabA+yzdJbNAmw=
 		</data>
 		<key>BookDetailController.nib</key>
 		<data>
-		zAr1FTt0EX/F68El1zxgBY3Zb3k=
+		leqx18p2fFTwUedm8hYMPAjt4HQ=
 		</data>
 		<key>BookDetailView.nib</key>
 		<data>
-		e2qbEjFBBuURYdZKPHLg7JwZJ24=
+		8TrunQffF8SR4Z1eb58H/kjncLE=
 		</data>
 		<key>BookView.nib</key>
 		<data>
-		o1MfVQDXbmryB/qiCf64aZL64ec=
+		7VD7jN+leVSnFX0KQuSoOj+tBvM=
 		</data>
 		<key>CategoriesView.nib</key>
 		<data>
-		+AC4P1BAUpbrWbDv5tvpRJLYqSU=
+		LOR1NAprYU9UZKmnKmle5LB/AC4=
 		</data>
 		<key>CategoryDetailView.nib</key>
 		<data>
-		IQslphy708ayMgCQya9E3OavMJE=
+		kBstwhDDuR0zYibyezCmrwZ0EOA=
 		</data>
 		<key>Default-Landscape.png</key>
 		<data>
@@ -110,43 +110,51 @@
 		</data>
 		<key>FeaturesView.nib</key>
 		<data>
-		DE0/ZMXj4ZO4zl0GnKtgoLXbUrs=
+		VLwNFh4nbZyrTpta8D/6mBPVrLg=
+		</data>
+		<key>FirstTimeView.nib</key>
+		<data>
+		UbRC7ECR8QZeItGXKD3jsQ00Bk0=
 		</data>
 		<key>Icon.png</key>
 		<data>
-		z/qpbNSk+H/LcjF/sUvB1mNzAt4=
+		dY8J05JaP0vJPRSRVjxtgBWpZWc=
 		</data>
 		<key>LibraryView.nib</key>
 		<data>
-		v1IqhXsgP7JZ3Q7rcvwzvHpBsog=
+		9Rmuaxx5sHWUX/XalACzXuTeiNE=
 		</data>
 		<key>LoadingView.nib</key>
 		<data>
-		XkxN09455LwWjHgHyQ9aW3Se38w=
+		PQ+pt1nyoMnp9Coek9OoKBtNumY=
 		</data>
 		<key>LoginView.nib</key>
 		<data>
-		9TWdV+BA7GAcNGDBaclhiPuvYIw=
+		ZvjVmaa46DRN5fuQiV6FvBz0F6A=
 		</data>
 		<key>MainWindow.nib</key>
 		<data>
-		LBhiuyvAjeGSjc4EMxAVIG9DD78=
+		tDlYBrIBsS91MKaYebWfSkR2myw=
 		</data>
 		<key>NewReleasesController.nib</key>
 		<data>
-		VAREG+gFxA0Z4berSRjaKIj5eI8=
+		43DIfy3fYpn2o+B6l1IzX38/Bog=
 		</data>
 		<key>PDFView.nib</key>
 		<data>
-		shf8rLVEYCVBsA4f+6fyxJGDlx4=
+		9de+O7xC8Tzdc7ui46kxA/1ZCsA=
 		</data>
 		<key>PkgInfo</key>
 		<data>
 		n57qDP4tZfLD1rCS43W0B4LQjzE=
 		</data>
+		<key>README.textile</key>
+		<data>
+		ip7oVbDRk/uP4uiEJxuTW8A6s0A=
+		</data>
 		<key>Settings.bundle/Root.plist</key>
 		<data>
-		WlGCw/nMuwWRxOvABrfQZDv4/DA=
+		No4FtrAQvmWcVXIswpvLfDwYQmI=
 		</data>
 		<key>Settings.bundle/en.lproj/Root.strings</key>
 		<data>
@@ -154,15 +162,19 @@
 		</data>
 		<key>SettingsView.nib</key>
 		<data>
-		olCtr7SaEmLlXpRP1suBJa+1GYg=
+		RGME6vPN7mXf2nNat/hkGjBADxY=
 		</data>
 		<key>TopSellersDetailView.nib</key>
 		<data>
-		7CMmcii1h/M+Hci2Rav3EsWc9gs=
+		8O1tZc6EbutoFSc3hLvKiYtY+rc=
+		</data>
+		<key>TopSellersView.nib</key>
+		<data>
+		tOs4eN2dP7gEwL2aWvaYr0F2vRg=
 		</data>
 		<key>WebView.nib</key>
 		<data>
-		sVf+USFAgE+EergNpDjrSgymtK4=
+		2dE8rKx9ky1u6c+5JALTusc4XGc=
 		</data>
 		<key>_5.png</key>
 		<data>
@@ -274,7 +286,7 @@
 		</data>
 		<key>coderesources</key>
 		<data>
-		BO3c85Kevd3N8uWcvarpklnQG80=
+		WeYSof6W7naAth3pF+bKKSxyNaU=
 		</data>
 		<key>defbook.png</key>
 		<data>
@@ -282,7 +294,7 @@
 		</data>
 		<key>embedded.mobileprovision</key>
 		<data>
-		tqQxSveFkbXjQGvCaUG97pU4FIk=
+		Xon6nU3RCzJ8WncGArviIET0pGg=
 		</data>
 		<key>header_aboutApp.png</key>
 		<data>
@@ -746,7 +758,7 @@
 		</data>
 		<key>wowio.mom</key>
 		<data>
-		56w5LZnXHaCVquJmdRr6nNHsPX8=
+		B727VAIQ465iKwCykrBPuyFpRTc=
 		</data>
 		<key>wowio_iPad_background.png</key>
 		<data>
@@ -756,17 +768,37 @@
 		<data>
 		Qe/wfW36y6tIhneUZelVVFrH0rM=
 		</data>
+		<key>wowio_iPad_icon-app_02.png</key>
+		<data>
+		dY8J05JaP0vJPRSRVjxtgBWpZWc=
+		</data>
 		<key>wowio_iPad_icon-doc-320.png</key>
 		<data>
 		irYySvzkPJgqj19xxoa4zomdNMU=
+		</data>
+		<key>wowio_iPad_icon-doc-320_02.png</key>
+		<data>
+		JPCbWG88oZ8gjWe9mAc41llI53U=
+		</data>
+		<key>wowio_iPad_icon-doc-64_02.png</key>
+		<data>
+		liGZbwE9jJZAmye/mf0z8Y/1aKs=
 		</data>
 		<key>wowio_iPad_icon-settings.png</key>
 		<data>
 		9wRp5P+bXPaWf6lPCEbJd4/7Y74=
 		</data>
+		<key>wowio_iPad_icon-settings_02.png</key>
+		<data>
+		IosC1VOWTibFCfsT+D/HCpgZWAs=
+		</data>
 		<key>wowio_iPad_icon-spotlight.png</key>
 		<data>
 		CTxIvkM2AzU6ag6OWljYsCGqVxg=
+		</data>
+		<key>wowio_iPad_icon-spotlight_02.png</key>
+		<data>
+		in7NlxbhQIRqwmKsBG0KOQZHhN4=
 		</data>
 	</dict>
 	<key>rules</key>

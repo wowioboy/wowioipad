@@ -13,7 +13,6 @@
 /Users/lawrenceleach/Dropbox/Projects/iPad/WOWIO/build/WOWIO.build/Debug-iphoneos/WOWIO.build/Objects-normal/armv7/CJSONDataSerializer.o
 /Users/lawrenceleach/Dropbox/Projects/iPad/WOWIO/build/WOWIO.build/Debug-iphoneos/WOWIO.build/Objects-normal/armv7/CSerializedJSONData.o
 /Users/lawrenceleach/Dropbox/Projects/iPad/WOWIO/build/WOWIO.build/Debug-iphoneos/WOWIO.build/Objects-normal/armv7/CDataScanner.o
-/Users/lawrenceleach/Dropbox/Projects/iPad/WOWIO/build/WOWIO.build/Debug-iphoneos/WOWIO.build/Objects-normal/armv7/LoadingViewController.o
 /Users/lawrenceleach/Dropbox/Projects/iPad/WOWIO/build/WOWIO.build/Debug-iphoneos/WOWIO.build/Objects-normal/armv7/BookCell.o
 /Users/lawrenceleach/Dropbox/Projects/iPad/WOWIO/build/WOWIO.build/Debug-iphoneos/WOWIO.build/Objects-normal/armv7/LoginViewController.o
 /Users/lawrenceleach/Dropbox/Projects/iPad/WOWIO/build/WOWIO.build/Debug-iphoneos/WOWIO.build/Objects-normal/armv7/FormCell.o
@@ -41,12 +40,10 @@
 /Users/lawrenceleach/Dropbox/Projects/iPad/WOWIO/build/WOWIO.build/Debug-iphoneos/WOWIO.build/Objects-normal/armv7/CategoryGridCell.o
 /Users/lawrenceleach/Dropbox/Projects/iPad/WOWIO/build/WOWIO.build/Debug-iphoneos/WOWIO.build/Objects-normal/armv7/NSIndexSet+AQIndexesOutsideSet.o
 /Users/lawrenceleach/Dropbox/Projects/iPad/WOWIO/build/WOWIO.build/Debug-iphoneos/WOWIO.build/Objects-normal/armv7/BookGridCell.o
-/Users/lawrenceleach/Dropbox/Projects/iPad/WOWIO/build/WOWIO.build/Debug-iphoneos/WOWIO.build/Objects-normal/armv7/Library.o
 /Users/lawrenceleach/Dropbox/Projects/iPad/WOWIO/build/WOWIO.build/Debug-iphoneos/WOWIO.build/Objects-normal/armv7/GridCellSelector.o
 /Users/lawrenceleach/Dropbox/Projects/iPad/WOWIO/build/WOWIO.build/Debug-iphoneos/WOWIO.build/Objects-normal/armv7/BookViewController.o
 /Users/lawrenceleach/Dropbox/Projects/iPad/WOWIO/build/WOWIO.build/Debug-iphoneos/WOWIO.build/Objects-normal/armv7/SettingsMenuViewController.o
 /Users/lawrenceleach/Dropbox/Projects/iPad/WOWIO/build/WOWIO.build/Debug-iphoneos/WOWIO.build/Objects-normal/armv7/SettingsDetailViewController.o
-/Users/lawrenceleach/Dropbox/Projects/iPad/WOWIO/build/WOWIO.build/Debug-iphoneos/WOWIO.build/Objects-normal/armv7/FeaturedBookDetail.o
 /Users/lawrenceleach/Dropbox/Projects/iPad/WOWIO/build/WOWIO.build/Debug-iphoneos/WOWIO.build/Objects-normal/armv7/CategoryBookGridCell.o
 /Users/lawrenceleach/Dropbox/Projects/iPad/WOWIO/build/WOWIO.build/Debug-iphoneos/WOWIO.build/Objects-normal/armv7/Agilespace.o
 /Users/lawrenceleach/Dropbox/Projects/iPad/WOWIO/build/WOWIO.build/Debug-iphoneos/WOWIO.build/Objects-normal/armv7/WebViewController.o
@@ -54,7 +51,6 @@
 /Users/lawrenceleach/Dropbox/Projects/iPad/WOWIO/build/WOWIO.build/Debug-iphoneos/WOWIO.build/Objects-normal/armv7/PDFReaderController.o
 /Users/lawrenceleach/Dropbox/Projects/iPad/WOWIO/build/WOWIO.build/Debug-iphoneos/WOWIO.build/Objects-normal/armv7/LibraryGridCell.o
 /Users/lawrenceleach/Dropbox/Projects/iPad/WOWIO/build/WOWIO.build/Debug-iphoneos/WOWIO.build/Objects-normal/armv7/Base64.o
-/Users/lawrenceleach/Dropbox/Projects/iPad/WOWIO/build/WOWIO.build/Debug-iphoneos/WOWIO.build/Objects-normal/armv7/BookDetailController.o
 /Users/lawrenceleach/Dropbox/Projects/iPad/WOWIO/build/WOWIO.build/Debug-iphoneos/WOWIO.build/Objects-normal/armv7/TopSellersController.o
 /Users/lawrenceleach/Dropbox/Projects/iPad/WOWIO/build/WOWIO.build/Debug-iphoneos/WOWIO.build/Objects-normal/armv7/NewReleasesController.o
 /Users/lawrenceleach/Dropbox/Projects/iPad/WOWIO/build/WOWIO.build/Debug-iphoneos/WOWIO.build/Objects-normal/armv7/NewReleasesBookDetail.o
@@ -74,3 +70,4 @@
 /Users/lawrenceleach/Dropbox/Projects/iPad/WOWIO/build/WOWIO.build/Debug-iphoneos/WOWIO.build/Objects-normal/armv7/TiledPDFView.o
 /Users/lawrenceleach/Dropbox/Projects/iPad/WOWIO/build/WOWIO.build/Debug-iphoneos/WOWIO.build/Objects-normal/armv7/PDFScrollView.o
 /Users/lawrenceleach/Dropbox/Projects/iPad/WOWIO/build/WOWIO.build/Debug-iphoneos/WOWIO.build/Objects-normal/armv7/Book.o
+/Users/lawrenceleach/Dropbox/Projects/iPad/WOWIO/build/WOWIO.build/Debug-iphoneos/WOWIO.build/Objects-normal/armv7/Library.o

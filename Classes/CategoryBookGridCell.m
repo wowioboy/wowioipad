@@ -7,7 +7,7 @@
 //
 
 #import "CategoryBookGridCell.h"
-#import "Categorybooks.h"
+#import "Book.h"
 
 @implementation CategoryBookGridCell
 @synthesize item, gridColor, numberFormatter;
@@ -102,7 +102,7 @@
 #pragma mark -
 #pragma mark Public methods
 
-- (void)setItem:(Categorybooks *)newItem
+- (void)setItem:(Book *)newItem
 {
     if (newItem != item)
     {
@@ -115,9 +115,11 @@
 		
         if (item != nil)
         {
+			NSString *newTitle = [item title];
+			newTitle = [newTitle stringByReplacingOccurrencesOfString:@"\"" withString:@""];
 			_bookTitle.lineBreakMode = UILineBreakModeWordWrap;
 			_bookTitle.numberOfLines = 2;
-            _bookTitle.text = [item title];
+            _bookTitle.text = newTitle;
 			
 			_bookAuthor.lineBreakMode = UILineBreakModeWordWrap;
 			_bookAuthor.numberOfLines = 2;
@@ -148,7 +150,7 @@
 					}
 					
 				} else {
-					priceamt = @"Get PDF FREE";
+					priceamt = @"FREE";
 				}
 				
 			} else {
@@ -191,13 +193,13 @@
 #pragma mark -
 #pragma mark CategoryBookCellDelegate methods
 
-- (void)bookItem:(Categorybooks *)item didLoadCover:(UIImage *)bookImage
+- (void)bookItem:(Book *)item didLoadCover:(UIImage *)bookImage
 {
     _bookImage.image = bookImage;
     //[spinningWheel stopAnimating];
 }
 
-- (void)bookItem:(Categorybooks *)item couldNotLoadImageError:(NSError *)error
+- (void)bookItem:(Book *)item couldNotLoadImageError:(NSError *)error
 {
     // there was an error. so show the "default" book image...
 	NSLog(@"Error occured trying to load a book image.");

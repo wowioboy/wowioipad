@@ -7,6 +7,7 @@
 //
 
 #import "LoginViewController.h"
+#import "WebViewController.h"
 #import "WOWIOAppDelegate.h"
 #import "FormCell.h"
 #import "ASINetworkQueue.h"
@@ -61,7 +62,11 @@
 	fetchCount = 0;
 	
 	// init the data array
-	self.urlArray = [NSArray arrayWithObjects:userURL, bookCatCountURL, topBooksURL, topComicsURL, topPubsURL, sponsoredBooksURL, brainBytesURL, newReleasesURL, staffPicksURL, featuredBookURL, featuredPubURL, homepageAgileSpaceURL, userLibrary, nil];
+	self.urlArray = [NSArray arrayWithObjects:userURL, bookCatCountURL, topBooksURL, newReleasesURL, homepageAgileSpaceURL, nil];
+	/*
+	Other Feeds You Can Add to This Array:
+	 topComicsURL, topPubsURL, sponsoredBooksURL, brainBytesURL, staffPicksURL, featuredPubURL, featuredBookURL, userLibrary
+	*/
 
 	// deal with orientation -- load up the correct orientation
 	BOOL isPortrait = UIDeviceOrientationIsPortrait(self.interfaceOrientation);
@@ -84,9 +89,9 @@
 	
 	// Set the size for the table view
 	CGRect tableViewRect;
-	tableViewRect.size.width = 400;
-	tableViewRect.size.height = 200;
-	tableViewRect.origin.x = 10;
+	tableViewRect.size.width = 450;
+	tableViewRect.size.height = 130;
+	tableViewRect.origin.x = 5;
 	tableViewRect.origin.y = 130;
 	
 	// Create a table viiew
@@ -125,31 +130,35 @@
 	// put default values into the login fields
 	[self getUserDefaults];
 	
-	if ([emailDefault isEqualToString:@"email"] || emailDefault == nil || [emailDefault isKindOfClass:[NSNull class]]) {
+	if ([emailDefault isEqualToString:@"email"] || [emailDefault isEqualToString:@""] || emailDefault == nil || [emailDefault isKindOfClass:[NSNull class]]) {
 		
 		// enable fields and buttons for login form
 		self.infoField.text = @"";
 
-		[self.joinButton setHidden:YES];
+		[self.joinButton setHidden:NO];
+		[self.joinButton setEnabled:YES];
+		
 		[self.loginButton setHidden:NO];
 		[self.userNameField setEnabled:YES];
 	
 		[self.passWordField setEnabled:YES];
 
 		// make the username field the responder field
-		//[userNameField becomeFirstResponder];
+		[userNameField becomeFirstResponder];
 	
 	} else {
 		
 		// show progress text and hide interface buttons
-		infoField.textColor = [UIColor whiteColor];
-		self.infoField.text = @"Signing In...";
+		infoField.textColor = [UIColor darkGrayColor];
+			//self.infoField.text = @"Sign In to WOWIO";
 
-		[self.joinButton setHidden:YES];
-		[self.loginButton setHidden:YES];
-		[self.userNameField setEnabled:NO];
-		[self.passWordField setEnabled:NO];
-		[self performSelector:@selector(loginAction:)];
+		[self.joinButton setHidden:NO];
+		[self.joinButton setEnabled:YES];
+		
+		[self.loginButton setHidden:NO];
+		[self.userNameField setEnabled:YES];
+		[self.passWordField setEnabled:YES];
+			//[self performSelector:@selector(loginAction:)];
 	}
 	
 }
@@ -166,8 +175,26 @@
 #pragma mark Button Methods
 
 -(IBAction)joinAction:(id)sender {
-	NSString *msg = @"Account Creation Will Go Here!\n\n(not yet finished)";
-	[appDelegate alertWithMessage:msg withTitle:@"WOWIO"];
+		// NSString *msg = @"Account Creation Will Go Here!\n\n(not yet finished)";
+		// [appDelegate alertWithMessage:msg withTitle:@"WOWIO"];
+	
+	WebViewController *viewController = [[WebViewController alloc] initWithNibName:@"WebView" bundle:nil];
+		//viewController.delegate = self;
+	
+	UINavigationController *modalNavController = [[UINavigationController alloc] initWithRootViewController:viewController];
+	modalNavController.modalPresentationStyle = UIModalPresentationFullScreen;
+	
+	NSURL *urlLocation = [NSURL URLWithString:joinWOWIOURL];
+	[self presentModalViewController:modalNavController animated:YES];
+	NSURLRequest *urlRequest = [[NSURLRequest alloc] initWithURL:urlLocation];
+		//NSLog(@"%@",urlLocation);
+	
+	viewController.webView.scalesPageToFit = YES;
+	viewController.webView.allowsInlineMediaPlayback = YES;
+	viewController.webView.contentMode = UIViewContentModeScaleAspectFit;
+	viewController.webView.autoresizingMask = ( UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
+	[viewController.webView loadRequest:urlRequest];
+	[viewController release];
 }
 
 -(void)loginAction:(id)sender {
@@ -201,6 +228,7 @@
 		// disable the login button...
 		[self.loginButton setEnabled:NO];
 		[self.joinButton setEnabled:NO];
+		[self.joinButton setHidden:YES];
 
 		[userNameField setEnabled:NO];
 		[passWordField setEnabled:NO];
@@ -269,8 +297,8 @@
 	NSString *sessionId;
 	NSString *rsltStr = [request responseString];
 	NSDictionary *loginHeaders = [request responseHeaders];
-		//NSLog(@"\nRaw Login Result String:\n%@",rsltStr);
-		//NSLog(@"\nLogin Response Header:\n%@",loginHeaders);
+		// NSLog(@"\nRaw Login Result String:\n%@",rsltStr);
+		// NSLog(@"\nLogin Response Header:\n%@",loginHeaders);
 	
 	// grab and parse the returned cookie string
 	NSString *fullCookieString = (NSString*)[loginHeaders valueForKey:@"Set-Cookie"];
@@ -417,7 +445,7 @@
 	
 	FormCell *cell = (FormCell *)[[self theTableView] dequeueReusableCellWithIdentifier:CellIdentifier];
 	if (cell == nil) {
-		CGRect fldRect = CGRectMake(0.0, 0.0, 410.0, 170.0);
+		CGRect fldRect = CGRectMake(1.0, 5.0, 500.0, 170.0);
 		cell = [[[FormCell alloc] initWithFrame:fldRect reuseIdentifier:CellIdentifier] autorelease];
 	}
 	
@@ -478,7 +506,8 @@
 		
 		NSString *sessionId = [appDelegate sessionId];
 		
-		self.infoField.text = @"Fetching Book Data...";
+		self.infoField.text = @"Downloading Book Information";
+		[self.infoField setFont:[UIFont systemFontOfSize:12.0]];
 		
 		// initialize the transmission queue
 		[self setNetworkQueue:[ASINetworkQueue queue]];
@@ -535,6 +564,7 @@
 	NSData *jsonData = [rsltStr dataUsingEncoding:NSUTF32BigEndianStringEncoding];
 	NSError *error = nil;
 	NSMutableDictionary *feed = [[CJSONDeserializer deserializer] deserializeAsDictionary:jsonData error:&error];
+	//NSLog(@"Returned Feed:\n%@\n\n",feed);
 	
 	if ([feed objectForKey:@"categorybookcount"]) {
 
@@ -545,19 +575,19 @@
 	} else if ([feed objectForKey:@"user"]) {
 		
 		NSMutableArray *obj = (NSMutableArray*)[feed objectForKey:@"user"];
-		//NSLog(@"User Object:\n%@\n\n",obj);
+			//NSLog(@"User Object:\n%@\n\n",obj);
 		[self writeUserDataToDB:obj];
 		
 	} else if ([feed objectForKey:@"lib_purchased"]) {
 		
 		NSMutableArray *obj = (NSMutableArray*)[feed objectForKey:@"lib_purchased"];
-		//NSLog(@"User Library:\n%@\n\n",obj);
+			//NSLog(@"User Library:\n%@\n\n",obj);
 		[self writeBookDataToDB:@"Library" withData:obj];
 		
 	} else if ([feed objectForKey:@"agilespace"]) {
 		
 		NSMutableArray *obj = (NSMutableArray*)[feed objectForKey:@"agilespace"];
-		NSLog(@"Agile Space Object:\n%@\n\n",obj);
+		//NSLog(@"Agile Space Object:\n%@\n\n",obj);
 		[self writeBookDataToDB:@"Agilespace" withData:obj];
 		
 	} else if ([feed objectForKey:@"home_topbooks"]) {
@@ -670,6 +700,36 @@
 #pragma mark -
 #pragma mark Database Methods
 
+-(BOOL)bookInUserLibrary:(NSNumber*)bookid forOrderid:(NSNumber*)orderid {
+	
+	BOOL luResult;
+	NSManagedObjectContext *moc = self.managedObjectContext;
+	NSEntityDescription *entity = [NSEntityDescription entityForName:@"Library" inManagedObjectContext:moc];
+	NSFetchRequest *fetchRequest = [[[NSFetchRequest alloc] init] autorelease];
+	[fetchRequest setEntity:entity];
+	
+	// set the filter predicate
+	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"bookid=%d and orderbookid = %@",[bookid intValue],orderid];
+	[fetchRequest setPredicate:predicate];
+	
+	// execute the fetch
+	NSError *error;
+	NSMutableArray *mutableFetchResults = [[moc executeFetchRequest:fetchRequest error:&error] mutableCopy];
+	if (mutableFetchResults == nil) {
+		return NO;
+	}
+	
+	if ([mutableFetchResults count] >0)
+		luResult = YES;
+	else 
+		luResult = NO;
+	
+	// clean up after yourself
+	//[predicate release];
+	
+	return luResult;
+}
+
 -(void)removeData:(NSString*)theEntity {
 	
 	int i;
@@ -755,6 +815,7 @@
 	// remove existing user data from db
 	[self removeData:@"User"];
  
+	NSLog(@"%@",data);
 	
 	User * newUser = (User *)[NSEntityDescription 
 							  insertNewObjectForEntityForName:@"User" 
@@ -780,7 +841,7 @@
 	NSNumber *bshowsmileyhelp = [obj valueForKey:@"bshowsmileyhelp"];
 	NSString *cardfirstname = [obj valueForKey:@"cardfirstname"];
 	NSString *cardlastname = [obj valueForKey:@"cardlastname"];
-	NSString *ccid = [obj valueForKey:@"ccid"];
+	NSNumber *ccid = [obj valueForKey:@"ccid"];
 	NSString *city = [obj valueForKey:@"city"];
 	NSString *countrycode = [obj valueForKey:@"countrycode"];
 	NSString *emailaddress = [obj valueForKey:@"emailaddress"];
@@ -852,7 +913,7 @@
 		cardlastname = @"";
 	
 	if ([ccid isKindOfClass:[NSNull class]])
-		ccid = @"";
+		ccid = 0;
 	
 	if ([city isKindOfClass:[NSNull class]])
 		city = @"";
@@ -901,7 +962,7 @@
 	[newUser setBshowsmileyhelp:bshowsmileyhelp];
 	[newUser setCardfirstname:cardfirstname];
 	[newUser setCardlastname:cardlastname];
-	[newUser setCcid:ccid];
+	[newUser setCcid:[ccid stringValue]];
 	[newUser setCity:city];
 	[newUser setCountrycode:countrycode];
 	[newUser setEmailaddress:emailaddress];
@@ -936,7 +997,10 @@
 	int i;
 	
 		// flush existing data from selected table
-	[self removeData:tablename];
+	if (![tablename isEqualToString:@"Library"])
+		[self removeData:tablename];
+	//else
+		//[self removeData:@"Library"];
 		
 	
 	if ([tablename isEqualToString:@"Agilespace"]) {
@@ -1005,7 +1069,7 @@
 			[self saveAction];
 		}
 	
-	} else if ([tablename isEqualToString:@"Library"]) {
+	/*} else if ([tablename isEqualToString:@"Library"]) {
 		
 		for (i = 0; i<[data count]; i++) {
 			Library *book = (Library *)[NSEntityDescription 
@@ -1014,137 +1078,133 @@
 			
 			NSArray *obj = [data objectAtIndex:i];
 			NSNumber *bookid = [obj valueForKey:@"bookid"];
-			NSNumber *booktypeid = [obj valueForKey:@"booktypeid"];
 			NSNumber *orderbookid = [obj valueForKey:@"orderbookid"];
-			NSNumber *contentratingid = [obj valueForKey:@"contentratingid"];
-			NSNumber *orderbookstatus = [obj valueForKey:@"orderbookstatus"];
-			NSNumber *downloadsuccess = [obj valueForKey:@"downloadsuccess"];
-			NSNumber *logoserverid = [obj valueForKey:@"loboserverid"];
-			NSString *imagepath = [obj valueForKey:@"imagepath"];
-			NSString *filepath = [obj valueForKey:@"filepath"];
-			NSString *details = [obj valueForKey:@"description"];
-			//NSNumber *bookcategoryid = [obj valueForKey:@"bookcategoryid"];
-			//NSNumber *bookcategory = [obj valueForKey:@"bookcategory"];
-			//NSNumber *admodelid = [obj valueForKey:@"admodelid"];
-			//NSNumber *adid = [obj valueForKey:@"adid"];
-			NSString *orderdate = [obj valueForKey:@"orderdate"];
-			NSString *internalip = [obj valueForKey:@"internalip"];
-			NSString *externalip = [obj valueForKey:@"externalip"];
-			NSString *downloaddate = [obj valueForKey:@"downloaddate"];
-			if ([downloaddate isKindOfClass:[NSNull class]])
-				downloaddate = @"";
 			
-			NSString *indexname = [obj valueForKey:@"indexname"];
-			if ([indexname isKindOfClass:[NSNull class]])
-				indexname = @"";
-			
-			NSString *booktitle = [obj valueForKey:@"title"];
-			NSString *sorttitle = [obj valueForKey:@"sorttitle"];
-			NSString *authorname = [obj valueForKey:@"authorname"];
-			NSNumber *retailprice = [obj valueForKey:@"retailprice"];
-			NSNumber *thankyoucount = [obj valueForKey:@"thankyoucount"];
-			NSNumber *previewpagecount = [obj valueForKey:@"previewpagecount"];
-			NSNumber *avgrating = [obj valueForKey:@"avgrating"];
-			NSNumber *ratingcount = [obj valueForKey:@"ratingcount"];
-			NSNumber *userrating = [obj valueForKey:@"userrating"];
-			
-			[book setBookid:bookid];
-			[book setBooktypeid:booktypeid];
-			[book setOrderbookid:orderbookid];
-			[book setContentratingid:contentratingid];
-			[book setOrderbookstatus:orderbookstatus];
-			book.downloadsuccess = downloadsuccess;
-			//book.admodelid = admodelid;
-			//book.adid = adid;
-			book.orderdate = orderdate;
-			book.internalip = internalip;
-			book.externalip = externalip;
-			book.downloaddate = downloaddate;
-			book.indexname = indexname;
-			book.title = booktitle;
-			book.sorttitle = sorttitle;
-			book.authorname = authorname;
-			book.retailprice = retailprice;
-			book.thankyoucount = thankyoucount;
-			book.previewpagecount = previewpagecount;
-			book.authorname = authorname;
-			book.avgrating = avgrating;
-			book.ratingcount = ratingcount;
-			book.userrating = userrating;			
-			book.logoserverid = logoserverid;			
-			book.imagepath = imagepath;			
-			book.filepath = filepath;			
-			book.details = details;			
-			//book.bookcategoryid = bookcategoryid;			
-			//book.bookcategory = bookcategory;			
-			
-			// write it to db
-			[self saveAction];
-		}
+			if (![self bookInUserLibrary:bookid forOrderid:orderbookid]) {
+				
+				NSNumber *booktypeid = [obj valueForKey:@"booktypeid"];
+				NSNumber *contentratingid = [obj valueForKey:@"contentratingid"];
+				NSNumber *orderbookstatus = [obj valueForKey:@"orderbookstatus"];
+				NSNumber *downloadsuccess = [obj valueForKey:@"downloadsuccess"];
+				NSNumber *loboserverid = [obj valueForKey:@"loboserverid"];
+				NSString *filepath = [obj valueForKey:@"filepath"];
+				NSString *details = [obj valueForKey:@"description"];
+				NSString *orderdate = [obj valueForKey:@"orderdate"];
+				if ([orderdate isKindOfClass:[NSNull class]])
+					orderdate = @"";
+				NSString *internalip = [obj valueForKey:@"internalip"];
+				NSString *externalip = [obj valueForKey:@"externalip"];
+				NSString *downloaddate = [obj valueForKey:@"downloaddate"];
+				if ([downloaddate isKindOfClass:[NSNull class]])
+					downloaddate = @"";
+				
+				NSNumber *admodelid = [obj valueForKey:@"admodelid"];
+				if ([admodelid isKindOfClass:[NSNull class]])
+					admodelid = [NSNumber numberWithInt:0];
+				NSNumber *adid = [obj valueForKey:@"adid"];
+				if ([adid isKindOfClass:[NSNull class]])
+					adid = [NSNumber numberWithInt:0];
+				
+				NSNumber *bnoimage = [obj valueForKey:@"bnoimage"];
+				NSString *imagesubpath = [obj valueForKey:@"imagesubpath"];
+				if ([imagesubpath isKindOfClass:[NSNull class]])
+					imagesubpath = @"";
+				
+				NSString *imagepath = [obj valueForKey:@"imagepath"];
+				if ([imagepath isKindOfClass:[NSNull class]])
+					imagepath = @"";
+				
+				NSString *largeimagepath = [obj valueForKey:@"largeimagepath"];
+				if ([largeimagepath isKindOfClass:[NSNull class]])
+					largeimagepath = @"";
+				
+				NSNumber *bookcategoryid = [obj valueForKey:@"bookcategoryid"];
+				if ([bookcategoryid isKindOfClass:[NSNull class]])
+					bookcategoryid = [NSNumber numberWithInt:0];
+				
+				NSNumber *bookcategory = [obj valueForKey:@"bookcategory"];
+				if ([bookcategory isKindOfClass:[NSNull class]])
+					bookcategory = [NSNumber numberWithInt:0];
+				
+				NSString *indexname = [obj valueForKey:@"indexname"];
+				if ([indexname isKindOfClass:[NSNull class]])
+					indexname = @"";
+				
+				NSNumber *publisherid = [obj valueForKey:@"publisherid"];
+				if ([publisherid isKindOfClass:[NSNull class]])
+					publisherid = [NSNumber numberWithInt:0];
+				
+				NSNumber *bookformat = [obj valueForKey:@"bookformat"];
+				if ([bookformat isKindOfClass:[NSNull class]])
+					bookformat = [NSNumber numberWithInt:0];
+				
+				NSString *booktitle = [obj valueForKey:@"title"];
+				NSString *sorttitle = [obj valueForKey:@"sorttitle"];
+				NSString *authorname = [obj valueForKey:@"authorname"];
+				NSNumber *retailprice = [obj valueForKey:@"retailprice"];
+				NSNumber *thankyoucount = [obj valueForKey:@"thankyoucount"];
+				NSNumber *previewpagecount = [obj valueForKey:@"previewpagecount"];
+				NSNumber *avgrating = [obj valueForKey:@"avgrating"];
+				NSString *avgRatingString = [avgrating stringValue];
+				avgRatingString = [avgRatingString stringByReplacingOccurrencesOfString:@"." withString:@"_"];
+				
+				NSNumber *ratingcount = [obj valueForKey:@"ratingcount"];
+				NSNumber *userrating = [obj valueForKey:@"userrating"];
+				
+				[book setBookid:bookid];
+				[book setBookformat:bookformat];
+				[book setImagesubpath:imagesubpath];
+				[book setImagepath:imagepath];
+				[book setLargeimagepath:largeimagepath];
+				[book setBnoimage:bnoimage];
+				[book setBooktypeid:booktypeid];
+				[book setOrderbookid:orderbookid];
+				[book setContentratingid:contentratingid];
+				[book setOrderbookstatus:orderbookstatus];
+				book.downloadsuccess = downloadsuccess;
+				book.admodelid = admodelid;
+				book.adid = adid;
+				book.orderdate = orderdate;
+				book.internalip = internalip;
+				book.externalip = externalip;
+				book.downloaddate = downloaddate;
+				book.indexname = indexname;
+				book.title = booktitle;
+				book.sorttitle = sorttitle;
+				book.authorname = authorname;
+				book.retailprice = retailprice;
+				book.thankyoucount = thankyoucount;
+				book.previewpagecount = previewpagecount;
+				book.publisherid = publisherid;
+				book.authorname = authorname;
+				book.avgrating = avgRatingString;
+				book.ratingcount = ratingcount;
+				book.userrating = userrating;			
+				book.loboserverid = loboserverid;			
+				book.imagepath = imagepath;			
+				book.filepath = filepath;			
+				book.details = details;			
+				book.bookcategoryid = bookcategoryid;			
+				book.bookcategory = bookcategory;			
+				
+				// write it to db
+				[self saveAction];
+			}
+		}*/
 		
 	} else if ([tablename isEqualToString:@"Topbooks"] || [tablename isEqualToString:@"Topcomics"] || [tablename isEqualToString:@"Featuredbooks"] || [tablename isEqualToString:@"Newreleases"] || [tablename isEqualToString:@"Staffpicks"] || [tablename isEqualToString:@"Sponsored"] || [tablename isEqualToString:@"brainbytes"]) {
 		
 		NSNumber *is_topseller;
-		NSNumber *is_topcomic;
 		NSNumber *is_featured;
 		NSNumber *is_staffpick;
 		NSNumber *is_newrelease;
 		NSNumber *is_sponsored;
 		NSNumber *is_brainbyte;
-		
-		if ([tablename isEqualToString:@"Topcomics"]) {
-			is_topcomic = [NSNumber numberWithInt:1];
-			[self removeBookData:@"Book" forFilter:@"is_topcomic"];
-		} else {
-			is_topcomic = [NSNumber numberWithInt:0];
-		}
-		
-		if ([tablename isEqualToString:@"Topbooks"]) {
-			is_topseller = [NSNumber numberWithInt:1];
-			[self removeBookData:@"Book" forFilter:@"is_topseller"];
-		} else {
-			is_topseller = [NSNumber numberWithInt:0];
-		}
-
-		if ([tablename isEqualToString:@"Featuredbooks"]) {
-			is_featured = [NSNumber numberWithInt:1];
-			[self removeBookData:@"Book" forFilter:@"is_featured"];
-		} else {
-			is_featured = [NSNumber numberWithInt:0];
-		}
-		
-		if ([tablename isEqualToString:@"Newreleases"]) {
-			is_newrelease = [NSNumber numberWithInt:1];
-			[self removeBookData:@"Book" forFilter:@"is_newrelease"];
-		} else {
-			is_newrelease = [NSNumber numberWithInt:0];
-		}
-		
-		if ([tablename isEqualToString:@"Staffpicks"]) {
-			is_staffpick = [NSNumber numberWithInt:1];
-			[self removeBookData:@"Book" forFilter:@"is_staffpick"];
-		} else {
-			is_staffpick = [NSNumber numberWithInt:0];
-		}
-		
-		if ([tablename isEqualToString:@"Sponsored"]) {
-			is_sponsored = [NSNumber numberWithInt:1];
-			[self removeBookData:@"Book" forFilter:@"is_sponsored"];
-		} else {
-			is_sponsored = [NSNumber numberWithInt:0];
-		}
-		
-		if ([tablename isEqualToString:@"brainbytes"]) {
-			is_brainbyte = [NSNumber numberWithInt:1];
-			[self removeBookData:@"Book" forFilter:@"is_brainbyte"];
-		} else {
-			is_brainbyte = [NSNumber numberWithInt:0];
-		}
-		
-		
+			
 		if ([tablename isEqualToString:@"Topcomics"]) {
 			
 			for (i = 0; i<[data count]; i++) {
+				
 				Book *book = (Book *)[NSEntityDescription 
 									  insertNewObjectForEntityForName:@"Book" 
 									  inManagedObjectContext:self.managedObjectContext];
@@ -1205,11 +1265,49 @@
 				[self saveAction];
 			}
 			
-			
 		} else {
-			
 		
 			for (i = 0; i<[data count]; i++) {
+				
+				if ([tablename isEqualToString:@"Topbooks"]) {
+						//NSLog(@"top books object: %@",data);
+					is_topseller = [NSNumber numberWithInt:1];
+				} else {
+					is_topseller = [NSNumber numberWithInt:0];
+				}
+				
+				if ([tablename isEqualToString:@"Featuredbooks"]) {
+					is_featured = [NSNumber numberWithInt:1];
+				} else {
+					is_featured = [NSNumber numberWithInt:0];
+				}
+				
+				if ([tablename isEqualToString:@"Newreleases"]) {
+						//NSLog(@"new release books object: %@",data);
+					is_newrelease = [NSNumber numberWithInt:1];
+				} else {
+					is_newrelease = [NSNumber numberWithInt:0];
+				}
+				
+				if ([tablename isEqualToString:@"Staffpicks"]) {
+					is_staffpick = [NSNumber numberWithInt:1];
+				} else {
+					is_staffpick = [NSNumber numberWithInt:0];
+				}
+				
+				if ([tablename isEqualToString:@"Sponsored"]) {
+					is_sponsored = [NSNumber numberWithInt:1];
+				} else {
+					is_sponsored = [NSNumber numberWithInt:0];
+				}
+				
+				if ([tablename isEqualToString:@"brainbytes"]) {
+					is_brainbyte = [NSNumber numberWithInt:1];
+				} else {
+					is_brainbyte = [NSNumber numberWithInt:0];
+				}
+				
+				
 				Book *book = (Book *)[NSEntityDescription 
 									  insertNewObjectForEntityForName:@"Book" 
 									  inManagedObjectContext:self.managedObjectContext];
@@ -1218,6 +1316,7 @@
 				NSNumber *bookid = [obj valueForKey:@"bookid"];
 				NSNumber *becommerce = [obj valueForKey:@"becommerce"];
 				NSNumber *bnodrm = [obj valueForKey:@"bnodrm"];
+				NSNumber *bnoimage = [obj valueForKey:@"bnoimage"];
 				NSNumber *bavailable = [obj valueForKey:@"bavailable"];
 				NSNumber *bbooksponsor = [obj valueForKey:@"bbooksponsor"];
 				NSString *isbn = [obj valueForKey:@"isbn"];
@@ -1254,7 +1353,9 @@
 				avgRatingString = [avgRatingString stringByReplacingOccurrencesOfString:@"." withString:@"_"];
 				
 				NSString *sorttitle = [obj valueForKey:@"sorttitle"];
-				
+
+				NSString *filesize = [obj valueForKey:@"filesize"];
+
 				NSString *ade_epub_filesize = [obj valueForKey:@"ade_epub_filesize"];
 				NSNumber *ade_epub_retailprice = [obj valueForKey:@"ade_epub_retailprice"];
 				NSString *ade_epub_sku13 = [obj valueForKey:@"ade_epub_sku13"];
@@ -1264,6 +1365,7 @@
 				
 				NSNumber *bformatade_epub = [obj valueForKey:@"bformatade_epub"];
 				NSNumber *bformatade_pdf = [obj valueForKey:@"bformatade_pdf"];
+				NSNumber *bformatwowio = [obj valueForKey:@"bformatwowio"];
 				
 				NSString *epub_filesize = [obj valueForKey:@"epub_filesize"];
 				NSNumber *epub_retailprice = [obj valueForKey:@"epub_retailprice"];
@@ -1271,6 +1373,9 @@
 				NSString *ereader_filesize = [obj valueForKey:@"ereader_filesize"];
 				NSNumber *ereader_retailprice = [obj valueForKey:@"ereader_retailprice"];
 				NSString *ereader_sku13 = [obj valueForKey:@"ereader_sku13"];
+				
+				if ([filesize isKindOfClass:[NSNull class]])
+					filesize = @"";
 				
 				if ([ade_epub_filesize isKindOfClass:[NSNull class]])
 					ade_epub_filesize = @"";
@@ -1295,6 +1400,9 @@
 				
 				if ([bformatade_pdf isKindOfClass:[NSNull class]])
 					bformatade_pdf = 0;
+				
+				if ([bformatwowio isKindOfClass:[NSNull class]])
+					bformatwowio = 0;
 				
 				if ([epub_filesize isKindOfClass:[NSNull class]])
 					epub_filesize = @"";
@@ -1337,6 +1445,7 @@
 				[book setIs_sponsored:is_sponsored];
 				[book setIs_featured:is_featured];
 				[book setSorttitle:sorttitle];
+				[book setFilesize:filesize];
 				[book setAde_epub_filesize:ade_epub_filesize];
 				[book setAde_epub_retailprice:ade_epub_retailprice];
 				[book setAde_epub_sku13:ade_epub_sku13];
@@ -1345,6 +1454,7 @@
 				[book setAde_pdf_sku13:ade_pdf_sku13];
 				[book setBformatade_epub:bformatade_epub];
 				[book setBformatade_pdf:bformatade_pdf];
+				[book setBformatwowio:bformatwowio];
 				[book setEpub_filesize:epub_filesize];
 				[book setEpub_retailprice:epub_retailprice];
 				[book setEpub_sku13:epub_sku13];
@@ -1353,6 +1463,7 @@
 				[book setEreader_sku13:ereader_sku13];
 				[book setBecommerce:becommerce];
 				[book setBnodrm:bnodrm];
+				[book setBnoimage:bnoimage];
 				[book setBavailable:bavailable];
 				[book setBbooksponsor:bbooksponsor];
 				[book setIsbn:isbn];
@@ -1379,268 +1490,6 @@
 				[self saveAction];
 			}
 		}
-		
-		/*} else if ([tablename isEqualToString:@"brainbytes"]) {
-		 
-		 int i;
-		 for (i = 0; i<[data count]; i++) {
-		 brainbytes *book = (brainbytes *)[NSEntityDescription 
-		 insertNewObjectForEntityForName:@"brainbytes" 
-		 inManagedObjectContext:self.managedObjectContext];
-		 
-		 NSArray *obj = [data objectAtIndex:i];
-		 NSNumber *bookid = [obj valueForKey:@"bookid"];
-		 NSString *coverimagepath_l = [obj valueForKey:@"coverimagepath_l"];
-		 NSString *coverimagepath_s = [obj valueForKey:@"coverimagepath_s"];
-		 NSString *details = [obj valueForKey:@"description"];
-		 NSNumber *mainbookcategoryid = [obj valueForKey:@"mainbookcategoryid"];
-		 NSString *publicationdate = [obj valueForKey:@"publicationdate"];
-		 NSString *booktitle = [obj valueForKey:@"title"];
-		 NSNumber *retailprice = [obj valueForKey:@"retailprice"];
-		 NSNumber *pagecount = [obj valueForKey:@"pagecount"];
-		 NSString *authorname = [obj valueForKey:@"authorname"];
-		 NSString *publishername = [obj valueForKey:@"publishername"];
-		 NSNumber *recstatus = [obj valueForKey:@"recstatus"];
-		 NSNumber *spid = [obj valueForKey:@"spid"];
-		 NSNumber *adminid = [obj valueForKey:@"adminid"];
-		 NSNumber *sptypeid = [obj valueForKey:@"sptypeid"];
-		 
-		 [book setBookid:bookid];
-		 [book setCoverimagepath_l:coverimagepath_l];
-		 [book setCoverimagepath_s:coverimagepath_s];
-		 [book setDetails:details];
-		 [book setMainbookcategoryid:mainbookcategoryid];
-		 [book setPublicationdate:publicationdate];
-		 [book setTitle:booktitle];
-		 [book setRetailprice:retailprice];
-		 [book setPagecount:pagecount];
-		 [book setAuthorname:authorname];
-		 [book setPublishername:publishername];
-		 [book setRecstatus:recstatus];
-		 [book setSpid:spid];
-		 [book setAdminid:adminid];
-		 [book setSptypeid:sptypeid];
-		 
-		 // write it to db
-		 [self saveAction];
-		 }
-
-		} else if ([tablename isEqualToString:@"Newreleases"]) {
-				
-		int i;
-		for (i = 0; i<[data count]; i++) {
-			Newreleases *book = (Newreleases *)[NSEntityDescription 
-												insertNewObjectForEntityForName:@"Newreleases" 
-												inManagedObjectContext:self.managedObjectContext];
-
-			NSArray *obj = [data objectAtIndex:i];
-			NSString *authorname = [obj valueForKey:@"authorname"];
-			NSString *availdate = [obj valueForKey:@"availdate"];
-			NSNumber *bookid = [obj valueForKey:@"bookid"];
-			NSString *coverimagepath_l = [obj valueForKey:@"coverimagepath_l"];
-			NSString *coverimagepath_s = [obj valueForKey:@"coverimagepath_s"];
-			NSString *details = [obj valueForKey:@"description"];
-			NSNumber *mainbookcategoryid = [obj valueForKey:@"mainbookcategoryid"];
-			NSString *publicationdate = [obj valueForKey:@"publicationdate"];
-			NSString *booktitle = [obj valueForKey:@"title"];
-			NSNumber *retailprice = [obj valueForKey:@"retailprice"];
-			NSNumber *pagecount = [obj valueForKey:@"pagecount"];
-			NSString *publishername = [obj valueForKey:@"publishername"];
-			
-			if ([coverimagepath_l isKindOfClass:[NSNull class]])
-				coverimagepath_l = @"";
-			
-			if ([coverimagepath_s isKindOfClass:[NSNull class]])
-				coverimagepath_s = @"";
-
-			if ([publishername isKindOfClass:[NSNull class]]) {
-				publishername = @"";
-			}
-			
-			NSNumber *becommerce = [obj valueForKey:@"becommerce"];
-			NSNumber *bnodrm = [obj valueForKey:@"bnodrm"];
-			NSNumber *bavailable = [obj valueForKey:@"bavailable"];
-			NSNumber *bbooksponsor = [obj valueForKey:@"bbooksponsor"];
-			NSString *isbn = [obj valueForKey:@"isbn"];
-			NSString *indexname = [obj valueForKey:@"indexname"];
-			if ([indexname isKindOfClass:[NSNull class]]) {
-				indexname = @"";
-			}
-			NSNumber *purchased = [obj valueForKey:@"purchased"];
-			NSNumber *previewpagecount = [obj valueForKey:@"previewpagecount"];
-			NSNumber *recstatus = [obj valueForKey:@"recstatus"];
-			NSNumber *ratingcount = [obj valueForKey:@"ratingcount"];
-			NSString *ratingString = [ratingcount stringValue];
-			NSNumber *avgrating = [obj valueForKey:@"avgrating"];
-			NSString *avgRatingString = [avgrating stringValue];
-			avgRatingString = [avgRatingString stringByReplacingOccurrencesOfString:@"." withString:@"_"];
-			
-			[book setBookid:bookid];
-			[book setBecommerce:becommerce];
-			[book setBnodrm:bnodrm];
-			[book setBavailable:bavailable];
-			[book setAvaildate:availdate];
-			[book setBbooksponsor:bbooksponsor];
-			[book setIsbn:isbn];
-			[book setIndexname:indexname];
-			[book setCoverimagepath_l:coverimagepath_l];
-			[book setCoverimagepath_s:coverimagepath_s];
-			[book setDetails:details];
-			[book setMainbookcategoryid:mainbookcategoryid];
-			[book setPublicationdate:publicationdate];
-			[book setPurchased:purchased];
-			[book setTitle:booktitle];
-			[book setRetailprice:retailprice];
-			[book setPagecount:pagecount];
-			[book setPreviewpagecount:previewpagecount];
-			[book setAuthorname:authorname];
-			[book setPublishername:publishername];
-			[book setRecstatus:recstatus];
-			[book setRatingcount:ratingString];
-			[book setAvgrating:avgRatingString];
-			
-			
-			// write it to db
-			[self saveAction];
-		}
-		
-		
-	} else if ([tablename isEqualToString:@"Sponsored"]) {
-		
-		int i;
-		for (i = 0; i<[data count]; i++) {
-			Sponsored *book = (Sponsored *)[NSEntityDescription 
-											insertNewObjectForEntityForName:@"Sponsored" 
-											inManagedObjectContext:self.managedObjectContext];
-
-			NSArray *obj = [data objectAtIndex:i];
-			NSNumber *bookid = [obj valueForKey:@"bookid"];
-			NSNumber *bookcount = [obj valueForKey:@"bookcount"];
-			NSString *coverimagepath_s = [obj valueForKey:@"coverimagepath_s"];
-			NSString *details = [obj valueForKey:@"description"];
-			NSNumber *mainbookcategoryid = [obj valueForKey:@"mainbookcategoryid"];
-			NSString *publicationdate = [obj valueForKey:@"publicationdate"];
-			NSString *booktitle = [obj valueForKey:@"title"];
-			NSNumber *retailprice = [obj valueForKey:@"retailprice"];
-			NSNumber *pagecount = [obj valueForKey:@"pagecount"];
-			NSString *authorname = [obj valueForKey:@"authorname"];
-			NSString *publishername = [obj valueForKey:@"publishername"];
-			
-			if ([coverimagepath_s isKindOfClass:[NSNull class]])
-				coverimagepath_s = @"";
-			
-			[book setBookid:bookid];
-			[book setBookcount:bookcount];
-			[book setCoverimagepath_s:coverimagepath_s];
-			[book setDetails:details];
-			[book setMainbookcategoryid:mainbookcategoryid];
-			[book setPublicationdate:publicationdate];
-			[book setTitle:booktitle];
-			[book setRetailprice:retailprice];
-			[book setPagecount:pagecount];
-			[book setAuthorname:authorname];
-			[book setPublishername:publishername];
-			
-			// write it to db
-			[self saveAction];
-		}
-		
-	} else if ([tablename isEqualToString:@"Staffpicks"]) {
-		
-		int i;
-		for (i = 0; i<[data count]; i++) {
-			Staffpicks *book = (Staffpicks *)[NSEntityDescription 
-															insertNewObjectForEntityForName:@"Staffpicks" 
-															inManagedObjectContext:self.managedObjectContext];
-			
-			NSArray *obj = [data objectAtIndex:i];
-			NSNumber *bookid = [obj valueForKey:@"bookid"];
-			NSString *coverimagepath_l = [obj valueForKey:@"coverimagepath_l"];
-			NSString *coverimagepath_s = [obj valueForKey:@"coverimagepath_s"];
-			NSString *details = [obj valueForKey:@"description"];
-			NSNumber *mainbookcategoryid = [obj valueForKey:@"mainbookcategoryid"];
-			NSString *publicationdate = [obj valueForKey:@"publicationdate"];
-			NSString *booktitle = [obj valueForKey:@"title"];
-			NSNumber *retailprice = [obj valueForKey:@"retailprice"];
-			NSNumber *pagecount = [obj valueForKey:@"pagecount"];
-			NSString *authorname = [obj valueForKey:@"authorname"];
-			NSString *publishername = [obj valueForKey:@"publishername"];
-			NSNumber *recstatus = [obj valueForKey:@"recstatus"];
-			NSNumber *spid = [obj valueForKey:@"spid"];
-			NSNumber *adminid = [obj valueForKey:@"adminid"];
-			NSNumber *sptypeid = [obj valueForKey:@"sptypeid"];
-			
-			if ([coverimagepath_l isKindOfClass:[NSNull class]])
-				coverimagepath_l = @"";
-			
-			if ([coverimagepath_s isKindOfClass:[NSNull class]])
-				coverimagepath_s = @"";
-			
-			[book setBookid:bookid];
-			[book setCoverimagepath_l:coverimagepath_l];
-			[book setCoverimagepath_s:coverimagepath_s];
-			[book setDetails:details];
-			[book setMainbookcategoryid:mainbookcategoryid];
-			[book setPublicationdate:publicationdate];
-			[book setTitle:booktitle];
-			[book setRetailprice:retailprice];
-			[book setPagecount:pagecount];
-			[book setAuthorname:authorname];
-			[book setPublishername:publishername];
-			[book setRecstatus:recstatus];
-			[book setSpid:spid];
-			[book setAdminid:adminid];
-			[book setSptypeid:sptypeid];
-			
-			// write it to db
-			[self saveAction];
-		}
-		
-	} else if ([tablename isEqualToString:@"Featuredbooks"]) {
-		
-		int i;
-		for (i = 0; i<[data count]; i++) {
-			Featuredbooks *book = (Featuredbooks *)[NSEntityDescription 
-											  insertNewObjectForEntityForName:@"Featuredbooks" 
-											  inManagedObjectContext:self.managedObjectContext];
-			
-			NSArray *obj = [data objectAtIndex:i];
-			NSNumber *bookid = [obj valueForKey:@"bookid"];
-			NSString *coverimagepath_l = [obj valueForKey:@"coverimagepath_l"];
-			NSString *coverimagepath_s = [obj valueForKey:@"coverimagepath_s"];
-			NSString *details = [obj valueForKey:@"description"];
-			NSNumber *mainbookcategoryid = [obj valueForKey:@"mainbookcategoryid"];
-			NSString *publicationdate = [obj valueForKey:@"publicationdate"];
-			NSString *booktitle = [obj valueForKey:@"title"];
-			NSNumber *retailprice = [obj valueForKey:@"retailprice"];
-			NSNumber *pagecount = [obj valueForKey:@"pagecount"];
-			NSString *authorname = [obj valueForKey:@"authorname"];
-			NSString *publishername = [obj valueForKey:@"publishername"];
-			NSNumber *recstatus = [obj valueForKey:@"recstatus"];
-			
-			if ([coverimagepath_l isKindOfClass:[NSNull class]])
-				coverimagepath_l = @"";
-			
-			if ([coverimagepath_s isKindOfClass:[NSNull class]])
-				coverimagepath_s = @"";
-			
-			[book setBookid:bookid];
-			[book setCoverimagepath_l:coverimagepath_l];
-			[book setCoverimagepath_s:coverimagepath_s];
-			[book setDetails:details];
-			[book setMainbookcategoryid:mainbookcategoryid];
-			[book setPublicationdate:publicationdate];
-			[book setTitle:booktitle];
-			[book setRetailprice:retailprice];
-			[book setPagecount:pagecount];
-			[book setAuthorname:authorname];
-			[book setPublishername:publishername];
-			[book setRecstatus:recstatus];
-			
-			// write it to db
-			[self saveAction];
-		}*/
-		
 	}
 }
 
@@ -1727,21 +1576,32 @@
     // e.g. self.myOutlet = nil;
 }
 
-
 - (void)dealloc {
     [super dealloc];
 	
+	/*
 	[loginButton release];
 	[loginBackgroundButton release];
 	[backgroundButton release];
 	[backgroundImage release];
 	[appDelegate release];
 	[networkQueue release];
-	//[emailDefault release];
-	//[passwordDefault release];
-
-	//[userNameField release];
-	//[passWordField release];
+	[emailDefault release];
+	[passwordDefault release];
+	[userNameField release];
+	[passWordField release];
+	[progressIndicator release];
+	[managedObjectContext release];
+	[dataSource release];
+	[theTableView release];
+	[loginView release];
+	[delegate release];
+	[urlArray release];
+	[joinButton release];
+	[loginButton release];
+	[infoField release];
+	[loginBackgroundButton release];
+	*/
 }
 
 

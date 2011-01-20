@@ -20,7 +20,7 @@
 			<key>Key</key>
 			<string>emailKey</string>
 			<key>DefaultValue</key>
-			<string>email</string>
+			<string></string>
 			<key>AutoCapitalizationType</key>
 			<string>None</string>
 			<key>AutocorrectionType</key>

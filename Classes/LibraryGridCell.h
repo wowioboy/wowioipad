@@ -22,15 +22,27 @@
 	UILabel	*_bookTitle;
 	UILabel *_bookAuthor;
 	UILabel *_bookCategory;
+	UILabel *_bookDwldDate;
+	UILabel *_bookFormat;
+	UILabel *_bookFileSize;
 	
 	//GridColors *gridColor;
 	
 	Library *item;
 	UIActivityIndicatorView *spinningWheel;
+	UIProgressView *progressBar;
+	
+	NSNumberFormatter *numberFormatter;
+	NSDateFormatter *dateFormatter;
+	NSDateFormatter *dateDisplayFormatter;
 }
 
 @property (nonatomic, retain) Library *item;
 @property (nonatomic, assign) NSObject<LibraryGridCellDelegate> *delegate;
+
+@property (nonatomic, retain) NSNumberFormatter *numberFormatter;
+@property (nonatomic, retain) NSDateFormatter *dateFormatter;
+@property (nonatomic, retain) NSDateFormatter *dateDisplayFormatter;
 
 //@property (nonatomic, retain) GridColors *gridColor;
 

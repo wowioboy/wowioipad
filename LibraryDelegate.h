@@ -3,7 +3,7 @@
 //  WOWIO
 //
 //  Created by Lawrence Leach on 7/10/10.
-//  Copyright 2010 Pure Engineering. All rights reserved.
+//  Copyright 2010 WOWIO, Inc. All rights reserved.
 //
 
 @class Library;
@@ -12,7 +12,7 @@
 
 @required
 - (void)bookItem:(Library *)item couldNotLoadImageError:(NSError *)error;
-- (void)bookItem:(Library *)item didLoadCover:(UIImage *)image;
+- (void)bookItem:(Library *)item didLoadCover:(UIImage *)bookImage;
 
 @optional
 

@@ -320,6 +320,37 @@
 #pragma mark -
 #pragma mark DB Methods
 
+- (BOOL)bookInUserLibrary:(NSNumber*)bookid forOrderid:(NSString*)orderid {
+
+	BOOL luResult;
+	NSManagedObjectContext *moc = self.managedObjectContext;
+	NSEntityDescription *entity = [NSEntityDescription entityForName:@"Library" inManagedObjectContext:moc];
+	NSFetchRequest *fetchRequest = [[[NSFetchRequest alloc] init] autorelease];
+	[fetchRequest setEntity:entity];
+	
+	// set the filter predicate
+	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"bookid=%d and orderbookid = %@",[bookid intValue],orderid];
+	[fetchRequest setPredicate:predicate];
+	
+	// execute the fetch
+	NSError *error;
+	NSMutableArray *mutableFetchResults = [[moc executeFetchRequest:fetchRequest error:&error] mutableCopy];
+	if (mutableFetchResults == nil) {
+		return NO;
+	}
+	
+	if ([mutableFetchResults count] >0)
+		luResult = YES;
+	else 
+		luResult = NO;
+	
+	// clean up after yourself
+	//[predicate release];
+	
+	return luResult;
+}
+
+
 - (NSMutableArray *)fetchBookDataFromDB:(NSString*)tableName 
 					 withSortDescriptor:(NSString*)bookSortDescriptor {
 	

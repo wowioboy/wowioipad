@@ -12,35 +12,36 @@
 #import "WOWIOAppDelegate.h"
 #import "AboutViewController.h"
 #import "LoginViewController.h"
-#import "FeaturedBookDetail.h"
 #import "WebViewController.h"
 #import "BookViewController.h"
 #import "BookGridCellDelegate.h"
-#import "NewReleasesController.h"
 #import "TopSellersController.h"
-//#import "AQGridView.h"
+#import "AQGridView.h"
 #import "GridColors.h"
 #import "Book.h"
 
 @class ASINetworkQueue;
 
-@interface FeaturesViewController : UIViewController <UIScrollViewDelegate, NSFetchedResultsControllerDelegate, BookModalViewControllerDelegate, ModalViewControllerDelegate, BookGridCellDelegate, UIWebViewDelegate> {
-
+@interface FeaturesViewController : UIViewController <UIScrollViewDelegate, NSFetchedResultsControllerDelegate, ModalViewControllerDelegate, BookGridCellDelegate, UIWebViewDelegate, AQGridViewDelegate, AQGridViewDataSource> {
+	
+	AQGridView * _gridView;
+	NSMutableArray *gridData;
+	
 	NSFetchedResultsController *fetchedResultsController;
 	NSManagedObjectContext *managedObjectContext;
 	WOWIOAppDelegate *appDelegate;
 	ASINetworkQueue *networkQueue;
 	AboutViewController *aboutViewController;
-	FeaturedBookDetail *bookViewController;
 	WebViewController *webViewController;
+	TopSellersController *topSellersController;
 	
-	NewReleasesController *releasesGrid;
-	TopSellersController *sellersGrid;
+		//TopSellersController *sellersGrid;
 
 	NSNumberFormatter *numberFormatter;
 		
 	IBOutlet UIImageView *backgroundImage;
 	IBOutlet UIView *mainContainer;
+	IBOutlet UIView *topSellersView;
 	IBOutlet UIScrollView *mainScrollView;	
 	IBOutlet UIScrollView *contentView;	
 	IBOutlet UIPageControl *pageControl;
@@ -73,6 +74,7 @@
 	
 	BOOL _isLoggedIn;
 	BOOL _contentLoaded;
+	BOOL _topsellersLoaded;
 
 	NetworkStatus hostStatus;
 	NetworkStatus internetStatus;
@@ -82,16 +84,18 @@
 	//UINavigationController *modalNavController;
 }
 
-@property(nonatomic, retain) IBOutlet NewReleasesController *releasesGrid;
-@property(nonatomic, retain) IBOutlet TopSellersController *sellersGrid;
+	//@property(nonatomic, retain) IBOutlet TopSellersController *sellersGrid;
+
+@property(nonatomic, retain) IBOutlet AQGridView *theGridView;
+@property(nonatomic, retain) NSMutableArray *gridData;
 
 @property(nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
 @property(nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 @property(nonatomic, retain) WOWIOAppDelegate *appDelegate;
 @property(nonatomic, retain) ASINetworkQueue *networkQueue;
 @property(nonatomic, retain) AboutViewController *aboutViewController;
-@property(nonatomic, retain) FeaturedBookDetail *bookViewController;
 @property(nonatomic, retain) WebViewController *webViewController;
+@property(nonatomic, retain) TopSellersController *topSellersController;
 
 @property(nonatomic, retain) NSNumberFormatter *numberFormatter;
 
@@ -119,8 +123,8 @@
 @property(nonatomic, retain) NSMutableArray *newReleases;
 @property(nonatomic, retain) NSMutableArray *featured;
 @property(nonatomic, retain) UIView *gridList;
-@property(nonatomic, retain) UIView *featuredContent;
-@property(nonatomic, retain) UIView *newReleasesView;
+	//@property(nonatomic, retain) UIView *featuredContent;
+	//@property(nonatomic, retain) UIView *newReleasesView;
 @property(nonatomic, retain) UIView *topSellersView;
 
 @property(nonatomic, assign) NSTimer *repeatingTimer;
@@ -130,6 +134,7 @@
 
 @property(nonatomic, assign) BOOL _isLoggedIn;
 @property(nonatomic, assign) BOOL _contentLoaded;
+@property(nonatomic, assign) BOOL _topsellersLoaded;
 
 //@property(nonatomic, retain) LoginViewController *loginController;
 //@property(nonatomic, retain) UINavigationController *modalNavController;
@@ -141,10 +146,12 @@
 -(IBAction)showAbout:(id)sender;
 -(IBAction)showAll:(id)sender;
 -(void)swapHeadline:(int)page;
+-(void)getTopSellersFromDB:(id)sender;
 -(void)fetchAgileContentFromDB;
 -(void)setupAgileContentSpace;
 -(UIColor *) colorWithHexString: (NSString *) stringToConvert;
--(void)showBook:(NSNumber*)bookid andTitle:(NSString*)bookTitle;
+-(void)showBook:(NSNumber*)bookid;
+-(void)fetchAgileBookData:(NSNumber*)bookid;
 -(void)fetchBookData:(NSNumber*)bookid;
 -(void)fetchBookDataFromDB:(NSNumber*)bookid;
 -(void)writeBookDataToDB:(NSMutableArray *)data;
