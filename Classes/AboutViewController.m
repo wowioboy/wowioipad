@@ -64,6 +64,10 @@
 
 - (void)dealloc {
     [super dealloc];
+	
+	[appDelegate release];
+	[closeButton release];
+	[delegate release];
 }
 
 

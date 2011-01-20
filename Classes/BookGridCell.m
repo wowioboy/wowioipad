@@ -119,9 +119,11 @@
 		
         if (item != nil)
         {
+			NSString *newTitle = [item title];
+			newTitle = [newTitle stringByReplacingOccurrencesOfString:@"\"" withString:@""];
 			_bookTitle.lineBreakMode = UILineBreakModeWordWrap;
 			_bookTitle.numberOfLines = 2;
-            _bookTitle.text = [item title];
+            _bookTitle.text = newTitle;
 			
 			_bookAuthor.lineBreakMode = UILineBreakModeWordWrap;
 			_bookAuthor.numberOfLines = 2;
@@ -145,14 +147,14 @@
 						NSString *thePrice = [retailprice stringValue];
 						NSNumber *fprice = [NSNumber numberWithFloat:[thePrice floatValue]];
 						NSString *formattedPrice = [numberFormatter stringFromNumber:fprice];
-						priceamt = [NSString stringWithFormat:@"Buy PDF for %@",formattedPrice];
+						priceamt = [NSString stringWithFormat:@"Buy for %@",formattedPrice];
 						
 					} else {
 						priceamt = [NSString stringWithFormat:@"Free from %@",[indexname capitalizedString]];
 					}
 					
 				} else {
-					priceamt = @"Get PDF FREE";
+					priceamt = @"FREE";
 				}
 				
 			} else {

@@ -24,6 +24,7 @@
 @property (nonatomic, assign) NSObject<BookDelegate> *delegate;
 
 @property (nonatomic, retain) NSString * groupname;
+@property (nonatomic, retain) NSNumber * cpage;
 @property (nonatomic, retain) NSNumber * bookgroupid;
 @property (nonatomic, retain) NSNumber * tcdid;
 @property (nonatomic, retain) NSNumber * downloadsum;
@@ -56,6 +57,7 @@
 @property (nonatomic, retain) NSNumber * bpdfprint;
 @property (nonatomic, retain) NSNumber * previewpagecount;
 @property (nonatomic, retain) NSNumber * bnodrm;
+@property (nonatomic, retain) NSNumber * bnoimage;
 @property (nonatomic, retain) NSNumber * bookfiletypeid;
 @property (nonatomic, retain) NSString * sorttitle;
 @property (nonatomic, retain) NSNumber * antialiasoption;

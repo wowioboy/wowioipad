@@ -127,12 +127,17 @@
 	
 	// add book to the presented view
 	Categories *cat = (Categories*)[[self cats] objectAtIndex:index];
-	[categoryDetailViewController setCategoryId:[NSString stringWithFormat:@"%@",[cat bookcategoryid]]];
-	categoryDetailViewController.title = [NSString stringWithFormat:@"%@ (%@ Books)",[cat bookcategory],[cat bookcount]];
-	[categoryDetailViewController.navigationController.navigationBar setBarStyle:UIBarStyleBlackOpaque];
+	NSNumber *categoryid = [cat bookcategoryid];
+	NSString *bookcategory = [cat bookcategory];
+	NSNumber *bookcount = [cat bookcount];
 	
 	// Present the Controller Modally	
 	[self presentModalViewController:modalNavController animated:YES];
+	[categoryDetailViewController setCategoryId:[NSString stringWithFormat:@"%@",categoryid]];
+	categoryDetailViewController.title = [NSString stringWithFormat:@"%@ %@ Books",bookcount,bookcategory];
+	[categoryDetailViewController.navigationController.navigationBar setBarStyle:UIBarStyleBlackOpaque];
+	
+	[categoryDetailViewController.progressLabel setText:[NSString stringWithFormat:@"Loading %@ Books...",bookcategory]];
 	[modalNavController release];
 }
 
@@ -270,13 +275,24 @@
     // e.g. self.myOutlet = nil;
 }
 
-
 - (void)dealloc {
     [super dealloc];
 	[myProgressIndicator release];
 	[categoryDetailViewController release];
 	[cats release];
 	[navBar release];
+	[_gridView release];
+	[backgroundImage release];
+	[sponsorLegend release];
+	[appDelegate release];
+	[networkQueue release];
+	[categoryDetailViewController release];
+	[cats release];
+	[myProgressIndicator release];
+	[navBar release];
+	[fetchedResultsController release];
+	[managedObjectContext release];
+	[gridColor release];
 }
 
 

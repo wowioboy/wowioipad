@@ -193,6 +193,25 @@
 								<int key="IBUINumberOfLines">3</int>
 								<int key="IBUILineBreakMode">0</int>
 							</object>
+							<object class="IBUILabel" id="731211407">
+								<reference key="NSNextResponder" ref="1001652353"/>
+								<int key="NSvFlags">292</int>
+								<string key="NSFrame">{{26, 464}, {464, 25}}</string>
+								<reference key="NSSuperview" ref="1001652353"/>
+								<bool key="IBUIOpaque">NO</bool>
+								<bool key="IBUIClipsSubviews">YES</bool>
+								<int key="IBUIContentMode">7</int>
+								<bool key="IBUIUserInteractionEnabled">NO</bool>
+								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+								<string key="IBUIText">Back-end programming by Ed Novak.</string>
+								<reference key="IBUIFont" ref="1055323781"/>
+								<reference key="IBUITextColor" ref="564744014"/>
+								<reference key="IBUIHighlightedColor" ref="305151375"/>
+								<int key="IBUIBaselineAdjustment">1</int>
+								<float key="IBUIMinimumFontSize">10</float>
+								<int key="IBUINumberOfLines">3</int>
+								<int key="IBUILineBreakMode">0</int>
+							</object>
 							<object class="IBUILabel" id="103329130">
 								<reference key="NSNextResponder" ref="1001652353"/>
 								<int key="NSvFlags">292</int>
@@ -325,6 +344,7 @@
 							<reference ref="150654911"/>
 							<reference ref="927611442"/>
 							<reference ref="458584384"/>
+							<reference ref="731211407"/>
 						</object>
 						<reference key="parent" ref="766721923"/>
 					</object>
@@ -378,6 +398,11 @@
 						<reference key="object" ref="458584384"/>
 						<reference key="parent" ref="1001652353"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">19</int>
+						<reference key="object" ref="731211407"/>
+						<reference key="parent" ref="1001652353"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -396,6 +421,8 @@
 					<string>14.IBViewBoundsToFrameTransform</string>
 					<string>18.IBPluginDependency</string>
 					<string>18.IBViewBoundsToFrameTransform</string>
+					<string>19.IBPluginDependency</string>
+					<string>19.IBViewBoundsToFrameTransform</string>
 					<string>2.IBEditorWindowLastContentRect</string>
 					<string>2.IBPluginDependency</string>
 					<string>4.IBPluginDependency</string>
@@ -432,9 +459,13 @@
 					</object>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
+						<bytes key="NSTransformStruct">AUHQAABD2wAAA</bytes>
+					</object>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<object class="NSAffineTransform">
 						<bytes key="NSTransformStruct">AUHQAABDvoAAA</bytes>
 					</object>
-					<string>{{627, 70}, {768, 1024}}</string>
+					<string>{{377, 137}, {768, 1024}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -475,7 +506,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">18</int>
+			<int key="maxID">19</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">

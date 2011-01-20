@@ -11,7 +11,7 @@
 #import "ASIHTTPRequest.h"
 
 @interface Book (Private)
-- (void)loadURL:(NSURL *)url;
+-(void)loadURL:(NSURL *)url withFormat:(NSString*)imgFormat;
 @end
 
 
@@ -19,6 +19,7 @@
 @synthesize networkQueue, bookCover, delegate;
 
 @dynamic groupname;
+@dynamic cpage;
 @dynamic bookgroupid;
 @dynamic tcdid;
 @dynamic downloadsum;
@@ -99,6 +100,7 @@
 @dynamic parentbookid;
 @dynamic bookmarkcount;
 @dynamic title;
+@dynamic bnoimage;
 @dynamic listtypeid;
 @dynamic publishername;
 @dynamic ade_pdf_filesize;
@@ -145,13 +147,28 @@
 {
     if (bookCover == nil)
     {
+		NSString *imgFormat = @"image/jpeg";
 		NSNumber *bid = [self bookid];
 		NSNumber *pid = [self publisherid];
-		NSURL *imgURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.wowio.com/images/books/%@/%@_3.jpg",pid,bid]];
-			//NSLog(@"\n%@",imgURL);
-			//NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.wowio.com%@",self.coverimagepath_l]]; // old method
-			//NSLog(@"\nBook: %@\nImage URL: %@\n\n",[self title],url);
-        [self loadURL:imgURL];
+		NSString *imgsubpath = [self imagesubpath];
+		NSNumber *bNoImage = (NSNumber*)[self bnoimage];
+		BOOL haveImg = [bNoImage boolValue];
+		NSURL *imgURL;
+		
+		if (![imgsubpath isKindOfClass:[NSNull class]] && ![imgsubpath isEqualToString:@""])
+			imgURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.wowio.com/images/books/%@/%@/%@_3.jpg",pid,imgsubpath,bid]];
+		else {
+			
+			if (haveImg){
+				imgFormat = @"image/png";
+				imgURL = [NSURL URLWithString:@"http://www.wowio.com/images/newimages/no-cover-260.png"];
+			} else
+				imgURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.wowio.com/images/books/%@/%@_3.jpg",pid,bid]];
+			
+		}
+		
+			// NSLog(@"\n%@",imgURL);
+        [self loadURL:imgURL withFormat:imgFormat];
     }
     return bookCover;
 }
@@ -188,25 +205,21 @@
 #pragma mark -
 #pragma mark Private methods
 
-- (void)loadURL:(NSURL *)url
+-(void)loadURL:(NSURL *)url withFormat:(NSString*)imgFormat
 {
-		// show activity spinner
-	if ([delegate respondsToSelector:@selector(startSpinner:)])
-		[delegate performSelector:@selector(startSpinner:)];
-	
 	[self setNetworkQueue:[ASINetworkQueue queue]];
-		//[self.networkQueue cancelAllOperations];
+	//[self.networkQueue cancelAllOperations];
 	[self.networkQueue setDelegate:self];		
 	[self.networkQueue setRequestDidFinishSelector:@selector(requestDone:)];
 	[self.networkQueue setRequestDidFailSelector:@selector(requestWentWrong:)];
 	
-		// submit the request
+	// submit the request
 	ASIHTTPRequest *request = [[[ASIHTTPRequest alloc] initWithURL:url] autorelease];
 	[request setRequestMethod:@"GET"];
-	[request addRequestHeader:@"Content-Type" value:@"image/jpeg"];
-	[request addRequestHeader:@"Accept" value:@"image/jpeg"];
+	[request addRequestHeader:@"Content-Type" value:imgFormat];
+	[request addRequestHeader:@"Accept" value:imgFormat];
 	
-		// add the request to the queue and set it off
+	// add the request to the queue and set it off
 	[self.networkQueue addOperation:request];
 	[self.networkQueue go];
 }
