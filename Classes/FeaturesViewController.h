@@ -11,7 +11,6 @@
 #import <QuartzCore/QuartzCore.h>
 #import "WOWIOAppDelegate.h"
 #import "AboutViewController.h"
-#import "LoginViewController.h"
 #import "WebViewController.h"
 #import "BookViewController.h"
 #import "BookGridCellDelegate.h"
@@ -19,13 +18,16 @@
 #import "AQGridView.h"
 #import "GridColors.h"
 #import "Book.h"
+#import "Categories.h"
 
 @class ASINetworkQueue;
 
-@interface FeaturesViewController : UIViewController <UIScrollViewDelegate, NSFetchedResultsControllerDelegate, ModalViewControllerDelegate, BookGridCellDelegate, UIWebViewDelegate, AQGridViewDelegate, AQGridViewDataSource> {
+@interface FeaturesViewController : UIViewController <UIScrollViewDelegate, NSFetchedResultsControllerDelegate, BookGridCellDelegate, UIWebViewDelegate, AQGridViewDelegate, AQGridViewDataSource, AboutViewControllerDelegate> {
+	
 	
 	AQGridView * _gridView;
 	NSMutableArray *gridData;
+	NSArray *urlArray;
 	
 	NSFetchedResultsController *fetchedResultsController;
 	NSManagedObjectContext *managedObjectContext;
@@ -50,6 +52,8 @@
 	IBOutlet UIButton *infoButton;
 	IBOutlet UIButton *topSellersButton;
 	IBOutlet UIActivityIndicatorView *activityIndicator;
+	IBOutlet UIActivityIndicatorView *featLoadIndicator;
+	IBOutlet UIActivityIndicatorView *topLoadIndicator;
 	IBOutlet UILabel *activityLabel;
 	IBOutlet UIWebView *webView;
 	IBOutlet UIView *gridList;
@@ -72,9 +76,11 @@
 	NSNumber *selectedBookid;
 	Book *selectedBook;
 	
+	int fetchCount;
 	BOOL _isLoggedIn;
 	BOOL _contentLoaded;
 	BOOL _topsellersLoaded;
+	BOOL _featuresFetched;
 
 	NetworkStatus hostStatus;
 	NetworkStatus internetStatus;
@@ -86,13 +92,18 @@
 
 	//@property(nonatomic, retain) IBOutlet TopSellersController *sellersGrid;
 
+@property(nonatomic, assign)id<ModalViewControllerDelegate> delegate;
+
+@property(nonatomic, retain) WOWIOAppDelegate *appDelegate;
+@property(nonatomic, retain) ASINetworkQueue *networkQueue;
+
 @property(nonatomic, retain) IBOutlet AQGridView *theGridView;
 @property(nonatomic, retain) NSMutableArray *gridData;
+@property(nonatomic, retain) NSArray *urlArray;
 
 @property(nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
 @property(nonatomic, retain) NSManagedObjectContext *managedObjectContext;
-@property(nonatomic, retain) WOWIOAppDelegate *appDelegate;
-@property(nonatomic, retain) ASINetworkQueue *networkQueue;
+
 @property(nonatomic, retain) AboutViewController *aboutViewController;
 @property(nonatomic, retain) WebViewController *webViewController;
 @property(nonatomic, retain) TopSellersController *topSellersController;
@@ -109,6 +120,8 @@
 @property(nonatomic, retain) UILabel *topSellersLabel;
 @property(nonatomic, retain) UILabel *headline;
 @property(nonatomic, retain) UIActivityIndicatorView *activityIndicator;
+@property(nonatomic, retain) UIActivityIndicatorView *featLoadIndicator;
+@property(nonatomic, retain) UIActivityIndicatorView *topLoadIndicator;
 @property(nonatomic, retain) UILabel *activityLabel;
 
 @property(nonatomic, retain) UIImageView *imageView;
@@ -132,6 +145,7 @@
 @property(nonatomic, retain) NSNumber *selectedBookid;
 @property(nonatomic, retain) Book *selectedBook;
 
+@property(nonatomic, assign) int fetchCount;
 @property(nonatomic, assign) BOOL _isLoggedIn;
 @property(nonatomic, assign) BOOL _contentLoaded;
 @property(nonatomic, assign) BOOL _topsellersLoaded;
@@ -154,8 +168,18 @@
 -(void)fetchAgileBookData:(NSNumber*)bookid;
 -(void)fetchBookData:(NSNumber*)bookid;
 -(void)fetchBookDataFromDB:(NSNumber*)bookid;
--(void)writeBookDataToDB:(NSMutableArray *)data;
-- (void)saveAction;
+	//-(void)writeBookDataToDB:(NSMutableArray *)data;
+
+-(void)fetchWowioData;
+-(void)fetchFeatures;
 -(BOOL)internetCheck;
+
+-(BOOL)bookInUserLibrary:(NSNumber*)bookid forOrderid:(NSNumber*)orderid;
+-(void)removeData:(NSString*)theEntity;
+-(void)removeBookData:(NSString*)theEntity forFilter:(NSString*)theFilter;
+-(void)writeCategoryDataToDB:(NSMutableArray *)data;
+-(void)writeBookDataToDB:(NSString*)table withData:(NSMutableArray *)data;
+-(void)saveAction;
+
 
 @end

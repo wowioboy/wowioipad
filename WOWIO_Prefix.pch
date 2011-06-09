@@ -17,7 +17,9 @@
 #define testPDF						@"1001ArabianNiSinba02_9826901.pdf"
 
 	// BOOK PURCHASE
-#define bookPurchaseURL				@"https://www.wowio.com/users/library/purchase1ipad.asp"
+//#define bookPurchaseURL				@"https://www.wowio.com/users/library/purchase1ipad.asp"
+#define bookPurchaseURL				@"http://wowio.com/users/product.asp?BookId="
+
 /* 
  EXAMPLE:
  https://www.wowio.com/users/library/purchase1ipad.asp?nBookId=[BookId]&nFormat=[FormatId], 
@@ -37,6 +39,7 @@
 
 	// LOGIN
 #define loginURL					@"https://www.wowio.com/users/library/checklogon.asp"
+#define windowCloseURL				@"https://www.wowio.com/users/library/ipadcloseview.asp"
 
 	// ACCOUNT SIGN-UP
 #define accountCreationURL			@"https://www.wowio.com/users/library/newuser.asp"

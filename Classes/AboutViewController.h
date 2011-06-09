@@ -3,7 +3,7 @@
 //  WOWIO
 //
 //  Created by Lawrence Leach on 10/15/10.
-//  Copyright 2010 Pure Engineering. All rights reserved.
+//  Copyright 2010 WOWIO, Inc. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -11,7 +11,7 @@
 
 @protocol AboutViewControllerDelegate <NSObject>
 
-- (void)didDismissBookView;
+- (void)didDismissModalView;
 
 @end
 

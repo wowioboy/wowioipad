@@ -3,7 +3,7 @@
 //  WOWIO
 //
 //  Created by Lawrence Leach on 6/29/10.
-//  Copyright 2010 Pure Engineering. All rights reserved.
+//  Copyright 2010 WOWIO, Inc. All rights reserved.
 //
 
 #import "CategoryDetailViewController.h"
@@ -313,7 +313,7 @@
 	
 	if ([self internetCheck]) {
 		
-		NSString *sessionId = [appDelegate sessionId];
+			//NSString *sessionId = [appDelegate sessionId];
 		
 		// set progress indicator
 		[self.progressLabel setHidden:NO];		
@@ -343,7 +343,7 @@
 													 URLWithString:url]] autorelease];
 		[request setTimeOutSeconds:20];
 		[request setRequestMethod:@"GET"];
-		[request addRequestHeader:@"Cookie" value:sessionId];
+			//[request addRequestHeader:@"Cookie" value:sessionId];
 			
 		// add the request to the transmission queue and set it off
 		[self.networkQueue addOperation:request];

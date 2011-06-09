@@ -3,7 +3,7 @@
 //  iMogul
 //
 //  Created by Lawrence Leach on 4/21/10.
-//  Copyright 2010 Pure Engineering. All rights reserved.
+//  Copyright 2010 WOWIO, Inc. All rights reserved.
 //
 
 #import "FormCell.h"

@@ -3,7 +3,7 @@
 //  WOWIO
 //
 //  Created by Lawrence Leach on 6/8/10.
-//  Copyright 2010 Pure Engineering. All rights reserved.
+//  Copyright 2010 WOWIO, Inc. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -12,11 +12,12 @@
 #import "AQGridView.h"
 #import "GridColors.h"
 #import "LibraryGridCellDelegate.h"
+#import "LoginViewModalController.h"
 
 @class Library;
 @class ASINetworkQueue;
 
-@interface LibraryViewController : UIViewController <UIScrollViewDelegate, NSFetchedResultsControllerDelegate, AQGridViewDelegate, AQGridViewDataSource, LibraryGridCellDelegate> {
+@interface LibraryViewController : UIViewController <UIScrollViewDelegate, NSFetchedResultsControllerDelegate, AQGridViewDelegate, AQGridViewDataSource, LibraryGridCellDelegate, LoginViewModalDelegate> {
 	
 	NSFetchedResultsController *fetchedResultsController;
 	NSManagedObjectContext *managedObjectContext;
@@ -38,6 +39,7 @@
 	
 	BOOL generatingBook;
 	BOOL _LibraryLoaded;
+	BOOL _isLoggedIn;
 }
 
 @property(nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
@@ -59,6 +61,10 @@
 @property(nonatomic, retain) NSString *obfuBookId;
 
 @property(nonatomic, assign) BOOL _LibraryLoaded;
+@property(nonatomic, assign) BOOL _isLoggedIn;
+
+-(void)didDismissModalView;
+-(void)nextSteps;
 
 -(void)loadContentForVisibleCells;
 

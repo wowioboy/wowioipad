@@ -1,10 +1,15 @@
-    //
+//
 //  BookViewController.m
 //  WOWIO
 //
 //  Created by Lawrence Leach on 6/30/10.
-//  Copyright 2010 Pure Engineering. All rights reserved.
+//  Copyright 2010 WOWIO, Inc. All rights reserved.
 //
+//
+// ***********************
+// NOTES: 
+// Used to view the details of a book.
+
 
 #import "BookViewController.h"
 #import "WebViewController.h"
@@ -13,9 +18,10 @@
 #import "ASIHTTPRequest.h"
 
 @implementation BookViewController
-@synthesize bookTitle, bookAuthor, bookLength, bookLengthLabel, bookPublishDate, bookPublisher, bookIsbn, bookIsbnLabel, bookRatingsLabel, bookDetails, bookJacket, bookRating, bookFilesize, bookFilesizeLabel;
+@synthesize bookTitle, bookAuthor, bookLength, bookLengthLabel, bookPublishDate;
+@synthesize bookPublisher, bookIsbn, bookIsbnLabel, bookRatingsLabel, bookDetails, bookJacket, bookRating, bookFilesize, bookFilesizeLabel;
 @synthesize image, book, spinner, bookRetailPrice, bookRetailLabel;
-@synthesize networkQueue, appDelegate;
+@synthesize networkQueue, appDelegate, sessionId, _isLoggedIn;
 @synthesize managedObjectContext, numberFormatter, formatFlag, formatText;
 @synthesize downloadButton, previewButton, buyButton, readButton;
 @synthesize bookFormatLabel, bookFormat;
@@ -40,7 +46,6 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
-	
 	
 	numberFormatter = [[NSNumberFormatter alloc] init];
 	[numberFormatter setUsesGroupingSeparator:YES];
@@ -87,6 +92,9 @@
 
 -(void)viewDidAppear:(BOOL)animated {
 	
+		// USER INFORMATION
+	sessionId = [appDelegate sessionId];
+
 		// BASIC BOOK DETAILS
 	NSString *newTitle = [book title];
 	newTitle = [newTitle stringByReplacingOccurrencesOfString:@"\"" withString:@""];
@@ -280,38 +288,65 @@
 
 
 #pragma mark -
+#pragma mark LoginViewModalDelegate Delegate Methods
+
+-(void)didDismissModalView {
+	
+		//NSLog(@"Dismissed the modal window");
+	[self dismissModalViewControllerAnimated:YES];
+}
+
+
+#pragma mark -
 #pragma mark Button Methods
 
 -(IBAction)downloadAction:(id)sender {
-	//NSString *msg = @"Download action goes here!";
-	//[appDelegate alertWithMessage:msg withTitle:@"WOWIO"];
 	
-	// book values
-	NSString *bookTtl = [self.book title];
-	NSString *bookAuth = [self.book authorname];
-	//NSNumber *bookPrice = [self.book retailprice];
-	//NSString *userId = [appDelegate userId];
-	NSNumber *bookId = [self.book bookid];
+	_isLoggedIn = [appDelegate _isLoggedIn];
 	
-	WebViewController *viewController = [[WebViewController alloc] initWithNibName:@"WebView" bundle:nil];
-	//viewController.delegate = self;
-	
-	UINavigationController *modalNavController = [[UINavigationController alloc] initWithRootViewController:viewController];
-	modalNavController.modalPresentationStyle = UIModalPresentationFullScreen;
-	//[modalNavController setNavigationBarHidden:YES];
-	
-	// setup view
-	viewController.title = [NSString stringWithFormat:@"%@ by %@",bookTtl,bookAuth];
-	
-	// Present the Controller Modally
-	[self presentModalViewController:modalNavController animated:YES];
-	
-	// open webview with purhcase process started	
-	NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"%@?nBookId=%@&nFormat=%d",bookPurchaseURL,bookId, formatFlag]];
-	NSLog(@"\nPurchase URL: %@\n\n",URL);
-	NSURLRequest *urlRequest = [[NSURLRequest alloc] initWithURL:URL];
-	[viewController.webView loadRequest:urlRequest];
-	[viewController release];
+	if (!_isLoggedIn){
+		
+		LoginViewModalController *viewController = [[LoginViewModalController alloc] initWithNibName:@"LoginViewModal" bundle:nil];
+		viewController.delegate = self;
+		UINavigationController *modalNavController = [[UINavigationController alloc] initWithRootViewController:viewController];
+		modalNavController.modalPresentationStyle = UIModalPresentationFormSheet;
+		[modalNavController setNavigationBarHidden:YES];
+		
+			// Present the Controller Modally	
+		[self presentModalViewController:modalNavController animated:YES];
+		
+		[modalNavController release];
+		[viewController release];
+		
+	} else {
+		
+			// book values
+		NSString *bookTtl = [self.book title];
+		NSString *bookAuth = [self.book authorname];
+			//NSNumber *bookPrice = [self.book retailprice];
+			//NSString *userId = [appDelegate userId];
+		NSNumber *bookId = [self.book bookid];
+		
+		WebViewController *viewController = [[WebViewController alloc] initWithNibName:@"WebView" bundle:nil];
+			//viewController.delegate = self;
+		
+		UINavigationController *modalNavController = [[UINavigationController alloc] initWithRootViewController:viewController];
+		modalNavController.modalPresentationStyle = UIModalPresentationFullScreen;
+			//[modalNavController setNavigationBarHidden:YES];
+		
+			// setup view
+		viewController.title = [NSString stringWithFormat:@"%@ by %@",bookTtl,bookAuth];
+		
+			// Present the Controller Modally
+		[self presentModalViewController:modalNavController animated:YES];
+		
+			// open webview with purhcase process started	
+		NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"%@?nBookId=%@&nFormat=%d",bookPurchaseURL,bookId, formatFlag]];
+			//NSLog(@"\nPurchase URL: %@\n\n",URL);
+		NSURLRequest *urlRequest = [[NSURLRequest alloc] initWithURL:URL];
+		[viewController.webView loadRequest:urlRequest];
+		[viewController release];
+	}
 }
 
 -(IBAction)previewAction:(id)sender {
@@ -322,36 +357,59 @@
 }
 
 -(IBAction)purchaseBookAction:(id)sender {
+    
+    // book values
+    NSNumber *bookId = [self.book bookid];
+    NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",bookPurchaseURL,bookId]];
+    NSLog(@"\nPurchase URL: %@\n\n",URL);
+    [[UIApplication sharedApplication] openURL:URL];
 	
-	// book values
-	NSString *bookTtl = [self.book title];
-	NSString *bookAuth = [self.book authorname];
-	//NSNumber *bookPrice = [self.book retailprice];
-	//NSString *userId = [appDelegate userId];
-	NSNumber *bookId = [self.book bookid];
-		
-	WebViewController *viewController = [[WebViewController alloc] initWithNibName:@"WebView" bundle:nil];
-	//viewController.delegate = self;
-	
-	UINavigationController *modalNavController = [[UINavigationController alloc] initWithRootViewController:viewController];
-	modalNavController.modalPresentationStyle = UIModalPresentationFullScreen;
-	//[modalNavController setNavigationBarHidden:YES];
-	
-	// setup view
-	viewController.title = [NSString stringWithFormat:@"%@ by %@",bookTtl,bookAuth];
-	
-	// Present the Controller Modally
-	[self presentModalViewController:modalNavController animated:YES];
+    /*
+	_isLoggedIn = [appDelegate _isLoggedIn];
+		if (!_isLoggedIn){
+			
+			LoginViewModalController *viewController = [[LoginViewModalController alloc] initWithNibName:@"LoginViewModal" bundle:nil];
+			viewController.delegate = self;
+			UINavigationController *modalNavController = [[UINavigationController alloc] initWithRootViewController:viewController];
+			modalNavController.modalPresentationStyle = UIModalPresentationFormSheet;
+			[modalNavController setNavigationBarHidden:YES];
+			
+				// Present the Controller Modally	
+			[self presentModalViewController:modalNavController animated:YES];
+			
+			[modalNavController release];
+			[viewController release];
 
-	// open webview with purhcase process started	
-	NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"%@?nBookId=%@&nFormat=%d",bookPurchaseURL,bookId, formatFlag]];
-	NSLog(@"\nPurchase URL: %@\n\n",URL);
-	NSURLRequest *urlRequest = [[NSURLRequest alloc] initWithURL:URL];
-	[viewController.webView loadRequest:urlRequest];
-	[viewController release];
-	
-	// close the parent window
-	//[self dismissModalViewControllerAnimated:YES];
+		} else {
+		
+				// book values
+			NSString *bookTtl = [self.book title];
+			NSString *bookAuth = [self.book authorname];
+				//NSNumber *bookPrice = [self.book retailprice];
+				//NSString *userId = [appDelegate userId];
+			NSNumber *bookId = [self.book bookid];
+			
+			WebViewController *viewController = [[WebViewController alloc] initWithNibName:@"WebView" bundle:nil];
+				//viewController.delegate = self;
+			
+			UINavigationController *modalNavController = [[UINavigationController alloc] initWithRootViewController:viewController];
+			modalNavController.modalPresentationStyle = UIModalPresentationFullScreen;
+				//[modalNavController setNavigationBarHidden:YES];
+			
+				// setup view
+			viewController.title = [NSString stringWithFormat:@"%@ by %@",bookTtl,bookAuth];
+			
+				// Present the Controller Modally
+			[self presentModalViewController:modalNavController animated:YES];
+			
+				// open webview with purhcase process started	
+			NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"%@?nBookId=%@&nFormat=%d",bookPurchaseURL,bookId, formatFlag]];
+			NSLog(@"\nPurchase URL: %@\n\n",URL);
+			NSURLRequest *urlRequest = [[NSURLRequest alloc] initWithURL:URL];
+			[viewController.webView loadRequest:urlRequest];
+			[viewController release];
+		}
+     */
 }
 
 -(IBAction)readBookAction:(id)sender {
@@ -452,6 +510,7 @@
 - (void)dealloc {
     [super dealloc];
 	
+	[sessionId release];
 	[bookTitle release];
 	[bookAuthor release];
 	[bookLength release];

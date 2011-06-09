@@ -3,7 +3,7 @@
 //  WOWIO
 //
 //  Created by Lawrence Leach on 6/8/10.
-//  Copyright 2010 Pure Engineering. All rights reserved.
+//  Copyright 2010 WOWIO, Inc. All rights reserved.
 //
 
 #import "LibraryViewController.h"
@@ -20,7 +20,7 @@
 @synthesize theGridView=_gridView;
 @synthesize managedObjectContext, fetchedResultsController;
 @synthesize books, backgroundImage, progressIndicator, progressLabel, downloadProgress, spinner;
-@synthesize appDelegate, networkQueue, selectedBook, obfuBookId, _LibraryLoaded;
+@synthesize appDelegate, networkQueue, selectedBook, obfuBookId, _LibraryLoaded, _isLoggedIn;
 @synthesize syncButton;
 
 /*
@@ -38,16 +38,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-	// deal with orientation -- load up the correct orientation
+		// set the app Delegate
+	self.appDelegate = (WOWIOAppDelegate *)[[UIApplication sharedApplication] delegate];
+	
+		// deal with orientation -- load up the correct orientation
 	BOOL isPortrait = UIDeviceOrientationIsPortrait(self.interfaceOrientation);
 	
 	if (isPortrait)
 		[self.backgroundImage setImage:[UIImage imageNamed:@"Default-Portrait.png"]];
 	else
 		[self.backgroundImage setImage:[UIImage imageNamed:@"Default-Landscape.png"]];
-	
-	// set the app Delegate
-	self.appDelegate = (WOWIOAppDelegate *)[[UIApplication sharedApplication] delegate];
 	
 	// set the db context
 	self.managedObjectContext = [appDelegate managedObjectContext];
@@ -73,24 +73,71 @@
 
 -(void)viewWillAppear:(BOOL)animated {
 	
-		// deal with orientation -- load up the correct orientation
-	BOOL isPortrait = UIDeviceOrientationIsPortrait(self.interfaceOrientation);
+	self._isLoggedIn = [appDelegate _isLoggedIn];
 	
-	if (isPortrait)
-		[self.backgroundImage setImage:[UIImage imageNamed:@"Default-Portrait.png"]];
-	else
-		[self.backgroundImage setImage:[UIImage imageNamed:@"Default-Landscape.png"]];
-
-	
-		// CHECK IF USER LIBRARY HAS BEEN LOADED
-	if (!_LibraryLoaded) {
-			//[self removeData:@"Library"];
-			//[self getBooksFromDB];
-		[self fetchUserLibraryFromWOWIO];
-		_LibraryLoaded = YES;
+	if (!_isLoggedIn){
+		
+		LoginViewModalController *viewController = [[LoginViewModalController alloc] initWithNibName:@"LoginViewModal" bundle:nil];
+		viewController.delegate = self;
+		UINavigationController *modalNavController = [[UINavigationController alloc] initWithRootViewController:viewController];
+		modalNavController.modalPresentationStyle = UIModalPresentationFormSheet;
+		[modalNavController setNavigationBarHidden:YES];
+		
+			// Present the Controller Modally	
+		[self presentModalViewController:modalNavController animated:YES];
+		
+		[modalNavController release];
+		[viewController release];
+		return;
 	}
-	
+		
+			// deal with orientation -- load up the correct orientation
+		BOOL isPortrait = UIDeviceOrientationIsPortrait(self.interfaceOrientation);
+		
+		if (isPortrait)
+			[self.backgroundImage setImage:[UIImage imageNamed:@"Default-Portrait.png"]];
+		else
+			[self.backgroundImage setImage:[UIImage imageNamed:@"Default-Landscape.png"]];
+		
+		
+			// CHECK IF USER LIBRARY HAS BEEN LOADED
+		if (!_LibraryLoaded) {
+				[self removeData:@"Library"];
+				//[self getBooksFromDB];
+			[self fetchUserLibraryFromWOWIO];
+			_LibraryLoaded = YES;
+		}
 }
+
+
+#pragma mark -
+#pragma mark LoginViewModalDelegate Delegate Methods
+
+-(void)didDismissModalView {
+	
+	_isLoggedIn = [appDelegate _isLoggedIn];
+	if (_isLoggedIn)
+		[self dismissModalViewControllerAnimated:YES];	
+}
+
+-(void)nextSteps {
+	
+	_isLoggedIn = [appDelegate _isLoggedIn];
+	if (_isLoggedIn) {
+		
+			// CHECK IF USER LIBRARY HAS BEEN LOADED
+		if (!_LibraryLoaded) {
+			[self removeData:@"Library"];
+				//[self getBooksFromDB];
+			[self fetchUserLibraryFromWOWIO];
+			_LibraryLoaded = YES;
+		}
+	}
+}
+
+
+#pragma mark -
+#pragma mark View Rotation Methods
 
 // Override to allow orientations other than the default portrait orientation.
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -174,7 +221,7 @@
 		[self.appDelegate alertWithMessage:@"Only WOWIO PDF PLUS Books Can Be Read On The iPad At This Time!" withTitle:@"WOWIO"];
 	
 	else {
-		/*
+		
 			// USING PDF VIEW CONTROLLER
 		PDFReaderController *viewController = [[PDFReaderController alloc] initWithNibName:@"PDFView" bundle:nil];
 			//viewController.delegate = self;
@@ -192,9 +239,9 @@
 		[self presentModalViewController:modalNavController animated:YES];
 		[viewController release];
 		[modalNavController release];
-		*/
-
 		
+
+		/*
 			// USING WEB VIEW
 		NSString *bookpdf = [book filepath];
 		NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -238,7 +285,10 @@
 		viewController.webView.autoresizingMask = ( UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
 		[viewController.webView loadRequest:urlRequest];
 		[viewController release];
+         
+        */
 	}
+         
 	[bookformat release];
 }
 

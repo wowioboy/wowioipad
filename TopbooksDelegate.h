@@ -3,7 +3,7 @@
 //  WOWIO
 //
 //  Created by Lawrence Leach on 7/9/10.
-//  Copyright 2010 Pure Engineering. All rights reserved.
+//  Copyright 2010 WOWIO, Inc. All rights reserved.
 //
 
 @class Topbooks;

@@ -2,17 +2,17 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1056</int>
-		<string key="IBDocument.SystemVersion">10H574</string>
+		<string key="IBDocument.SystemVersion">10J567</string>
 		<string key="IBDocument.InterfaceBuilderVersion">823</string>
 		<string key="IBDocument.AppKitVersion">1038.35</string>
-		<string key="IBDocument.HIToolboxVersion">461.00</string>
+		<string key="IBDocument.HIToolboxVersion">462.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">132</string>
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="41"/>
+			<integer value="72"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -218,6 +218,15 @@
 																</object>
 																<reference key="IBUINormalTitleShadowColor" ref="760243775"/>
 															</object>
+															<object class="IBUIActivityIndicatorView" id="1040922184">
+																<reference key="NSNextResponder" ref="567986679"/>
+																<int key="NSvFlags">-2147483356</int>
+																<string key="NSFrame">{{430, 148}, {37, 37}}</string>
+																<reference key="NSSuperview" ref="567986679"/>
+																<bool key="IBUIOpaque">NO</bool>
+																<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+																<int key="IBUIStyle">0</int>
+															</object>
 														</object>
 														<string key="NSFrame">{{0, 37}, {900, 329}}</string>
 														<reference key="NSSuperview" ref="395146921"/>
@@ -234,15 +243,21 @@
 															<object class="IBUIView" id="957717935">
 																<reference key="NSNextResponder" ref="732839557"/>
 																<int key="NSvFlags">292</int>
-																<string key="NSFrame">{{0, 40}, {900, 3000}}</string>
-																<reference key="NSSuperview" ref="732839557"/>
-																<object class="NSColor" key="IBUIBackgroundColor">
-																	<int key="NSColorSpace">3</int>
-																	<bytes key="NSWhite">MQA</bytes>
-																	<object class="NSColorSpace" key="NSCustomColorSpace">
-																		<int key="NSID">2</int>
+																<object class="NSMutableArray" key="NSSubviews">
+																	<bool key="EncodedWithXMLCoder">YES</bool>
+																	<object class="IBUIActivityIndicatorView" id="833441925">
+																		<reference key="NSNextResponder" ref="957717935"/>
+																		<int key="NSvFlags">-2147483356</int>
+																		<string key="NSFrame">{{435, 20}, {37, 37}}</string>
+																		<reference key="NSSuperview" ref="957717935"/>
+																		<bool key="IBUIOpaque">NO</bool>
+																		<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+																		<int key="IBUIStyle">0</int>
 																	</object>
 																</object>
+																<string key="NSFrame">{{0, 40}, {900, 3000}}</string>
+																<reference key="NSSuperview" ref="732839557"/>
+																<reference key="IBUIBackgroundColor" ref="108819906"/>
 																<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 															</object>
 															<object class="IBUIImageView" id="834738092">
@@ -343,14 +358,14 @@
 					<object class="IBUILabel" id="872791237">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">-2147483356</int>
-						<string key="NSFrame">{{57, 11}, {187, 21}}</string>
+						<string key="NSFrame">{{57, 11}, {57, 21}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<int key="IBUIContentMode">7</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-						<string key="IBUIText">Loading........</string>
+						<string key="IBUIText">Loading</string>
 						<object class="NSFont" key="IBUIFont">
 							<string key="NSName">Helvetica</string>
 							<double key="NSSize">12</double>
@@ -523,6 +538,22 @@
 					</object>
 					<int key="connectionID">103</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">featLoadIndicator</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="1040922184"/>
+					</object>
+					<int key="connectionID">109</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">topLoadIndicator</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="833441925"/>
+					</object>
+					<int key="connectionID">111</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -680,6 +711,7 @@
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="549686201"/>
+							<reference ref="1040922184"/>
 						</object>
 						<reference key="parent" ref="395146921"/>
 					</object>
@@ -706,6 +738,10 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">72</int>
 						<reference key="object" ref="957717935"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="833441925"/>
+						</object>
 						<reference key="parent" ref="732839557"/>
 						<string key="objectName">topSellersGrid</string>
 					</object>
@@ -713,6 +749,16 @@
 						<int key="objectID">21</int>
 						<reference key="object" ref="448980529"/>
 						<reference key="parent" ref="395146921"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">107</int>
+						<reference key="object" ref="1040922184"/>
+						<reference key="parent" ref="567986679"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">110</int>
+						<reference key="object" ref="833441925"/>
+						<reference key="parent" ref="957717935"/>
 					</object>
 				</object>
 			</object>
@@ -724,6 +770,10 @@
 					<string>-2.CustomClassName</string>
 					<string>10.IBPluginDependency</string>
 					<string>10.IBViewBoundsToFrameTransform</string>
+					<string>107.IBPluginDependency</string>
+					<string>107.IBViewBoundsToFrameTransform</string>
+					<string>110.IBPluginDependency</string>
+					<string>110.IBViewBoundsToFrameTransform</string>
 					<string>12.IBPluginDependency</string>
 					<string>14.IBPluginDependency</string>
 					<string>16.IBPluginDependency</string>
@@ -762,6 +812,14 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
 						<bytes key="NSTransformStruct">P4AAAL+AAABEOwAAwigAAA</bytes>
+					</object>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<object class="NSAffineTransform">
+						<bytes key="NSTransformStruct">P4AAAL+AAABDu4AAwyUAAA</bytes>
+					</object>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<object class="NSAffineTransform">
+						<bytes key="NSTransformStruct">P4AAAL+AAABD1wAAwmwAAA</bytes>
 					</object>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -823,7 +881,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">103</int>
+			<int key="maxID">111</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -946,6 +1004,8 @@
 							<string>activityLabel</string>
 							<string>backgroundImage</string>
 							<string>contentView</string>
+							<string>delegate</string>
+							<string>featLoadIndicator</string>
 							<string>gridList</string>
 							<string>headline</string>
 							<string>infoButton</string>
@@ -953,6 +1013,7 @@
 							<string>mainScrollView</string>
 							<string>pageControl</string>
 							<string>theGridView</string>
+							<string>topLoadIndicator</string>
 							<string>topSellersButton</string>
 							<string>topSellersLabel</string>
 							<string>topSellersView</string>
@@ -964,6 +1025,8 @@
 							<string>UILabel</string>
 							<string>UIImageView</string>
 							<string>UIScrollView</string>
+							<string>id</string>
+							<string>UIActivityIndicatorView</string>
 							<string>UIView</string>
 							<string>UILabel</string>
 							<string>UIButton</string>
@@ -971,6 +1034,7 @@
 							<string>UIScrollView</string>
 							<string>UIPageControl</string>
 							<string>AQGridView</string>
+							<string>UIActivityIndicatorView</string>
 							<string>UIButton</string>
 							<string>UILabel</string>
 							<string>UIView</string>
@@ -985,6 +1049,8 @@
 							<string>activityLabel</string>
 							<string>backgroundImage</string>
 							<string>contentView</string>
+							<string>delegate</string>
+							<string>featLoadIndicator</string>
 							<string>gridList</string>
 							<string>headline</string>
 							<string>infoButton</string>
@@ -992,6 +1058,7 @@
 							<string>mainScrollView</string>
 							<string>pageControl</string>
 							<string>theGridView</string>
+							<string>topLoadIndicator</string>
 							<string>topSellersButton</string>
 							<string>topSellersLabel</string>
 							<string>topSellersView</string>
@@ -1014,6 +1081,14 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">contentView</string>
 								<string key="candidateClassName">UIScrollView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">delegate</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">featLoadIndicator</string>
+								<string key="candidateClassName">UIActivityIndicatorView</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">gridList</string>
@@ -1042,6 +1117,10 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">theGridView</string>
 								<string key="candidateClassName">AQGridView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">topLoadIndicator</string>
+								<string key="candidateClassName">UIActivityIndicatorView</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">topSellersButton</string>

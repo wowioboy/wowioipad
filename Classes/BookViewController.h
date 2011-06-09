@@ -3,16 +3,18 @@
 //  WOWIO
 //
 //  Created by Lawrence Leach on 6/30/10.
-//  Copyright 2010 Pure Engineering. All rights reserved.
+//  Copyright 2010 WOWIO, Inc. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 #import "WOWIOAppDelegate.h"
 #import "BookDelegate.h"
+#import "LoginViewModalController.h"
+
 @class Book;
 @class ASINetworkQueue;
 
-@interface BookViewController : UIViewController <BookDelegate> {
+@interface BookViewController : UIViewController <BookDelegate, LoginViewModalDelegate> {
 
 	NSManagedObjectContext *managedObjectContext;
 	
@@ -47,6 +49,9 @@
 	
 	NSInteger formatFlag;
 	NSString *formatText;
+	NSString *sessionId;
+	
+	BOOL _isLoggedIn;
 
 	UIImage *image;
 	Book *book;
@@ -86,6 +91,9 @@
 
 @property(nonatomic, assign) NSInteger formatFlag;
 @property(nonatomic, retain) NSString *formatText;
+@property(nonatomic, retain) NSString *sessionId;
+
+@property(nonatomic, assign) BOOL _isLoggedIn;
 
 @property(nonatomic, retain) UIImage *image;
 @property(nonatomic, retain) Book *book;

@@ -3,7 +3,7 @@
 //  WOWIO
 //
 //  Created by Lawrence Leach on 8/25/10.
-//  Copyright 2010 Pure Engineering. All rights reserved.
+//  Copyright 2010 WOWIO, Inc. All rights reserved.
 //
 
 #import "WebViewController.h"
@@ -85,19 +85,19 @@
 #pragma mark webView Delegate Methods
 
 - (void)webViewDidStartLoad:(UIWebView *)wv {
-    NSLog (@"webViewDidStartLoad");
+		//NSLog (@"webViewDidStartLoad");
     [activityIndicator startAnimating];
 	[activityLabel setHidden:NO];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)wv {
-    NSLog (@"webViewDidFinishLoad");
+		//NSLog (@"webViewDidFinishLoad");
     [activityIndicator stopAnimating];
 	[activityLabel setHidden:YES];
 }
 
 - (void)webView:(UIWebView *)wv didFailLoadWithError:(NSError *)error {
-    NSLog (@"webView:didFailLoadWithError");
+	NSLog (@"webView:didFailLoadWithError");
     [activityIndicator stopAnimating];
     if (error != NULL) {
         UIAlertView *errorAlert = [[UIAlertView alloc]
@@ -110,6 +110,19 @@
         [errorAlert release];
     }
 }
+
+- (BOOL)webView:(UIWebView*)wv shouldStartLoadWithRequest:(NSURLRequest*)request navigationType:(UIWebViewNavigationType)navigationType {
+	
+		// CHECK IF THE USER IS TRYING TO CLOSE THE WINDOW
+	NSURL *url = [NSURL URLWithString:windowCloseURL];
+	if ([request.URL isEqual:url]) {
+		[self dismissModalViewControllerAnimated:YES];
+		return NO;
+	}
+	return YES;
+}
+
+
 
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {

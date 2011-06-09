@@ -3,7 +3,7 @@
 //  WOWIO
 //
 //  Created by Lawrence Leach on 10/15/10.
-//  Copyright 2010 Pure Engineering. All rights reserved.
+//  Copyright 2010 WOWIO, Inc. All rights reserved.
 //
 
 #import "AboutViewController.h"
@@ -36,8 +36,7 @@
 -(IBAction)dismissView:(id)sender {
 	
     // Call the delegate to dismiss the modal view
-    //[delegate didDismissBookView];
-	[self dismissModalViewControllerAnimated:YES];
+    [delegate didDismissModalView];
 }
 
 
